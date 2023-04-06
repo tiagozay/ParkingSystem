@@ -1,0 +1,102 @@
+.pagina-desativada{
+    display: none;
+}
+#main{
+    width: 82%;
+    min-height: 100vh;
+    background-color: rgb(217, 217, 217);
+    margin-left: 18%;
+}
+
+#tituloDaPagina{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+#tituloDaPagina__nome{
+    display: flex;
+}
+#tituloDaPagina__icone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    background-color: #19B3FA;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 0 5px rgb(167, 167, 167);
+}
+#tituloDaPagina__icone i{
+    font-size: 27px;
+}
+#tituloDaPagina__textos{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 17px;
+    padding: 3px 0;
+    box-sizing: border-box;
+}
+#tituloDaPagina__textos h2{
+    font-weight: bold;
+    color: rgb(42, 42, 42);
+}
+#tituloDaPagina__textos span{
+    font-size: 14px;
+}
+#caminhoDasEtapas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    padding-right: 15px;
+}
+#caminhoDasEtapas i{
+    font-size: 18px;
+    color: rgb(89, 89, 89);
+}
+.barraSeparadora{
+    margin: 0 6px;   
+}
+#caminhoDasEtapas a.infoPagina{
+    color: rgb(61, 61, 61);
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.mensagem{
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+}
+#mensagemDeBoasVindas{
+    background-color: #2DCE89;
+}
+#conteudoMensagem{
+    display: flex;
+    align-items: center;
+}
+#mensagemDeBoasVindas i{
+    font-size: 20px;
+    margin-right: 5px;
+}
+#btnFecharMensagem{
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    color: rgb(218, 232, 239);
+    cursor: pointer;
+    font-size: 23px;
+    transition: 100ms;
+}
+#btnFecharMensagem:hover{
+    color: rgb(250, 253, 255);
+}
+#mensagemDeErro{
+    background-color: red;
+}
