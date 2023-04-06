@@ -9,7 +9,9 @@ function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<PaginaBase />}>
+          <Route index element={<Home />}></Route>
 
+          <Route path='estacionamento' element={<Estacionamento></Estacionamento>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

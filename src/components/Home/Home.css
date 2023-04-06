@@ -1,0 +1,165 @@
+#home{
+    padding: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+#home__relatorios{
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.cardRelatorio{
+    background-color: white;
+    width: 22%;
+    padding: 10px;
+    margin-right: 15px;
+    position: relative;
+    background-clip: border-box;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(197, 197, 197);
+}
+.cardRelatorio:nth-child(4){
+    margin-right: 0px;
+}
+.cardIconeETitulo{
+    display: flex;
+}
+.cardIconeETitulo i{
+    font-size: 42px;
+}
+.tituloEValor{
+    padding: 5px 0;
+    box-sizing: border-box;
+    margin-left: 13px;
+    font-size: 16px;
+}
+.valorCard{
+    font-weight: 600;
+    margin-top: 5px;
+}
+h6{
+    position: absolute;
+    top: -45px;
+    right: -35px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    z-index: 5!important;
+    outline: none;
+    display: inline-block;
+    padding: 60px 50px 20px 16px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 11px;
+    box-shadow: 0 0 8px rgb(185, 185, 185);
+}
+.cardInformacoes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-top: 30px;
+}
+.cardInformacoes__primeiraInformacao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cardInformacoes i{
+    font-weight: 600;
+}
+.cardInformacoes__segundaInformacao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.valueInfo{
+    background-color: blue;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-top: 4px;
+    color: white;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+
+#relatorioTotalDeVagas .cardIconeETitulo i{
+    color: #000080;
+}
+#relatorioTotalDeVagas .tituloEValor{
+    color: #210080;
+}
+#relatorioTotalDeVagas h6{
+    background-color: #000080;
+}
+#relatorioTotalDeVagas .cardInformacoes i{
+    color: #000080;
+}
+#relatorioTotalDeVagas .valueInfo{
+    background-color: #000080;
+}
+#relatorioTotalDeVagas .tituloInfo{
+    color: #000080;
+}
+
+
+#relatorioPagamentosMensais .cardIconeETitulo i{
+    color: #1CADF5;
+}
+#relatorioPagamentosMensais .tituloEValor{
+    color: #1CADF5;
+}
+#relatorioPagamentosMensais h6{
+    background-color: #1CADF5;
+}
+#relatorioPagamentosMensais .cardInformacoes i{
+    color: #1CADF5;
+}
+#relatorioPagamentosMensais .valueInfo{
+    background-color: #1CADF5;
+}
+#relatorioPagamentosMensais .tituloInfo{
+    color: #1CADF5;
+}
+
+#relatorioPagamentosAvulsos .cardIconeETitulo i{
+    color: #26C281;
+}
+#relatorioPagamentosAvulsos .tituloEValor{
+    color: #26C281;
+}
+#relatorioPagamentosAvulsos h6{
+    background-color: #26C281;
+}
+#relatorioPagamentosAvulsos .cardInformacoes i{
+    color: #26C281;
+}
+#relatorioPagamentosAvulsos .valueInfo{
+    background-color: #26C281;
+}
+#relatorioPagamentosAvulsos .tituloInfo{
+    color: #26C281;
+}
+
+#relatorioMensalistas .cardIconeETitulo i{
+    color: #BF55EC;
+}
+#relatorioMensalistas .tituloEValor{
+    color: #BF55EC;
+}
+#relatorioMensalistas h6{
+    background-color: #BF55EC;
+}
+#relatorioMensalistas .cardInformacoes i{
+    color: #BF55EC;
+}
+#relatorioMensalistas .valueInfo{
+    background-color: #BF55EC;
+}
+#relatorioMensalistas .tituloInfo{
+    color: #BF55EC;
+}
