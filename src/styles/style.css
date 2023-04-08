@@ -100,3 +100,106 @@
 #mensagemDeErro{
     background-color: red;
 }
+
+
+
+
+
+
+
+
+.secaoDeInformacoes{
+    background-color: rgb(251, 251, 251);
+    border-radius: 4px;
+    margin-top: 15px;
+    box-shadow: 0 0 6px rgb(188, 188, 188);
+}
+.secaoDeInformacoes #divBtnNovo{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px;
+    border-bottom: 1px rgb(198, 198, 198) solid;
+}
+.secaoDeInformacoes #btnAdicionarNovo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 8px 15px;
+    color: white;
+    background-color: #19B5FE;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+}
+.secaoDeInformacoes #btnAdicionarNovo i{
+    font-size: 12px;
+    font-weight: 600;
+}
+.secaoDeInformacoes #divBtnVoltar{
+    display: flex;
+    padding: 20px 20px;
+    border-bottom: 1px rgb(198, 198, 198) solid;
+}
+.secaoDeInformacoes #btnVoltar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(235, 235, 235);
+    border: none;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    color: rgb(102, 102, 102);
+    transition: 200ms;
+}
+.secaoDeInformacoes #btnVoltar i{
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 1px;
+    color: rgb(102, 102, 102);
+}
+.secaoDeInformacoes #btnVoltar:hover{
+    background-color: rgb(226, 226, 226);
+
+}
+
+
+
+
+.secaoDeInformacoes .divCamposSelectEBuscaDaTabela{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+}
+.secaoDeInformacoes .divCamposSelectEBuscaDaTabela label{
+    font-size: 15px;
+}
+.secaoDeInformacoes .selectFiltros{
+    background-color: #f4f4f4;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    padding: 6px 20px 6px 10px;
+    border-radius: 5px;
+    appearance: none;
+    outline: none;
+    background-repeat: no-repeat;
+    background-position: center right 5px;
+    background-size: 10px;
+}
+.secaoDeInformacoes .inputPesquisar{
+    background-color: #f4f4f4;
+    border: none;
+    outline: none;
+    padding: 6px 4px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 5px;
+
+}
+.secaoDeInformacoes .containerTabela{
+    padding: 0 10px ;
+}

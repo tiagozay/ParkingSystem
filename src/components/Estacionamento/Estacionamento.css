@@ -1,0 +1,49 @@
+#estacionamento{
+    padding: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.statusPago{
+    background-color: #2DCE89;
+    color: white;
+    padding: 7px 0px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+}
+.statusEmAberto{
+    background-color: #FB6340;
+    color: white;
+    padding: 7px 0px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+
+}
+
+#btnImprimirTiket{
+    font-size: 18px;
+    padding: 5px;
+    background-color: #1E2225;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+}
+#btnVisualizarTiket{
+    font-size: 19px;
+    padding: 5px;
+    background-color: #006FE6;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;  
+    margin-left: 5px;
+}

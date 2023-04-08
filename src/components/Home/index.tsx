@@ -4,7 +4,7 @@ import RepresentacaoEstacionamento from '../RepresentacaoEstacionamento';
 
 export default function Home() {
   return (
-    <section className="pagina-ativada" id="home">
+    <section id="home">
 
       <div id="tituloDaPagina">
         <div id="tituloDaPagina__nome">
