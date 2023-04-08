@@ -1,6 +1,5 @@
 import React from 'react';
 import './Estacionamento.css'
-import SelectFiltros from '../../components/SelectFiltros';
 import { Tiket } from '../../models/Tiket';
 import { Veiculo } from '../../models/Veiculo';
 import ListaDeTikets from './ListaDeTikets';
@@ -166,29 +165,9 @@ export default function Estacionamento() {
                         Novo
                     </button>
                 </div>
-
-                <div className="divCamposSelectEBuscaDaTabela">
-                    <label>
-                        Somente tikets
-                        <SelectFiltros>
-                            <option value="abertos">Abertos</option>
-                            <option value="fechados">Fechados</option>
-                            <option value="todos">Todos</option>
-                        </SelectFiltros>
-                        
-                    </label>
-             
-                    <label>
-                        Pesquisar
-                        <input type="text" className="inputPesquisar" />
-                    </label>
-                </div>
-
-                <div className="containerTabela">
-                    <ListaDeTikets tikets={tikets} />
-                </div>
-            
-
+    
+                <ListaDeTikets tikets={tikets} />
+        
             </section>
 
         </section>
