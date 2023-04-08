@@ -183,13 +183,15 @@
     background-color: #f4f4f4;
     border: none;
     font-family: 'Montserrat', sans-serif;
-    padding: 6px 20px 6px 10px;
+    padding: 9px 20px 9px 10px!important;
     border-radius: 5px;
     appearance: none;
     outline: none;
     background-repeat: no-repeat;
     background-position: center right 5px;
     background-size: 10px;
+    margin-left: 5px;
+    margin-top: 7px;
 }
 .secaoDeInformacoes .inputPesquisar{
     background-color: #f4f4f4;
@@ -198,8 +200,137 @@
     padding: 6px 4px;
     font-family: 'Montserrat', sans-serif;
     border-radius: 5px;
+    margin-left: 5px;
 
 }
 .secaoDeInformacoes .containerTabela{
     padding: 0 10px ;
+}
+
+
+
+.tabelaPadrao{
+    width: 100%;
+    font-size: 13px;
+    color: rgb(55, 55, 55);
+    font-weight: 500;
+}   
+.tabelaPadrao thead{
+    background-color: #F6F8FB;
+    padding: 10px;
+}
+.tabelaPadrao thead tr{
+    background-color: #F6F8FB;
+    padding: 10px;
+    border-top: 1px solid #dee2e6;
+}
+.tabelaPadrao thead td{
+    background-color: #F6F8FB;
+    padding: 10px 5px;
+}
+.tabelaPadrao tbody{
+    border-top: 2px solid #dee2e6;
+}
+.tabelaPadrao tbody tr{
+    border-bottom: 1px solid #dee2e6;
+}
+.tabelaPadrao td{
+    padding: 5px 5px;
+}
+
+.zayDataTable_acoes{
+    display: flex;
+    justify-content: flex-end;
+}
+.zayDataTable__nav_paginacao{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 15px;
+}
+.zayDataTable__btnNumeroPaginacao{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    color: rgb(88, 88, 88);
+}
+.zayDataTable__btnNumeroPaginacao:nth-child(2){
+    margin-left: 0px!important;
+}
+.zayDataTable__btnPaginacaoAtivado{
+    background-color: #dedede;
+}
+.zayDataTable__btn_voltar_e_avancar_pagina{
+    font-size: 19px;
+    margin: 0 15px;
+    color: rgb(144, 144, 144);
+    cursor: pointer;
+    font-weight: 600;
+    user-select: none;
+}
+.zayDataTable__btn_paginacao_desativado{
+    color: rgb(203, 203, 203);
+}
+.p_textoAtivo{
+    background-color: #2DCE89;
+    color: white;
+    padding: 4px 0px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    width: 58px;
+}
+.p_textoAtivo i{
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+.p_textoInativo{
+    background-color: #FB6340;
+    color: white;
+    padding: 4px 0px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    width: 58px;
+}
+.p_textoInativo i{
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+.tabela__btnEditar{
+    font-size: 19px;
+    padding: 5px;
+    background-color: #006FE6;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;  
+    margin-left: 5px;
+}
+.tabela__btnExcluir{
+    font-size: 19px;
+    padding: 5px;
+    background-color: #F41E48;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer; 
+    margin-left: 5px;
 }

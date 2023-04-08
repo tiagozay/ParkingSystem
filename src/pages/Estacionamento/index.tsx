@@ -1,8 +1,136 @@
 import React from 'react';
 import './Estacionamento.css'
 import SelectFiltros from '../../components/SelectFiltros';
+import { Tiket } from '../../models/Tiket';
+import { Veiculo } from '../../models/Veiculo';
+import ListaDeTikets from './ListaDeTikets';
 
 export default function Estacionamento() {
+
+    const tikets = [
+        new Tiket(
+            1,
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Date(),
+            null,
+            25,
+            "Em aberto",
+            null,
+            null
+        ),
+        new Tiket(
+            2,
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Date(),
+            null,
+            25,
+            "Pago",
+            null,
+            null
+        ),
+        new Tiket(
+            3,
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Date(),
+            null,
+            25,
+            "Em aberto",
+            null,
+            null
+        ),
+        new Tiket(
+            4,
+            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro'),
+            new Date(),
+            null,
+            30,
+            "Em aberto",
+            null,
+            null
+        ),
+        new Tiket(
+            5,
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Date(),
+            null,
+            25,
+            "Pago",
+            null,
+            null
+        ),
+        new Tiket(
+            6,
+            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro'),
+            new Date(),
+            null,
+            30,
+            "Em aberto",
+            null,
+            null
+        ),
+        new Tiket(
+            7,
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Date(),
+            null,
+            25,
+            "Em aberto",
+            null,
+            null
+        ),
+        new Tiket(
+            8,
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Date(),
+            null,
+            25,
+            "Pago",
+            null,
+            null
+        ),
+        new Tiket(
+            9,
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Date(),
+            null,
+            25,
+            "Em aberto",
+            null,
+            null
+        ),
+        new Tiket(
+            10,
+            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro'),
+            new Date(),
+            null,
+            30,
+            "Em aberto",
+            null,
+            null
+        ),
+        new Tiket(
+            11,
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Date(),
+            null,
+            25,
+            "Pago",
+            null,
+            null
+        ),
+        new Tiket(
+            12,
+            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro'),
+            new Date(),
+            null,
+            30,
+            "Em aberto",
+            null,
+            null
+        ),
+    ]
+
+
   return (
     <section id="estacionamento">
             <div id="tituloDaPagina">
@@ -57,11 +185,7 @@ export default function Estacionamento() {
                 </div>
 
                 <div className="containerTabela">
-                    <table id="tabelaTikets" className="tabelaPadrao">
-                        <thead>
-                            <tr></tr>
-                        </thead>
-                    </table>
+                    <ListaDeTikets tikets={tikets} />
                 </div>
             
 
