@@ -8,10 +8,14 @@ import SelectFiltros from '../../../components/SelectFiltros';
 export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
     const [statusFiltro, setStatusFiltro] = useState('Em aberto');
+    const [filtroPlaca, setFiltroPlaca] = useState('');
 
     if(statusFiltro != 'Todos'){
         tikets = tikets.filter( tiket => tiket.status === statusFiltro );
     }
+
+    const regExp = new RegExp(filtroPlaca, 'i');
+    tikets = tikets.filter( tiket => regExp.test(tiket.veiculo.placa) );
 
     const tiketsDivididosEmPaginas = PaginacaoService.divideArrayEmPaginas(tikets, 5);
 
@@ -20,6 +24,11 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
     function aoSelecionarFiltro(event: React.ChangeEvent<HTMLSelectElement>)
     {
         setStatusFiltro(event.target.value);
+    }
+
+    function aoDigitarPlaca(event: React.ChangeEvent<HTMLInputElement>)
+    {
+        setFiltroPlaca(event.target.value)
     }
 
     return (
@@ -37,7 +46,7 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
 
                 <label>
                     Pesquisar
-                    <input type="text" className="inputPesquisar" />
+                    <input type="text" onChange={aoDigitarPlaca} className="inputPesquisar" />
                 </label>
             </div>
 
@@ -56,7 +65,7 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {tiketsParaExibir.map(tiket => (
+                        {tiketsParaExibir?.map(tiket => (
                             <tr key={tiket.id}>
                                 <td>{tiket.veiculo.segmento}</td>
                                 <td>
