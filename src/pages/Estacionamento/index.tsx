@@ -1,6 +1,6 @@
 import React from 'react';
 import './Estacionamento.css'
-import SelectFiltros from '../SelectFiltros';
+import SelectFiltros from '../../components/SelectFiltros';
 
 export default function Estacionamento() {
   return (

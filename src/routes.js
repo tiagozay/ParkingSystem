@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import PaginaBase from './components/PaginaBase';
+import PaginaBase from './pages/PaginaBase';
+import Home from './pages/Home';
+import Estacionamento from './pages/Estacionamento';
 import './styles/style.css';
-import Home from './components/Home';
-import Estacionamento from './components/Estacionamento';
+
 
 function AppRoutes() {
   return (

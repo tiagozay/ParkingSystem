@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.css';
-import RepresentacaoEstacionamento from '../RepresentacaoEstacionamento';
+import RepresentacaoEstacionamento from '../../components/RepresentacaoEstacionamento';
 
 export default function Home() {
   return (
