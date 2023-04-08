@@ -1,0 +1,38 @@
+#navPaginacao{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 15px;
+}
+.numeroDaPagina{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    color: rgb(88, 88, 88);
+}
+.btnPaginacaoAtivado {
+    background-color: #dedede;
+}
+.numeroDaPagina:nth-child(2){
+    margin-left: 0px!important;
+}
+.btnVoltarOuAvancarPagina{
+    font-size: 19px;
+    margin: 0 15px;
+    color: rgb(144, 144, 144);
+    cursor: pointer;
+    font-weight: 600;
+    user-select: none;
+}
+.btnDesativado {
+    color: rgb(203, 203, 203);
+}
