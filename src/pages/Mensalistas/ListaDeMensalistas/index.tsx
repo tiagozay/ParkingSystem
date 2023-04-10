@@ -45,7 +45,7 @@ export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensa
             <div className="divCamposSelectEBuscaDaTabela">
                 <label>
                     Somente mensalistas
-                    <SelectFiltros onChange={aoSelecionarFiltro}>
+                    <SelectFiltros onChange={aoSelecionarFiltro} value={statusFiltro}>
                         <option value="todos">Todos</option>
                         <option value="true">Ativos</option>
                         <option value="false">Inativos</option>
