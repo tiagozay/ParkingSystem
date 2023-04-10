@@ -6,6 +6,7 @@ import CadastrarTiket from './pages/CadastrarTiket';
 import './styles/style.css';
 import './styles/reset.css';
 import Mensalistas from './pages/Mensalistas';
+import CadastrarMensalista from './pages/CadastrarMensalista';
 
 
 function AppRoutes() {
@@ -17,6 +18,7 @@ function AppRoutes() {
           <Route path='estacionamento' element={<Estacionamento />} />
           <Route path='estacionamento/cadastrarTiket' element={<CadastrarTiket />} />
           <Route path='mensalistas' element={<Mensalistas />} />
+          <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
         </Route>
       </Routes>
     </BrowserRouter>

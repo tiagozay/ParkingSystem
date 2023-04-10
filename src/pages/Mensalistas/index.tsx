@@ -42,10 +42,10 @@ export default function Mensalistas() {
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
-                    <button className="btnTrocarDePagina" id="btnAdicionarNovo" data-pagina="formAdicionarMensalista">
+                    <Link to='cadastrarMensalista' id="btnAdicionarNovo">
                         <i className="material-icons">add</i>
                         Novo
-                    </button>
+                    </Link>
                 </div>
 
                 <ListaDeMensalistas mensalistas={mensalistas}/>
