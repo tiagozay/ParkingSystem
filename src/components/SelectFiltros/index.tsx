@@ -6,10 +6,10 @@ import {ChangeEventHandler} from 'react';
 interface SelectFiltrosProps {
     children: ReactElement[],
     onChange?: ChangeEventHandler<HTMLSelectElement>
-    value: string
+    value?: string
 }
 
-export default function SelectFiltros({children, value = 'todos', onChange = () => {}}: SelectFiltrosProps ) {
+export default function SelectFiltros({children, value, onChange = () => {}}: SelectFiltrosProps ) {
   return (
     <select className="selectFiltros" value={value} onChange={onChange} style={{backgroundImage: `url(${Icone})`}}>
         {children}        
