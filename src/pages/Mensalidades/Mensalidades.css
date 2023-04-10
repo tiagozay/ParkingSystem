@@ -1,0 +1,24 @@
+#mensalidades{
+    padding: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+.statusAtivo{
+    background-color: #2DCE89;
+    color: white;
+    padding: 7px 1px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+}
+.statusVencido{
+    background-color: #FB6340;
+    color: white;
+    padding: 7px 1px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+}
