@@ -402,3 +402,9 @@
     margin-top: 2px;
     font-size: 13px;
 }
+
+
+.campoDeAcoes {
+    display: flex;
+    justify-content: flex-end;
+}

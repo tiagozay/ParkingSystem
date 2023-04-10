@@ -58,8 +58,3 @@
     cursor: pointer;  
     margin-left: 5px;
 }
-
-.campoDeAcoes {
-    display: flex;
-    justify-content: flex-end;
-}
