@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.css';
 import RepresentacaoEstacionamento from '../../components/RepresentacaoEstacionamento';
+import BoasVindas from '../../components/BoasVindas';
 
 export default function Home() {
   return (
@@ -20,14 +21,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="mensagemDeBoasVindas" className="mensagem">
-        <div id="conteudoMensagem">
-          <i className="material-icons">mood</i>
-          <span>Seja bem vindo (a) Tiago!</span>
-        </div>
-        <button id="btnFecharMensagem" className="material-icons">close</button>
-      </div>
-
+      <BoasVindas />
       <section id="home__relatorios">
         <div className="cardRelatorio" id="relatorioTotalDeVagas">
           <div className="cardIconeETitulo">

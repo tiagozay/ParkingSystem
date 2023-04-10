@@ -2,6 +2,7 @@ import React from 'react';
 import './CadastrarTiket.css';
 import BtnVoltar from '../../components/BtnVoltar';
 import InputPlaca from '../../components/InputPlaca';
+import BoasVindas from '../../components/BoasVindas';
 
 export default function CadastrarTiket() {
 
@@ -28,13 +29,7 @@ export default function CadastrarTiket() {
 
             </div>
 
-            <div id="mensagemDeBoasVindas" className="mensagem">
-                <div id="conteudoMensagem">
-                    <i className="material-icons">mood</i>
-                    <span>Seja bem vindo (a) Tiago!</span>
-                </div>
-                <button id="btnFecharMensagem" className="material-icons">close</button>
-            </div>
+            <BoasVindas />
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnVoltar">

@@ -1,0 +1,33 @@
+.mensagem{
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+}
+#mensagemDeBoasVindas{
+    background-color: #2DCE89;
+}
+#conteudoMensagem{
+    display: flex;
+    align-items: center;
+}
+#mensagemDeBoasVindas i{
+    font-size: 20px;
+    margin-right: 5px;
+}
+#btnFecharMensagem{
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    color: rgb(218, 232, 239);
+    cursor: pointer;
+    font-size: 23px;
+    transition: 100ms;
+}
+#btnFecharMensagem:hover{
+    color: rgb(250, 253, 255);
+}

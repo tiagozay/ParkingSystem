@@ -4,6 +4,7 @@ import { Tiket } from '../../models/Tiket';
 import { Veiculo } from '../../models/Veiculo';
 import ListaDeTikets from './ListaDeTikets';
 import { Link } from 'react-router-dom';
+import BoasVindas from '../../components/BoasVindas';
 
 export default function Estacionamento() {
 
@@ -151,13 +152,7 @@ export default function Estacionamento() {
              
             </div>
 
-            <div id="mensagemDeBoasVindas" className="mensagem">
-                <div id="conteudoMensagem">
-                    <i className="material-icons">mood</i>
-                    <span>Seja bem vindo (a) Tiago!</span>
-                </div>
-                <button id="btnFecharMensagem" className="material-icons">close</button>
-            </div>
+            <BoasVindas />
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
