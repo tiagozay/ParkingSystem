@@ -58,7 +58,8 @@
 .barraSeparadora{
     margin: 0 6px;   
 }
-#caminhoDasEtapas a.infoPagina{
+#caminhoDasEtapas a{
+    text-decoration: none!important;
     color: rgb(61, 61, 61);
     font-weight: 400;
     cursor: pointer;

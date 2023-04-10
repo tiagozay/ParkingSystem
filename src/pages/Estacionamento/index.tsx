@@ -132,8 +132,8 @@ export default function Estacionamento() {
     ]
 
 
-  return (
-    <section id="estacionamento">
+    return (
+        <section id="estacionamento">
             <div id="tituloDaPagina">
                 <div id="tituloDaPagina__nome">
                     <div id="tituloDaPagina__icone">
@@ -145,11 +145,15 @@ export default function Estacionamento() {
                     </div>
                 </div>
                 <div id="caminhoDasEtapas">
-                    <a className="btnTrocarDePagina" data-pagina="home"><i className="material-icons">home</i></a> 
+                    <Link to='/' className="btnTrocarDePagina">
+                        <i className="material-icons">home</i>
+                    </Link>
                     <span className="barraSeparadora">/</span>
-                    <a className="infoPagina">Estacionamento</a>
+                    <Link to='/estacionamento'>
+                        Estacionamento
+                    </Link>
                 </div>
-             
+
             </div>
 
             <BoasVindas />
@@ -161,11 +165,11 @@ export default function Estacionamento() {
                         Novo
                     </Link>
                 </div>
-    
+
                 <ListaDeTikets tikets={tikets} />
-        
+
             </section>
 
         </section>
-  )
+    )
 }

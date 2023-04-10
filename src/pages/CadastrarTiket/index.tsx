@@ -3,6 +3,7 @@ import './CadastrarTiket.css';
 import BtnVoltar from '../../components/BtnVoltar';
 import InputPlaca from '../../components/InputPlaca';
 import BoasVindas from '../../components/BoasVindas';
+import { Link } from 'react-router-dom';
 
 export default function CadastrarTiket() {
 
@@ -20,11 +21,17 @@ export default function CadastrarTiket() {
                     </div>
                 </div>
                 <div id="caminhoDasEtapas">
-                    <a className="btnTrocarDePagina" data-pagina="home"><i className="material-icons">home</i></a>
+                    <Link to='/' className="btnTrocarDePagina">
+                        <i className="material-icons">home</i>
+                    </Link>
                     <span className="barraSeparadora">/</span>
-                    <a className="btnTrocarDePagina infoPagina" data-pagina="estacionamento">Estacionamento</a>
+                    <Link to='/estacionamento'>
+                        Estacionamento
+                    </Link>
                     <span className="barraSeparadora">/</span>
-                    <a className="infoPagina">Cadastrar tiket</a>
+                    <Link to='/estacionamento/cadastrarTiket'>
+                        Cadastrar Tiket
+                    </Link>
                 </div>
 
             </div>
