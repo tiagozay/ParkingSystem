@@ -4,6 +4,7 @@ import LinksPaginacoes from '../../../components/LinksPaginacoes';
 import { useState } from 'react';
 import PaginacaoService from '../../../services/PaginacaoService';
 import SelectFiltros from '../../../components/SelectFiltros';
+import InputPlaca from '../../../components/InputPlaca';
 
 export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
@@ -15,7 +16,7 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
     }
 
     const regExp = new RegExp(filtroPlaca, 'i');
-    tikets = tikets.filter( tiket => regExp.test(tiket.veiculo.placa) );
+    tikets = tikets.filter( tiket => regExp.test(tiket.veiculo.placa.replace('-', '')) );
 
     const tiketsDivididosEmPaginas = PaginacaoService.divideArrayEmPaginas(tikets, 5);
 
@@ -28,7 +29,7 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
 
     function aoDigitarPlaca(event: React.ChangeEvent<HTMLInputElement>)
     {
-        setFiltroPlaca(event.target.value)
+        setFiltroPlaca(event.target.value.replace('-', ''))
     }
 
     return (
@@ -46,7 +47,7 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
 
                 <label>
                     Pesquisar
-                    <input type="text" onChange={aoDigitarPlaca} className="inputPesquisar" />
+                    <InputPlaca className="inputPesquisar" onChange={aoDigitarPlaca} />
                 </label>
             </div>
 
