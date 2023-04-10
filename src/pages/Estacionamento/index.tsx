@@ -3,6 +3,7 @@ import './Estacionamento.css'
 import { Tiket } from '../../models/Tiket';
 import { Veiculo } from '../../models/Veiculo';
 import ListaDeTikets from './ListaDeTikets';
+import { Link } from 'react-router-dom';
 
 export default function Estacionamento() {
 
@@ -160,10 +161,10 @@ export default function Estacionamento() {
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
-                    <button className="btnTrocarDePagina" id="btnAdicionarNovo" data-pagina="formularioAdcNovoTiket">
+                    <Link to="cadastrarTiket" id="btnAdicionarNovo" data-pagina="formularioAdcNovoTiket">
                         <i className="material-icons">add</i>
                         Novo
-                    </button>
+                    </Link>
                 </div>
     
                 <ListaDeTikets tikets={tikets} />

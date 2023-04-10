@@ -125,13 +125,14 @@
     align-items: center;
     justify-content: center;
     border: none;
-    padding: 8px 15px;
+    padding: 10px 15px;
     color: white;
     background-color: #19B5FE;
     border-radius: 5px;
     cursor: pointer;
     font-size: 13px;
     font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
 }
 .secaoDeInformacoes #btnAdicionarNovo i{
     font-size: 12px;
@@ -333,4 +334,103 @@
     border-radius: 50%;
     cursor: pointer; 
     margin-left: 5px;
+}
+
+
+
+
+
+
+.formPadrao{
+    padding: 20px;
+}
+.formPadrao__divSalvarECancelar{
+    margin-top: 15px;
+    display: flex;
+}
+.linhaInputs{
+    display: flex;
+    padding: 15px 0;
+    justify-content: space-between;
+}
+.linhaInputs label{
+    display: flex;
+    flex-direction: column;
+    width: 31%;
+    font-size: 13px;
+}
+.labelInput10{
+    width: 8%!important; 
+}
+.labelInputMenor{
+    width: 15%!important;
+}
+.labelInput22{
+    width: 22%!important;
+}
+.labelInputMeio{
+    width: 48%!important;
+}
+.labelInputMaior{
+    width: 66%!important;
+}
+.labelInput100{
+    width: 100%!important;
+}
+.linhaInputs input, select, textarea{
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 10px;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px #eaeaea solid;
+    height: 33px;
+    border-radius: 4px;
+    margin-top: 7px;
+    color: rgb(55, 55, 55);
+}
+.inputDesativado{
+    background-color: rgb(235, 235, 235);
+}
+.formPadrao__btnSalvar{
+    background-color: #006FE6;
+    color: white;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    padding: 7px 14px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 300ms;
+}
+.formPadrao__btnSalvar i{
+    font-size: 18px;
+    margin-right: 3px;
+}
+.formPadrao__btnSalvar:hover{
+    background-color: #0061c9;
+}
+.formPadrao__btnVoltar{
+    background-color: rgb(235, 235, 235);
+    border: none;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 7px 15px!important;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 300ms;
+    color: black!important;
+}
+.formPadrao__btnVoltar:hover{
+    background-color: rgb(215, 215, 215);
+}
+.msgErroInput{
+    color: #fc204c;
+    margin-top: 2px;
+    font-size: 13px;
 }
