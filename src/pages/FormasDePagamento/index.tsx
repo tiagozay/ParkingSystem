@@ -42,10 +42,10 @@ export default function FormasDePagamento() {
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
-                    <button className="btnTrocarDePagina" id="btnAdicionarNovo" data-pagina="formCadastrarFormaDePagamento">
+                    <Link to='cadastrarFormaDePagamento' id="btnAdicionarNovo">
                         <i className="material-icons">add</i>
                         Novo
-                    </button>
+                    </Link>
                 </div>
 
                 <ListaDeFormasDePagamento formasDePagamento={formasDePagamento}/>
