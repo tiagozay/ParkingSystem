@@ -1,9 +1,11 @@
 export class FormaDePagamento
 {
+    public id: number | null = null;
     private _nomeFormaDePagamento: string;
     public ativa: boolean;
 
-    constructor(nomeFormaDePagamento: string, ativa: boolean = true){
+    constructor(id: number | null, nomeFormaDePagamento: string, ativa: boolean = true){
+        this.id = id;
         this.nomeFormaDePagamento = nomeFormaDePagamento;
         this.ativa = ativa;
     }

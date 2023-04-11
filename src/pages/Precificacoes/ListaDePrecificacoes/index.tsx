@@ -68,7 +68,7 @@ export default function ListaDePrecificacoes({ precificacoes }: { precificacoes:
                     </thead>
                     <tbody>
                         {
-                            precificacoesParaExibir.map(precificacao => (
+                            precificacoesParaExibir?.map(precificacao => (
                                 <tr>
                                     <td>{precificacao.categoria}</td>
                                     <td>{DataService.formataValorMonetario(precificacao.valorHora)}</td>
