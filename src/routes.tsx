@@ -10,6 +10,7 @@ import CadastrarMensalista from './pages/CadastrarMensalista';
 import Mensalidades from './pages/Mensalidades';
 import CadastrarMensalidade from './pages/CadastrarMensalidade';
 import Precificacoes from './pages/Precificacoes';
+import CadastrarPrecificacao from './pages/CadastrarPrecificacao';
 
 
 function AppRoutes() {
@@ -25,6 +26,7 @@ function AppRoutes() {
           <Route path='mensalidades' element={<Mensalidades />} />
           <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
           <Route path='precificacoes' element={<Precificacoes />} />
+          <Route path='precificacoes/cadastrarPrecificacao' element={<CadastrarPrecificacao />} />
         </Route>
       </Routes>
     </BrowserRouter>

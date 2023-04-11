@@ -43,10 +43,10 @@ export default function Precificacoes() {
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
-                    <button className="btnTrocarDePagina" data-pagina="formularioCadastroNovaPrecificacao" id="btnAdicionarNovo">
+                    <Link to='cadastrarPrecificacao' id="btnAdicionarNovo">
                         <i className="material-icons">add</i>
                         Novo
-                    </button>
+                    </Link>
                 </div>
 
                 <ListaDePrecificacoes precificacoes={precificacoes} />
