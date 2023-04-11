@@ -1,13 +1,15 @@
 export class Precificacao
 {
+    public id: number | null = null;
     private _categoria: string;
     public valorHora: number;
     public valorMensalidade: number;
     public ativa: boolean;
     public numeroDeVagas: number;
 
-    constructor(categoria: string, valorHora:number, valorMensalidade: number, ativa: boolean, numeroDeVagas: number)
+    constructor(id: number | null, categoria: string, valorHora:number, valorMensalidade: number, ativa: boolean, numeroDeVagas: number)
     {   
+        this.id = id;
         this.categoria = categoria;
         this.valorHora = valorHora;
         this.valorMensalidade = valorMensalidade;
