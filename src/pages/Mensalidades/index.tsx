@@ -44,10 +44,10 @@ export default function Mensalidades() {
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
-                    <button className="btnTrocarDePagina" data-pagina="formularioCadastroNovaMensalidade" id="btnAdicionarNovo">
+                    <Link to='cadastrarMensalidade' className="btnTrocarDePagina" data-pagina="formularioCadastroNovaMensalidade" id="btnAdicionarNovo">
                         <i className="material-icons">add</i>
                         Novo
-                    </button>
+                    </Link>
                 </div>
 
                 <ListaDeMensalidades mensalidades={mensalidades}/>

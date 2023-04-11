@@ -8,6 +8,7 @@ import './styles/reset.css';
 import Mensalistas from './pages/Mensalistas';
 import CadastrarMensalista from './pages/CadastrarMensalista';
 import Mensalidades from './pages/Mensalidades';
+import CadastrarMensalidade from './pages/CadastrarMensalidade';
 
 
 function AppRoutes() {
@@ -21,6 +22,7 @@ function AppRoutes() {
           <Route path='mensalistas' element={<Mensalistas />} />
           <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
           <Route path='mensalidades' element={<Mensalidades />} />
+          <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
         </Route>
       </Routes>
     </BrowserRouter>
