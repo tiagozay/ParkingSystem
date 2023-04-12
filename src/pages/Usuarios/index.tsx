@@ -44,10 +44,10 @@ export default function Usuarios() {
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
-                    <button className="btnTrocarDePagina" id="btnAdicionarNovo" data-pagina="formularioAdicionarNovoUsuario">
+                    <Link to='cadastrarUsuario' id="btnAdicionarNovo">
                         <i className="material-icons">add</i>
                         Novo
-                    </button>
+                    </Link>
                 </div>
 
                 <ListaDeUsuarios usuarios={usuarios}/>
