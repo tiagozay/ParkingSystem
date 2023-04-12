@@ -66,7 +66,7 @@ export default function PaginaBase() {
                         <i className="material-icons">group</i>
                         Usuários
                     </NavLink>
-                    <NavLink to='/sistema' className={ ({isActive}) => `
+                    <NavLink to='/configuracoes' className={ ({isActive}) => `
                         opcaoMenu btnTrocarDePaginaMenu
                         ${ isActive ? 'opcaoMenuSelecionado' : ''}
                     ` } data-pagina="formularioConfigSistema">

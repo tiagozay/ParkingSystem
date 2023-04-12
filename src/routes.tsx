@@ -15,6 +15,7 @@ import FormasDePagamento from './pages/FormasDePagamento';
 import CadastrarFormaDePagamento from './pages/CadastrarFormaDePagamento';
 import Usuarios from './pages/Usuarios';
 import CadastrarUsuario from './pages/CadastrarUsuario';
+import ConfiguracoesDoSistema from './pages/ConfiguracoesDoSistema';
 
 
 function AppRoutes() {
@@ -35,6 +36,7 @@ function AppRoutes() {
           <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
           <Route path='usuarios' element={<Usuarios />} />
           <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
+          <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
         </Route>
       </Routes>
     </BrowserRouter>
