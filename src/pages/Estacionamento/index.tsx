@@ -5,13 +5,16 @@ import { Veiculo } from '../../models/Veiculo';
 import ListaDeTikets from './ListaDeTikets';
 import { Link } from 'react-router-dom';
 import BoasVindas from '../../components/BoasVindas';
+import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 
 export default function Estacionamento() {
+
+    const {buscaValorHoraDeCategoria} = usePrecificacaoContext();
 
     const tikets = [
         new Tiket(
             1,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             new Date(),
             null,
             25,
@@ -21,7 +24,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             2,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             new Date(),
             null,
             25,
@@ -31,7 +34,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             3,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             new Date(),
             null,
             25,
@@ -41,7 +44,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             4,
-            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro'),
+            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             new Date(),
             null,
             30,
@@ -51,7 +54,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             5,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             new Date(),
             null,
             25,
@@ -61,7 +64,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             6,
-            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro'),
+            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             new Date(),
             null,
             30,
@@ -71,7 +74,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             7,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             new Date(),
             null,
             25,
@@ -81,7 +84,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             8,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             new Date(),
             null,
             25,
@@ -91,7 +94,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             9,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             new Date(),
             null,
             25,
@@ -101,7 +104,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             10,
-            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro'),
+            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             new Date(),
             null,
             30,
@@ -111,7 +114,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             11,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto'),
+            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             new Date(),
             null,
             25,
@@ -121,7 +124,7 @@ export default function Estacionamento() {
         ),
         new Tiket(
             12,
-            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro'),
+            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             new Date(),
             null,
             30,
