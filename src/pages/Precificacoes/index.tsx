@@ -5,16 +5,11 @@ import { Mensalista } from '../../models/Mensalista';
 import ListaDePrecificacoes from './ListaDePrecificacoes';
 import { Link } from 'react-router-dom';
 import { Precificacao } from '../../models/Precificacao';
+import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 
 export default function Precificacoes() {
-    const precificacoes = [
-        new Precificacao(1, 'Carro', 20, 250, true, 20),
-        new Precificacao(2, 'Moto', 10, 150, true, 25),
-        new Precificacao(3, 'Jegue', 10, 150, false, 10),
-        new Precificacao(4, 'Carro', 20, 250, true, 20),
-        new Precificacao(5, 'Moto', 10, 150, true, 25),
-        new Precificacao(6, 'Jegue', 10, 150, false, 10),
-    ]
+    
+    const {precificacoes} = usePrecificacaoContext();
 
     return (
         <section id="precificacoes">
