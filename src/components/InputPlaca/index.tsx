@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 interface InputPlacaProps {
     className?: string,
+    value?: string,
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputPlaca = ({className, onChange}: InputPlacaProps) => {
-  const [placa, setPlaca] = useState('');
+const InputPlaca = ({className, onChange, value = ''}: InputPlacaProps) => {
+  const [placa, setPlaca] = useState(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
