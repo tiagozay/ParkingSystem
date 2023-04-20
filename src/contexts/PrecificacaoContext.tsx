@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Precificacao } from '../models/Precificacao';
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 
 interface TypePrecificacaoContext 
 {
-    precificacoes?: Precificacao[]
+    precificacoes: Precificacao[]
 }
 
-export const PrecificacaoContext = createContext<TypePrecificacaoContext>({});
+export const PrecificacaoContext = createContext<TypePrecificacaoContext>({precificacoes: []});
 
 export default function PrecificacoesProvider({children}: {children: ReactNode}) {
     const [precificacoes, setPrecificacoes] = useState([
@@ -24,5 +24,21 @@ export default function PrecificacoesProvider({children}: {children: ReactNode})
         <PrecificacaoContext.Provider value={{precificacoes}}>
             {children}
         </PrecificacaoContext.Provider>
-    )
+    );
+}
+
+export const usePrecificacaoContext = () => {
+    const {precificacoes} = useContext(PrecificacaoContext);
+
+    function buscaValorHoraDeCategoria(categoria: string): number
+    {
+        const precificacao = precificacoes.find( precificacao => precificacao.categoria === categoria);
+        
+        return precificacao ? precificacao.valorHora : 0;
+    }
+
+    return {
+        precificacoes,
+        buscaValorHoraDeCategoria
+    }
 }
