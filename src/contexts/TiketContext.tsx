@@ -9,10 +9,19 @@ import { usePrecificacaoContext } from './PrecificacaoContext';
 interface TypeTiketContext 
 {
     tikets: Tiket[],
-    setTikets: Function
+    setTikets: Function,
+    indicadorDeTiketRecemCadastrado: {indicador: boolean},
 }
 
-export const TiketContext = createContext<TypeTiketContext>({tikets: [], setTikets: () => {}});
+const indicadorDeTiketRecemCadastrado = {indicador: false};
+
+export const TiketContext = createContext<TypeTiketContext>(
+    {
+        tikets: [], 
+        setTikets: () => {},
+        indicadorDeTiketRecemCadastrado: {indicador: true}, 
+    }
+);
 
 export default function TiketsProvider({children}: {children: ReactNode}) {
     const {buscaValorHoraDeCategoria} = usePrecificacaoContext();
@@ -141,22 +150,31 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
     ]);
 
     return (
-        <TiketContext.Provider value={{tikets, setTikets}}>
+        <TiketContext.Provider value={{tikets, setTikets, indicadorDeTiketRecemCadastrado}}>
             {children}
         </TiketContext.Provider>
     );
 }
 
 export const useTiketContext = () => {
-    const {tikets, setTikets} = useContext(TiketContext);
+    const {tikets, setTikets, indicadorDeTiketRecemCadastrado} = useContext(TiketContext);
+
+    function getIndicadorDeTiketRecemCadastrado()
+    {
+        const valor = indicadorDeTiketRecemCadastrado.indicador;
+        indicadorDeTiketRecemCadastrado.indicador = false;
+        return valor;
+    }
 
     function adicionarTiket(novoTiket: Tiket)
     {
         setTikets([...tikets, novoTiket]);
+        indicadorDeTiketRecemCadastrado.indicador = true;
     }
 
     return {
         tikets,
-        adicionarTiket
+        adicionarTiket,
+        getIndicadorDeTiketRecemCadastrado
     }
 }

@@ -6,10 +6,11 @@ import ListaDeTikets from './ListaDeTikets';
 import { Link } from 'react-router-dom';
 import BoasVindas from '../../components/BoasVindas';
 import { useTiketContext } from '../../contexts/TiketContext';
+import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function Estacionamento() {
 
-    const {tikets} = useTiketContext();
+    const {tikets, getIndicadorDeTiketRecemCadastrado} = useTiketContext();
 
     return (
         <section id="estacionamento">
@@ -35,7 +36,13 @@ export default function Estacionamento() {
 
             </div>
 
-            <BoasVindas />
+
+            {
+                //Lógica para que quando tiver cadastrado um tiket novo, aparece a mensagem de sucesso, se não, a mensagem de boas vindas
+                getIndicadorDeTiketRecemCadastrado() ?
+                <MensagemSucesso mensagem='Tiket cadastrado com sucesso!'/> :
+                <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
