@@ -17,31 +17,35 @@ import Usuarios from './pages/Usuarios';
 import CadastrarUsuario from './pages/CadastrarUsuario';
 import ConfiguracoesDoSistema from './pages/ConfiguracoesDoSistema';
 import PrecificacoesProvider from './contexts/PrecificacaoContext';
+import TiketsProvider from './contexts/TiketContext';
 
 
 function AppRoutes() {
   return (
     <PrecificacoesProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<PaginaBase />}>
-            <Route index element={<Home />} />
-            <Route path='estacionamento' element={<Estacionamento />} />
-            <Route path='estacionamento/cadastrarTiket' element={<CadastrarTiket />} />
-            <Route path='mensalistas' element={<Mensalistas />} />
-            <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
-            <Route path='mensalidades' element={<Mensalidades />} />
-            <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
-            <Route path='precificacoes' element={<Precificacoes />} />
-            <Route path='precificacoes/cadastrarPrecificacao' element={<CadastrarPrecificacao />} />
-            <Route path='formasDePagamento' element={<FormasDePagamento />} />
-            <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
-            <Route path='usuarios' element={<Usuarios />} />
-            <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
-            <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <TiketsProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<PaginaBase />}>
+              <Route index element={<Home />} />
+              <Route path='estacionamento' element={<Estacionamento />} />
+              <Route path='estacionamento/cadastrarTiket' element={<CadastrarTiket />} />
+              <Route path='mensalistas' element={<Mensalistas />} />
+              <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
+              <Route path='mensalidades' element={<Mensalidades />} />
+              <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
+              <Route path='precificacoes' element={<Precificacoes />} />
+              <Route path='precificacoes/cadastrarPrecificacao' element={<CadastrarPrecificacao />} />
+              <Route path='formasDePagamento' element={<FormasDePagamento />} />
+              <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
+              <Route path='usuarios' element={<Usuarios />} />
+              <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
+              <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </TiketsProvider>
+
     </PrecificacoesProvider>
 
   );
