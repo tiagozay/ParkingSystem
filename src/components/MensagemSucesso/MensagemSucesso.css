@@ -8,14 +8,14 @@
     justify-content: space-between;
     font-weight: 600;
 }
-#mensagemDeBoasVindas{
+#mensagemSucesso{
     background-color: #2DCE89;
 }
 #conteudoMensagem{
     display: flex;
     align-items: center;
 }
-#mensagemDeBoasVindas i{
+#mensagemSucesso i{
     font-size: 20px;
     margin-right: 5px;
 }
