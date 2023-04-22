@@ -175,16 +175,20 @@ export const useTiketContext = () => {
         }else{
             novoTiket.id = 1;
         }
-     
-        console.log(novoTiket, tikets);
 
         setTikets([...tikets, novoTiket]);
         indicadorDeTiketRecemCadastrado.indicador = true;
     }
 
+    function excluirTiket(id: number)
+    {
+        setTikets(tikets.filter(tiket => tiket.id !== id) );
+    }
+
     return {
         tikets,
         adicionarTiket,
+        excluirTiket,
         getIndicadorDeTiketRecemCadastrado
     }
 }

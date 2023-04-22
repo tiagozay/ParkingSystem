@@ -5,11 +5,14 @@ import { useState } from 'react';
 import PaginacaoService from '../../../services/PaginacaoService';
 import SelectFiltros from '../../../components/SelectFiltros';
 import InputPlaca from '../../../components/InputPlaca';
+import { useTiketContext } from '../../../contexts/TiketContext';
 
 export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
     const [statusFiltro, setStatusFiltro] = useState('Em aberto');
     const [filtroPlaca, setFiltroPlaca] = useState('');
+
+    const {excluirTiket} = useTiketContext();
 
     if(statusFiltro != 'Todos'){
         tikets = tikets.filter( tiket => tiket.status === statusFiltro );
@@ -30,6 +33,14 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
     function aoDigitarPlaca(event: React.ChangeEvent<HTMLInputElement>)
     {
         setFiltroPlaca(event.target.value.replace('-', ''))
+    }
+
+    function aoClicarEmExcluir(id: number)
+    {
+        const confirmacao = window.confirm("Excluír este Tiket?");
+        if(!confirmacao) return;
+
+        excluirTiket(id);
     }
 
     return (
@@ -88,7 +99,7 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
                                     <button id='btnVisualizarOuEditarTiket' className='material-icons'>
                                         {tiket.status == "Pago" ? 'visibility' : "edit"}
                                     </button>
-                                    <button id='btnExcluirTiket' className='material-icons'>delete</button>
+                                    <button id='btnExcluirTiket' className='material-icons' onClick={() => aoClicarEmExcluir(tiket.id)}>delete</button>
                                 </td>
                             </tr>
                         ))}
