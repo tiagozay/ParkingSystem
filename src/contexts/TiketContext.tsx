@@ -168,6 +168,16 @@ export const useTiketContext = () => {
 
     function adicionarTiket(novoTiket: Tiket)
     {
+        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
+        const ultimoTiketCadastrado = tikets[tikets.length - 1];
+        if(ultimoTiketCadastrado){
+            novoTiket.id = (ultimoTiketCadastrado.id as number) + 1;
+        }else{
+            novoTiket.id = 1;
+        }
+     
+        console.log(novoTiket, tikets);
+
         setTikets([...tikets, novoTiket]);
         indicadorDeTiketRecemCadastrado.indicador = true;
     }

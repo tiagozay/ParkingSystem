@@ -3,7 +3,7 @@ import { Veiculo } from "./Veiculo.js";
 
 export class Tiket
 {
-    public readonly id: number | null = null;
+    public id: number | null = null;
     public readonly veiculo: Veiculo;
     private _formaDePagamento: FormaDePagamento | null;
     public status: "Em aberto" | "Pago";
