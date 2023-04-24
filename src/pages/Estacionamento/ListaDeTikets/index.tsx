@@ -6,10 +6,11 @@ import PaginacaoService from '../../../services/PaginacaoService';
 import SelectFiltros from '../../../components/SelectFiltros';
 import InputPlaca from '../../../components/InputPlaca';
 import { useTiketContext } from '../../../contexts/TiketContext';
+import { Link } from 'react-router-dom';
 
 export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
-    const [statusFiltro, setStatusFiltro] = useState('Em aberto');
+    const [statusFiltro, setStatusFiltro] = useState('Todos');
     const [filtroPlaca, setFiltroPlaca] = useState('');
 
     const {excluirTiket} = useTiketContext();
@@ -88,7 +89,7 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
                                 </td>
                                 <td>{tiket.veiculo.placa}</td>
                                 <td>{`${tiket.veiculo.marca} ${tiket.veiculo.modelo}`}</td>
-                                <td>{`${tiket.formaDePagamento || "Em aberto"}`}</td>
+                                <td>{`${tiket.formaDePagamento?.nomeFormaDePagamento || "Em aberto"}`}</td>
                                 <td>
                                     <p className={tiket.status == 'Em aberto' ? 'statusEmAberto' : 'statusPago'}>
                                         {`${tiket.status}`
@@ -96,9 +97,9 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
                                 </td>
                                 <td className='campoDeAcoes'>
                                     <button id='btnImprimirTiket' className='material-icons'>print</button>
-                                    <button id='btnVisualizarOuEditarTiket' className='material-icons'>
+                                    <Link to={`editarTiket/${tiket.id}`} id='btnVisualizarOuEditarTiket' className='material-icons'>
                                         {tiket.status == "Pago" ? 'visibility' : "edit"}
-                                    </button>
+                                    </Link>
                                     <button id='btnExcluirTiket' className='material-icons' onClick={() => aoClicarEmExcluir(tiket.id)}>delete</button>
                                 </td>
                             </tr>

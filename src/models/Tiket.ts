@@ -9,7 +9,7 @@ export class Tiket
     public status: "Em aberto" | "Pago";
     public readonly valorPorHora: number;
     public readonly dataDeEntrada: Date;
-    private _dataDeSaida: Date;
+    private _dataDeSaida: Date | null;
     public readonly numeroDaVaga: string | null;
 
     constructor(
@@ -29,15 +29,8 @@ export class Tiket
         this.valorPorHora = valorPorHora;
         this.dataDeEntrada = dataEntrada;
         this.formaDePagamento = formaDePagamento;
-
         this.status = status;
-
-        if(dataSaida && status == "Pago"){
-            this._dataDeSaida = dataSaida;
-        }else if(this.status == "Em aberto"){
-            this._dataDeSaida = new Date();
-        }
-
+        this._dataDeSaida = dataSaida;
         this.numeroDaVaga = numeroDaVaga;
     }
 
@@ -55,7 +48,7 @@ export class Tiket
         return this._formaDePagamento;
     }
 
-    get dataDeSaida(): Date
+    get dataDeSaida(): Date | null
     {
         return this._dataDeSaida;
     }
@@ -72,25 +65,32 @@ export class Tiket
 
     }
 
-    get totalAPagar(): number
+    calculaTotalAPagar(valorPorHora: number): number
     {
-        return this.tempoDecorrido * this.valorPorHora;
+        const horas = Math.floor(this.tempoDecorrido);
+        const minutos = (this.tempoDecorrido - horas) * 100;
+
+        const tempoFracao = horas + (minutos / 60);
+
+        return tempoFracao * valorPorHora;
     }
 
 
     get tempoDecorrido(): number
     {
-        if(this.status == "Em aberto"){
-            this._dataDeSaida = new Date();
+        let dataParaOCalculo = new Date();
+
+        if(this._dataDeSaida){
+            dataParaOCalculo = this._dataDeSaida;
         }
 
-        const diff = this._dataDeSaida.getTime() - this.dataDeEntrada.getTime();
+        const diff = dataParaOCalculo.getTime() - this.dataDeEntrada.getTime();
 
         const totalMinutos = diff / 1000 / 60;
 
         const horas = Math.trunc(totalMinutos / 60);
 
-        const minutos = totalMinutos % 60;
+        const minutos = Math.floor(totalMinutos % 60);
 
         return Number(`${horas}.${minutos}`);
     }

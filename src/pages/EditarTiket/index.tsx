@@ -1,53 +1,77 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CadastrarTiket.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import './EditarTiket.css';
 import BtnVoltar from '../../components/BtnVoltar';
 import InputPlaca from '../../components/InputPlaca';
 import BoasVindas from '../../components/BoasVindas';
 import { Link } from 'react-router-dom';
-import { PlacaAPIService } from '../../services/PlacaAPIService';
 import { Veiculo } from '../../models/Veiculo';
 import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 import { DataService } from '../../services/DataService';
 import { Tiket } from '../../models/Tiket';
 import { useTiketContext } from '../../contexts/TiketContext';
+import { useFormaDePagamentoContext } from '../../contexts/FormaDePagamentoContext';
 
-export default function CadastrarTiket() {
-    const [placa, setPlaca] = useState('');
-    const [marcaVeiculo, setMarcaVeiculo] = useState('');
-    const [modeloVeiculo, setModeloVeiculo] = useState('');
-    const [categoria, setCategoria] = useState('');
-    const [valorHora, setValorHora] = useState(0);
-    const [dataEntrada] = useState(new Date());
-
+export default function EditarTiket() {
+    
     const navigate = useNavigate();
 
+    const id = Number(useParams().id);
+
+    const {buscarTiketPorId} = useTiketContext();
+        
+    const tiket = buscarTiketPorId(id) as Tiket;
+
+    const [placa, setPlaca] = useState(tiket?.veiculo.placa);
+    const [marcaVeiculo, setMarcaVeiculo] = useState(tiket?.veiculo.marca);
+    const [modeloVeiculo, setModeloVeiculo] = useState(tiket?.veiculo.modelo);
+    const [categoria, setCategoria] = useState(tiket?.veiculo.segmento);
+    const [valorHora, setValorHora] = useState(tiket?.valorPorHora);
+    const [status, setStatus] = useState(tiket?.status);
+    const [numeroVaga] = useState(tiket?.numeroDaVaga);
+    const [dataEntrada] = useState(tiket?.dataDeEntrada);
+    const [dataSaida, setDataSaida] = useState(tiket?.dataDeSaida);
+    const [tempoDecorrido] = useState(tiket?.tempoDecorrido.toFixed(2));
+    const [totalAPagar, setTotalAPagar] = useState(tiket?.calculaTotalAPagar(valorHora).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+    const [formaDePagamento, setFormaDePagamento] = useState('');
+
     const {precificacoes, buscaValorHoraDeCategoria} = usePrecificacaoContext();
-    const {adicionarTiket} = useTiketContext();
+    const {editarTiket} = useTiketContext();
+    const {formasDePagamento, buscarFormaDePagamentoPorId} = useFormaDePagamentoContext();
 
     useEffect( () => {
         
-        setValorHora(buscaValorHoraDeCategoria(categoria));
+        const valorHora = buscaValorHoraDeCategoria(categoria);
+
+        setValorHora(valorHora);
+        setTotalAPagar(
+            tiket?.calculaTotalAPagar(valorHora).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+        );
     
-    }, [categoria] )
+    }, [categoria] );
 
 
-    function aoCadastrarTiket(event: React.FormEvent<HTMLFormElement>)
+    if(!tiket){
+        navigate('/estacionamento');
+        return <></>; 
+    }
+
+    function aoSalvarTiket(event: React.FormEvent<HTMLFormElement>)
     {
         event.preventDefault();
 
         const novoTiket = new Tiket(
-            null,
+            id,
             new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria, valorHora),
             dataEntrada,
-            null,
+            dataSaida,
             valorHora,
-            "Em aberto",
-            null,
-            null
+            status,
+            buscarFormaDePagamentoPorId(Number(formaDePagamento)),
+            numeroVaga
         );
 
-        adicionarTiket(novoTiket);
+        editarTiket(novoTiket);
 
         navigate('/estacionamento');
     }
@@ -55,17 +79,7 @@ export default function CadastrarTiket() {
 
     function aoDigitarPlaca(event: React.ChangeEvent<HTMLInputElement>)
     {
-        const placaDigitada = event.target.value;
-        setPlaca(placaDigitada);
-
-        const veiculo = PlacaAPIService.buscarVeiculoPorPlaca(placaDigitada.replace('-', ''));
-
-        if(veiculo){
-            setMarcaVeiculo(veiculo.marca);
-            setModeloVeiculo(veiculo.modelo);
-            setCategoria(veiculo.segmento);
-        }
-
+        setPlaca( event.target.value);
     }
     function aoDigitarMarcaVeiculo(event: React.ChangeEvent<HTMLInputElement>)
     {
@@ -79,6 +93,20 @@ export default function CadastrarTiket() {
     {
         setCategoria(event.target.value);
     }
+    function aoSelecionarFormaDePagamento(event: React.ChangeEvent<HTMLSelectElement>)
+    {
+        const valor = event.target.value;
+
+        if(valor === ''){
+            setFormaDePagamento('Em aberto');
+            setDataSaida(null);
+            setStatus('Em aberto'); 
+        }else{
+            setFormaDePagamento(valor);
+            setDataSaida(new Date());
+            setStatus("Pago"); 
+        }        
+    }
 
     const categoriasCadastradas = precificacoes?.map(precificacao => precificacao.categoria);
 
@@ -87,11 +115,11 @@ export default function CadastrarTiket() {
             <div id="tituloDaPagina">
                 <div id="tituloDaPagina__nome">
                     <div id="tituloDaPagina__icone">
-                        <i className="material-icons">local_parking</i>
+                        <i className="material-icons">edit</i>
                     </div>
                     <div id="tituloDaPagina__textos">
-                        <h2>Cadastrar tikets</h2>
-                        <span>Cadastrando tickets</span>
+                        <h2>Editar tiket</h2>
+                        <span>Editando tiket</span>
                     </div>
                 </div>
                 <div id="caminhoDasEtapas">
@@ -103,8 +131,8 @@ export default function CadastrarTiket() {
                         Estacionamento
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/estacionamento/cadastrarTiket'>
-                        Cadastrar Tiket
+                    <Link to={`/estacionamento/editarTiket/${id}`}>
+                        Editar tiket
                     </Link>
                 </div>
 
@@ -121,11 +149,11 @@ export default function CadastrarTiket() {
                 </div>
 
                 <div id="formAdcTiketView">
-                    <form id="formularioCadatrarTiket" className="formPadrao" onSubmit={aoCadastrarTiket}>
+                    <form id="formularioCadatrarTiket" className="formPadrao" onSubmit={aoSalvarTiket}>
                         <div className="linhaInputs">
                             <label>
                                 Placa veículo
-                                <InputPlaca onChange={aoDigitarPlaca}/>
+                                <InputPlaca onChange={aoDigitarPlaca} value={placa}/>
                             </label>
                             <label>
                                 Marca veículo
@@ -141,7 +169,7 @@ export default function CadastrarTiket() {
                             <label>
                                 Categoria
                                 <select onChange={aoSelecionarCategoria} value={categoria}>
-                                    <option value="null">Selecione</option>
+                                    <option disabled value="null">Selecione</option>
                                     {
                                         categoriasCadastradas?.map( categoria => (
                                             <option key={categoria} value={categoria}>{categoria}</option>
@@ -156,7 +184,7 @@ export default function CadastrarTiket() {
                             </label>
                             <label>
                                 Número vaga
-                                <input type="text" className='inputDesativado' name="numeroDaVaga" readOnly/>
+                                <input type="text" className='inputDesativado' readOnly value={!numeroVaga ? "" : numeroVaga}/>
                             </label>
                         </div>
 
@@ -167,11 +195,36 @@ export default function CadastrarTiket() {
                             </label>
                             <label>
                                 Data saída
-                                <input type="text" name="dataSaida" className="inputDesativado" readOnly/>
+                                <input 
+                                    type="text" 
+                                    className="inputDesativado" 
+                                    readOnly 
+                                    value={dataSaida ? DataService.formataDataComHorario(dataSaida) : ""}
+                                />
                             </label>
                             <label>
                                 Tempo decorrido (horas e minutos)
-                                <input type="text" className="inputDesativado inputObrigatorio" value="0.0" readOnly/>
+                                <input type="text" className="inputDesativado inputObrigatorio" value={tempoDecorrido} readOnly/>
+                            </label>
+                        </div>
+
+                        <div className="linhaInputs">
+                            <label className='labelInputMeio'>
+                                Total a pagar
+                                <input type="text" className="inputDesativado" readOnly value={totalAPagar}/>
+                            </label>
+                            <label className='labelInputMeio'>
+                                Forma de pagamento
+                                <select onChange={aoSelecionarFormaDePagamento} value={formaDePagamento}>
+                                    <option value=''>Em aberto</option>
+                                    {
+                                        formasDePagamento.map(formaDePagamento => (
+                                            <option value={formaDePagamento.id as number}>
+                                                {formaDePagamento.nomeFormaDePagamento}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
                             </label>
                         </div>
 
@@ -180,7 +233,7 @@ export default function CadastrarTiket() {
                                 <i className="material-icons">save</i>
                                 Salvar
                             </button>
-                            <BtnVoltar className="formPadrao__btnVoltar">Voltar</BtnVoltar>
+                            <BtnVoltar className="formPadrao__btnVoltar">Cancelar</BtnVoltar>
                         </div>
                     </form>
                 </div>
