@@ -6,6 +6,13 @@ import { Tiket } from '../models/Tiket';
 import { Veiculo } from '../models/Veiculo';
 import { usePrecificacaoContext } from './PrecificacaoContext';
 
+function geraDataA15min()
+{
+    const agora = new Date();
+    agora.setMinutes(agora.getMinutes() - 15);
+    return agora;
+}
+
 interface TypeTiketContext 
 {
     tikets: Tiket[],
@@ -30,7 +37,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
         new Tiket(
             1,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
-            new Date(),
+            geraDataA15min(),
             null,
             25,
             "Em aberto",
@@ -40,17 +47,17 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
         new Tiket(
             2,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
-            new Date(),
+            geraDataA15min(),
             null,
             25,
-            "Pago",
+            "Em aberto",
             null,
             null
         ),
         new Tiket(
             3,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
-            new Date(),
+            geraDataA15min(),
             null,
             25,
             "Em aberto",
@@ -60,7 +67,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
         new Tiket(
             4,
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
-            new Date(),
+            geraDataA15min(),
             null,
             30,
             "Em aberto",
@@ -70,17 +77,17 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
         new Tiket(
             5,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
-            new Date(),
+            geraDataA15min(),
             null,
             25,
-            "Pago",
+            "Em aberto",
             null,
             null
         ),
         new Tiket(
             6,
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
-            new Date(),
+            geraDataA15min(),
             null,
             30,
             "Em aberto",
@@ -90,7 +97,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
         new Tiket(
             7,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
-            new Date(),
+            geraDataA15min(),
             null,
             25,
             "Em aberto",
@@ -100,17 +107,17 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
         new Tiket(
             8,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
-            new Date(),
+            geraDataA15min(),
             null,
             25,
-            "Pago",
+            "Em aberto",
             null,
             null
         ),
         new Tiket(
             9,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
-            new Date(),
+            geraDataA15min(),
             null,
             25,
             "Em aberto",
@@ -120,7 +127,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
         new Tiket(
             10,
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
-            new Date(),
+            geraDataA15min(),
             null,
             30,
             "Em aberto",
@@ -130,17 +137,17 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
         new Tiket(
             11,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
-            new Date(),
+            geraDataA15min(),
             null,
             25,
-            "Pago",
+            "Em aberto",
             null,
             null
         ),
         new Tiket(
             12,
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
-            new Date(),
+            geraDataA15min(),
             null,
             30,
             "Em aberto",
@@ -166,6 +173,11 @@ export const useTiketContext = () => {
         return valor;
     }
 
+    function buscarTiketPorId(id: number)
+    {
+        return tikets.find( tiket => tiket.id === id );
+    }
+
     function adicionarTiket(novoTiket: Tiket)
     {
         //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
@@ -187,6 +199,7 @@ export const useTiketContext = () => {
 
     return {
         tikets,
+        buscarTiketPorId,
         adicionarTiket,
         excluirTiket,
         getIndicadorDeTiketRecemCadastrado
