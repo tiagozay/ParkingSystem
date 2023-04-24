@@ -4,16 +4,10 @@ import BoasVindas from '../../components/BoasVindas';
 import { Link } from 'react-router-dom';
 import ListaDeFormasDePagamento from './ListaDeFormasDePagamento';
 import { FormaDePagamento } from '../../models/FormaDePagamento';
+import { useFormaDePagamentoContext } from '../../contexts/FormaDePagamentoContext';
 
 export default function FormasDePagamento() {
-    const formasDePagamento = [
-        new FormaDePagamento(1, 'Dinheiro', true),
-        new FormaDePagamento(2, 'Cartão de crédito', true),
-        new FormaDePagamento(3, 'Cheque', false),
-        new FormaDePagamento(4, 'Dinheiro', true),
-        new FormaDePagamento(5, 'Cartão de crédito', true),
-        new FormaDePagamento(6, 'Cheque', false),
-    ]
+    const {formasDePagamento} = useFormaDePagamentoContext();
 
     return (
         <section id="formas_de_pagamento">

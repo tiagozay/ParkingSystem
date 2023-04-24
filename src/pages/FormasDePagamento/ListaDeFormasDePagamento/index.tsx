@@ -11,7 +11,7 @@ export default function ListaDeFormasDePagamento({ formasDePagamento }: { formas
     const [filtroNome, setFiltroNome] = useState('');
 
     if (statusFiltro !== "Todas") {
-        formasDePagamento = formasDePagamento.filter(mensalidade => {
+        formasDePagamento = formasDePagamento?.filter(mensalidade => {
             const status = mensalidade.ativa ? "Ativas" : "Inativas";
 
             return status === statusFiltro
