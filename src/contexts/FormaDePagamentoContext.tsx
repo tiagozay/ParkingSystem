@@ -28,7 +28,13 @@ export default function FormasDePagamentoProvider({children}: {children: ReactNo
 export const useFormaDePagamentoContext = () => {
     const {formasDePagamento} = useContext(FormaDePagamentoContext);
 
+    function buscarFormaDePagamentoPorId(id: number)
+    {
+        return formasDePagamento.find( formaDePagamento => formaDePagamento.id === id );
+    }
+
     return {
         formasDePagamento,
+        buscarFormaDePagamentoPorId
     }
 }

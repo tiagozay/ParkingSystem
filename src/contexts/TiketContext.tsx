@@ -39,7 +39,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            25,
+            10,
             "Em aberto",
             null,
             null
@@ -49,7 +49,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            25,
+            10,
             "Em aberto",
             null,
             null
@@ -59,7 +59,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            25,
+            10,
             "Em aberto",
             null,
             null
@@ -69,7 +69,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
             null,
-            30,
+            20,
             "Em aberto",
             null,
             null
@@ -79,7 +79,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            25,
+            10,
             "Em aberto",
             null,
             null
@@ -89,7 +89,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
             null,
-            30,
+            20,
             "Em aberto",
             null,
             null
@@ -99,7 +99,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            25,
+            10,
             "Em aberto",
             null,
             null
@@ -109,7 +109,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            25,
+            10,
             "Em aberto",
             null,
             null
@@ -119,7 +119,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            25,
+            10,
             "Em aberto",
             null,
             null
@@ -129,7 +129,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
             null,
-            30,
+            20,
             "Em aberto",
             null,
             null
@@ -139,7 +139,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            25,
+            10,
             "Em aberto",
             null,
             null
@@ -149,7 +149,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
             null,
-            30,
+            20,
             "Em aberto",
             null,
             null
@@ -192,6 +192,18 @@ export const useTiketContext = () => {
         indicadorDeTiketRecemCadastrado.indicador = true;
     }
 
+    function editarTiket(tiketEditado: Tiket)
+    {
+        setTikets(
+            tikets.map( tiket => {
+                if(tiket.id === tiketEditado.id){
+                    return tiketEditado;
+                }
+                return tiket;
+            } )
+        )
+    }
+
     function excluirTiket(id: number)
     {
         setTikets(tikets.filter(tiket => tiket.id !== id) );
@@ -201,6 +213,7 @@ export const useTiketContext = () => {
         tikets,
         buscarTiketPorId,
         adicionarTiket,
+        editarTiket,
         excluirTiket,
         getIndicadorDeTiketRecemCadastrado
     }
