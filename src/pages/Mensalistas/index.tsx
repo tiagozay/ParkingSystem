@@ -4,16 +4,11 @@ import BoasVindas from '../../components/BoasVindas';
 import { Mensalista } from '../../models/Mensalista';
 import ListaDeMensalistas from './ListaDeMensalistas';
 import { Link } from 'react-router-dom';
+import { useMensalistaContext } from '../../contexts/MensalistasContext';
 
 export default function Mensalistas() {
-    const mensalistas = [
-        new Mensalista(1, "Tiago zay", '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', true),
-        new Mensalista(2, "Zeno zay", '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
-        new Mensalista(3, "Tiago zay", '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', false),
-        new Mensalista(4, "Zeno zay", '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
-        new Mensalista(5, "Tiago zay", '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', true),
-        new Mensalista(6, "Zeno zay", '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
-    ]
+    
+    const {mensalistas} = useMensalistaContext();
 
     return (
         <section id="mensalistas">
