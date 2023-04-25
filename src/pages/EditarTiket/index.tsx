@@ -180,7 +180,7 @@ export default function EditarTiket() {
                             </label>
                             <label>
                                 Valor hora
-                                <input type="text" className="inputDesativado" value={valorHora} readOnly/>
+                                <input type="text" className="inputDesativado" value={valorHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} readOnly/>
                             </label>
                             <label>
                                 Número vaga
@@ -219,6 +219,9 @@ export default function EditarTiket() {
                                     <option value=''>Em aberto</option>
                                     {
                                         formasDePagamento.map(formaDePagamento => (
+                                            
+                                            formaDePagamento.ativa && 
+
                                             <option value={formaDePagamento.id as number}>
                                                 {formaDePagamento.nomeFormaDePagamento}
                                             </option>

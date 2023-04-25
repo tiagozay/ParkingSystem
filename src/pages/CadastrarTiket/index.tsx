@@ -152,7 +152,7 @@ export default function CadastrarTiket() {
                             </label>
                             <label>
                                 Valor hora
-                                <input type="text" className="inputDesativado" value={valorHora} readOnly/>
+                                <input type="text" className="inputDesativado" value={valorHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} readOnly/>
                             </label>
                             <label>
                                 Número vaga
