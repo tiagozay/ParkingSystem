@@ -125,23 +125,23 @@ export default function CadastrarTiket() {
                         <div className="linhaInputs">
                             <label>
                                 Placa veículo
-                                <InputPlaca onChange={aoDigitarPlaca}/>
+                                <InputPlaca onChange={aoDigitarPlaca} required/>
                             </label>
                             <label>
                                 Marca veículo
-                                <input type="text" onChange={aoDigitarMarcaVeiculo} value={marcaVeiculo}/>
+                                <input type="text" onChange={aoDigitarMarcaVeiculo} value={marcaVeiculo} required/>
                             </label>
                             <label>
                                 Modelo veículo
-                                <input type="text" onChange={aoDigitarModeloVeiculo} value={modeloVeiculo}/>
+                                <input type="text" onChange={aoDigitarModeloVeiculo} value={modeloVeiculo} required/>
                             </label>
                         </div>
 
                         <div className="linhaInputs">
                             <label>
                                 Categoria
-                                <select onChange={aoSelecionarCategoria} value={categoria}>
-                                    <option value="null">Selecione</option>
+                                <select onChange={aoSelecionarCategoria} value={categoria} required>
+                                    <option value="">Selecione</option>
                                     {
                                         categoriasCadastradas?.map( categoria => (
                                             <option key={categoria} value={categoria}>{categoria}</option>

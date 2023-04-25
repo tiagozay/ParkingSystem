@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 interface InputPlacaProps {
     className?: string,
     value?: string,
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    required?: boolean
 }
 
-const InputPlaca = ({className, onChange, value = ''}: InputPlacaProps) => {
+const InputPlaca = ({className, onChange, required, value = ''}: InputPlacaProps) => {
   const [placa, setPlaca] = useState(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +40,7 @@ const InputPlaca = ({className, onChange, value = ''}: InputPlacaProps) => {
       value={placa}
       onChange={handleChange}
       className={className}
+      required={required}
     />
   );
 }

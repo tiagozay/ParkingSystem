@@ -153,23 +153,23 @@ export default function EditarTiket() {
                         <div className="linhaInputs">
                             <label>
                                 Placa veículo
-                                <InputPlaca onChange={aoDigitarPlaca} value={placa}/>
+                                <InputPlaca onChange={aoDigitarPlaca} value={placa} required/>
                             </label>
                             <label>
                                 Marca veículo
-                                <input type="text" onChange={aoDigitarMarcaVeiculo} value={marcaVeiculo}/>
+                                <input type="text" onChange={aoDigitarMarcaVeiculo} value={marcaVeiculo} required/>
                             </label>
                             <label>
                                 Modelo veículo
-                                <input type="text" onChange={aoDigitarModeloVeiculo} value={modeloVeiculo}/>
+                                <input type="text" onChange={aoDigitarModeloVeiculo} value={modeloVeiculo} required/>
                             </label>
                         </div>
 
                         <div className="linhaInputs">
                             <label>
                                 Categoria
-                                <select onChange={aoSelecionarCategoria} value={categoria}>
-                                    <option disabled value="null">Selecione</option>
+                                <select onChange={aoSelecionarCategoria} value={categoria} required>
+                                    <option disabled value="">Selecione</option>
                                     {
                                         categoriasCadastradas?.map( categoria => (
                                             <option key={categoria} value={categoria}>{categoria}</option>
@@ -222,7 +222,7 @@ export default function EditarTiket() {
                                             
                                             formaDePagamento.ativa && 
 
-                                            <option value={formaDePagamento.id as number}>
+                                            <option key={formaDePagamento.id} value={formaDePagamento.id as number}>
                                                 {formaDePagamento.nomeFormaDePagamento}
                                             </option>
                                         ))
