@@ -20,6 +20,7 @@ import PrecificacoesProvider from './contexts/PrecificacaoContext';
 import TiketsProvider from './contexts/TiketContext';
 import EditarTiket from './pages/EditarTiket';
 import FormasDePagamentoProvider from './contexts/FormaDePagamentoContext';
+import VisualizarTiket from './pages/VisualizarTiket';
 
 
 function AppRoutes() {
@@ -34,6 +35,7 @@ function AppRoutes() {
                 <Route path='estacionamento' element={<Estacionamento />} />
                 <Route path='estacionamento/cadastrarTiket' element={<CadastrarTiket />} />
                 <Route path='estacionamento/editarTiket/:id' element={<EditarTiket />} />
+                <Route path='estacionamento/visualizarTiket/:id' element={<VisualizarTiket />} />
                 <Route path='mensalistas' element={<Mensalistas />} />
                 <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
                 <Route path='mensalidades' element={<Mensalidades />} />
