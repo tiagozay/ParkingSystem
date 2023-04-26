@@ -13,12 +13,12 @@ export const MensalistaContext = createContext<TypeMensalistaContext>({mensalist
 
 export default function MensalistasProvider({children}: {children: ReactNode}) {
     const [mensalistas, setMensalistas] = useState([
-        new Mensalista(1, "Tiago zay", '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', true),
-        new Mensalista(2, "Zeno zay", '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
-        new Mensalista(3, "Tiago zay", '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', false),
-        new Mensalista(4, "Zeno zay", '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
-        new Mensalista(5, "Tiago zay", '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', true),
-        new Mensalista(6, "Zeno zay", '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
+        new Mensalista(1, "Tiago zay", new Date('28-01-2006'), '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', true),
+        new Mensalista(2, "Zeno zay", new Date('28-01-2006'), '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
+        new Mensalista(3, "Tiago zay", new Date('28-01-2006'), '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', false),
+        new Mensalista(4, "Zeno zay", new Date('28-01-2006'), '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
+        new Mensalista(5, "Tiago zay", new Date('28-01-2006'), '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', true),
+        new Mensalista(6, "Zeno zay", new Date('28-01-2006'), '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true),
     ]);
 
     return (
