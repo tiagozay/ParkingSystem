@@ -5,6 +5,7 @@ import { DataService } from '../../../services/DataService';
 import { useState } from 'react';
 import PaginacaoService from '../../../services/PaginacaoService';
 import LinksPaginacoes from '../../../components/LinksPaginacoes';
+import { CpfService } from '../../../services/CpfService';
 
 export default function ListaDeMensalidades({ mensalidades }: { mensalidades: Mensalidade[] }) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
@@ -71,7 +72,7 @@ export default function ListaDeMensalidades({ mensalidades }: { mensalidades: Me
                             mensalidadesParaExibir?.map(mensalidade => (
                                 <tr>
                                     <td>{mensalidade.mensalista.nome}</td>
-                                    <td>{DataService.formataCpf(mensalidade.mensalista.cpf)}</td>
+                                    <td>{CpfService.formataCpf(mensalidade.mensalista.cpf)}</td>
                                     <td>{mensalidade.categoria}</td>
                                     <td>{DataService.formataValorMonetario(mensalidade.valor)}</td>
                                     <td>{mensalidade.formaDePagamento}</td>
