@@ -36,9 +36,15 @@ export const useMensalistaContext = () => {
         setMensalistas([...mensalistas, mensalista] );
     }
 
+    function removerMensalista(id: number)
+    {
+        setMensalistas( mensalistas.filter( mensalista => mensalista.id !== id ) );
+    }
+
 
     return {
         mensalistas,
-        adicionarMensalista
+        adicionarMensalista,
+        removerMensalista
     }
 }

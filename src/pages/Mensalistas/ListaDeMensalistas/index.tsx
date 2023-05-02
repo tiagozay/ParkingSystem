@@ -4,11 +4,14 @@ import { Mensalista } from '../../../models/Mensalista'
 import SelectFiltros from '../../../components/SelectFiltros'
 import LinksPaginacoes from '../../../components/LinksPaginacoes'
 import PaginacaoService from '../../../services/PaginacaoService';
+import { useMensalistaContext } from '../../../contexts/MensalistasContext';
 
 export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensalista[] }) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
     const [statusFiltro, setStatusFiltro] = useState('todos');
     const [filtroNome, setFiltroNome] = useState('');
+
+    const {removerMensalista} = useMensalistaContext();
 
     if(statusFiltro != 'todos'){
         
@@ -86,7 +89,7 @@ export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensa
                                     }</td>
                                     <td className='campoDeAcoes'>
                                         <button className='material-icons tabela__btnEditar'>edit</button>
-                                        <button className='material-icons tabela__btnExcluir'>delete</button>
+                                        <button className='material-icons tabela__btnExcluir' onClick={() => {removerMensalista(mensalista.id)}}>delete</button>
                                     </td>
                                 </tr>
                             ))
