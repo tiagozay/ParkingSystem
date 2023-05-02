@@ -29,9 +29,16 @@ export default function MensalistasProvider({children}: {children: ReactNode}) {
 }
 
 export const useMensalistaContext = () => {
-    const {mensalistas} = useContext(MensalistaContext);
+    const {mensalistas, setMensalistas} = useContext(MensalistaContext);
+
+    function adicionarMensalista(mensalista: Mensalista)
+    {
+        setMensalistas([...mensalistas, mensalista] );
+    }
+
 
     return {
         mensalistas,
+        adicionarMensalista
     }
 }

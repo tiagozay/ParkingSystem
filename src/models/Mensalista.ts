@@ -7,7 +7,7 @@ export class Mensalista
     public nome: string;
     public dataNascimento: Date | null;
     public _cpf: string;
-    public email: string;
+    public email: string | null;
     public celular: string;
     public ativo: boolean;
 
@@ -16,7 +16,7 @@ export class Mensalista
         nome: string,
         dataNascimento: Date | null,
         cpf: string,
-        email: string,
+        email: string | null, 
         celular: string,
         ativo: boolean
     ){
