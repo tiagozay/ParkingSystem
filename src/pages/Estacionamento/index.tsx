@@ -3,14 +3,31 @@ import './Estacionamento.css'
 import { Tiket } from '../../models/Tiket';
 import { Veiculo } from '../../models/Veiculo';
 import ListaDeTikets from './ListaDeTikets';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import BoasVindas from '../../components/BoasVindas';
 import { useTiketContext } from '../../contexts/TiketContext';
 import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function Estacionamento() {
 
-    const {tikets, getIndicadorDeTiketRecemCadastrado} = useTiketContext();
+    const {tikets} = useTiketContext();
+
+    const location = useLocation();
+
+    let mensagemSucessoAberta = false;
+    let mensagemSucesso = "";
+
+    if(location.state){
+
+        if(location.state.sucessoEditar){
+            mensagemSucessoAberta = true;
+            mensagemSucesso = "Tiket editado com sucesso!";
+        }else if(location.state.sucessoCadastrar){
+            mensagemSucessoAberta = true;
+            mensagemSucesso = "Tiket cadastrado com sucesso!";
+        }
+
+    }
 
     return (
         <section id="estacionamento">
@@ -38,9 +55,8 @@ export default function Estacionamento() {
 
 
             {
-                //Lógica para que quando tiver cadastrado um tiket novo, aparece a mensagem de sucesso, se não, a mensagem de boas vindas
-                getIndicadorDeTiketRecemCadastrado() ?
-                <MensagemSucesso mensagem='Tiket cadastrado com sucesso!'/> :
+                mensagemSucessoAberta ?
+                <MensagemSucesso mensagem={mensagemSucesso}/> :
                 <BoasVindas />
             }
 

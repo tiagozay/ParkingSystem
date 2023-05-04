@@ -73,7 +73,7 @@ export default function EditarTiket() {
 
         editarTiket(novoTiket);
 
-        navigate('/estacionamento');
+        navigate('/estacionamento', { state: {sucessoEditar: true} });
     }
 
 

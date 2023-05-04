@@ -17,16 +17,12 @@ interface TypeTiketContext
 {
     tikets: Tiket[],
     setTikets: Function,
-    indicadorDeTiketRecemCadastrado: {indicador: boolean},
 }
-
-const indicadorDeTiketRecemCadastrado = {indicador: false};
 
 export const TiketContext = createContext<TypeTiketContext>(
     {
         tikets: [], 
         setTikets: () => {},
-        indicadorDeTiketRecemCadastrado: {indicador: true}, 
     }
 );
 
@@ -157,21 +153,14 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
     ]);
 
     return (
-        <TiketContext.Provider value={{tikets, setTikets, indicadorDeTiketRecemCadastrado}}>
+        <TiketContext.Provider value={{tikets, setTikets}}>
             {children}
         </TiketContext.Provider>
     );
 }
 
 export const useTiketContext = () => {
-    const {tikets, setTikets, indicadorDeTiketRecemCadastrado} = useContext(TiketContext);
-
-    function getIndicadorDeTiketRecemCadastrado()
-    {
-        const valor = indicadorDeTiketRecemCadastrado.indicador;
-        indicadorDeTiketRecemCadastrado.indicador = false;
-        return valor;
-    }
+    const {tikets, setTikets} = useContext(TiketContext);
 
     function buscarTiketPorId(id: number)
     {
@@ -189,7 +178,6 @@ export const useTiketContext = () => {
         }
 
         setTikets([...tikets, novoTiket]);
-        indicadorDeTiketRecemCadastrado.indicador = true;
     }
 
     function editarTiket(tiketEditado: Tiket)
@@ -215,6 +203,5 @@ export const useTiketContext = () => {
         adicionarTiket,
         editarTiket,
         excluirTiket,
-        getIndicadorDeTiketRecemCadastrado
     }
 }

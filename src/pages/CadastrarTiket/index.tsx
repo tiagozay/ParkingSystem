@@ -49,7 +49,7 @@ export default function CadastrarTiket() {
 
         adicionarTiket(novoTiket);
 
-        navigate('/estacionamento');
+        navigate('/estacionamento', { state: {sucessoCadastrar: true} });
     }
 
 
