@@ -1,3 +1,4 @@
+import { throws } from "assert";
 import { CpfService } from "../services/CpfService";
 import { DataService } from "../services/DataService";
 
@@ -6,20 +7,29 @@ export class Mensalista
     public readonly id: number | null;
     public nome: string;
     public dataNascimento: Date | null;
-    public _cpf: string;
+    private _cpf: string;
     public email: string | null;
     public celular: string;
     public ativo: boolean;
+    public cep: string;
+    public uf: string;
+    public cidade: string;
 
-    constructor(
+    /** 
+     * @throws {Error}
+     */
+    constructor (
         id: number | null,
         nome: string,
         dataNascimento: Date | null,
         cpf: string,
         email: string | null, 
         celular: string,
-        ativo: boolean
-    ){
+        ativo: boolean,
+        cep: string,
+        uf: string,
+        cidade: string
+    ) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
@@ -27,6 +37,9 @@ export class Mensalista
         this.email = email;
         this.celular = celular;
         this.ativo = ativo;
+        this.cep = cep;
+        this.uf = uf;
+        this.cidade = cidade;
     }
 
     get cpf()

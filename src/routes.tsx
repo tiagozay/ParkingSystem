@@ -22,6 +22,7 @@ import EditarTiket from './pages/EditarTiket';
 import FormasDePagamentoProvider from './contexts/FormaDePagamentoContext';
 import VisualizarTiket from './pages/VisualizarTiket';
 import MensalistasProvider from './contexts/MensalistasContext';
+import EditarMensalista from './pages/EditarMensalista';
 
 
 function AppRoutes() {
@@ -40,6 +41,7 @@ function AppRoutes() {
                   <Route path='estacionamento/visualizarTiket/:id' element={<VisualizarTiket />} />
                   <Route path='mensalistas' element={<Mensalistas />} />
                   <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
+                  <Route path='mensalistas/editarMensalista/:id' element={<EditarMensalista />} />
                   <Route path='mensalidades' element={<Mensalidades />} />
                   <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
                   <Route path='precificacoes' element={<Precificacoes />} />

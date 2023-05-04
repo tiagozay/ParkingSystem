@@ -3,12 +3,23 @@ import './Mensalistas.css';
 import BoasVindas from '../../components/BoasVindas';
 import { Mensalista } from '../../models/Mensalista';
 import ListaDeMensalistas from './ListaDeMensalistas';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useMensalistaContext } from '../../contexts/MensalistasContext';
+import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function Mensalistas() {
     
     const {mensalistas} = useMensalistaContext();
+
+    const location = useLocation();
+
+    let mensagemSucessoAberta = false;
+    let mensagemSuceso = "";
+
+    if(location.state && location.state.sucessoEditar){
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Mensalista editado com sucesso!";
+    }
 
     return (
         <section id="mensalistas">
@@ -33,8 +44,12 @@ export default function Mensalistas() {
                 </div>
             </div>
 
-            <BoasVindas />
-
+            {
+                mensagemSucessoAberta ? 
+                    <MensagemSucesso mensagem={mensagemSuceso}/> :
+                    <BoasVindas />
+            }
+    
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
                     <Link to='cadastrarMensalista' id="btnAdicionarNovo">

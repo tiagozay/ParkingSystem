@@ -1,55 +1,70 @@
 import React, { useState } from 'react';
-import './CadastrarMensalista.css';
-import BoasVindas from '../../components/BoasVindas';
-import BtnVoltar from '../../components/BtnVoltar';
-import { Link, useNavigate } from 'react-router-dom';
-import { Mensalista } from '../../models/Mensalista';
-import ReactInputMask from 'react-input-mask'
-import InputCpf from '../../components/InputCpf';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMensalistaContext } from '../../contexts/MensalistasContext';
+import { Tiket } from '../../models/Tiket';
+import { DataService } from '../../services/DataService';
+import BtnVoltar from '../../components/BtnVoltar';
+import InputCpf from '../../components/InputCpf';
+import ReactInputMask from 'react-input-mask';
 import MensagemErro from '../../components/MensagemErro';
+import BoasVindas from '../../components/BoasVindas';
+import { Mensalista } from '../../models/Mensalista';
 
-export default function CadastrarMensalista() {
+export default function EditarMensalista() {
+    const navigate = useNavigate();
 
-    const [nome, setNome] = useState('');
-    const [sobrenome, setSobrenome] = useState('');
-    const [dataNascimento, setDataNascimento] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [email, setEmail] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [cep, setCep] = useState('');
-    const [uf, setUf] = useState('');
-    const [cidade, setCidade] = useState('');
+    const id = Number(useParams().id);
+
+    const {buscarMensalistaPorId, editarMensalista} = useMensalistaContext();
+
+    const mensalista = buscarMensalistaPorId(id);
+
+    const [nome, setNome] = useState(mensalista?.nome as string);
+    const [dataNascimento, setDataNascimento] = useState(
+
+        mensalista?.dataNascimento ? 
+            DataService.formataDataPadraoInput(mensalista?.dataNascimento):
+            ""
+    );
+    const [ativo, setAtivo] = useState(mensalista?.ativo as boolean);
+    const [cpf, setCpf] = useState(mensalista?.cpf as string);
+    const [email, setEmail] = useState(mensalista?.email as string);
+    const [telefone, setTelefone] = useState(mensalista?.celular as string);
+    const [cep, setCep] = useState(mensalista?.cep as string);
+    const [uf, setUf] = useState(mensalista?.uf as string);
+    const [cidade, setCidade] = useState(mensalista?.cidade as string);
 
     const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
     const [mensagemDeErro, setMensagemDeErro] = useState("");
 
-    const {adicionarMensalista} = useMensalistaContext();
+    if(!mensalista){
+        navigate('/mensalistas');
+        return <></>; 
+    }
 
-    const navigate = useNavigate();
-
-    function aoCadastrarMensalista(event: React.FormEvent<HTMLFormElement>)
+    function aoEditarMensalista(event: React.FormEvent<HTMLFormElement>)
     {
         event.preventDefault();
 
+        if(!mensalista) return;
+
         try{
-            const mensalista = new Mensalista(
-                null,
-                `${nome} ${sobrenome}`,
+            const mensalistaEditado = new Mensalista(
+                mensalista.id,
+                nome, 
                 new Date(dataNascimento),
                 cpf,
                 email,
                 telefone,
-                true,
+                ativo,
                 cep,
                 uf,
                 cidade
             );
-            
-            adicionarMensalista(mensalista);
-
-            navigate('/mensalistas');
-
+    
+            editarMensalista(mensalistaEditado);
+    
+            navigate('/mensalistas', {state: {sucessoEditar: true}});
         }catch(e: any){
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);
@@ -61,13 +76,14 @@ export default function CadastrarMensalista() {
     {
         setNome(event.target.value);
     }
-    function aoDigitarSobrenome(event: React.ChangeEvent<HTMLInputElement>)
-    {
-        setSobrenome(event.target.value);
-    }
     function aoDigitarDataDeNascimento(event: React.ChangeEvent<HTMLInputElement>)
     {
         setDataNascimento(event.target.value);
+    }
+    function aoSelecionarAtivo(event: React.ChangeEvent<HTMLSelectElement>)
+    {
+        //Lógica que converte string('true' ou 'false') em booleano
+        setAtivo(event.target.value === 'true');
     }
     function aoDigitarCpf(event: React.ChangeEvent<HTMLInputElement>)
     {
@@ -84,17 +100,7 @@ export default function CadastrarMensalista() {
     function aoDigitarCep(event: React.ChangeEvent<HTMLInputElement>)
     {
         const cepDigitado = event.target.value.replace(/_/g, '');
-
         setCep(cepDigitado);
-
-        if(cepDigitado.length === 9){
-            buscarCidadePorCep(cepDigitado)
-                .then( local => {
-                    setCidade(local.localidade ? local.localidade : "");
-                    setUf(local.uf ? local.uf : "");
-            } );
-        }
-
     }
     function aoDigitarUf(event: React.ChangeEvent<HTMLInputElement>)
     {
@@ -105,22 +111,16 @@ export default function CadastrarMensalista() {
         setCidade(event.target.value);
     }
 
-    function buscarCidadePorCep(cep: string) 
-    {
-        return fetch(`https://viacep.com.br/ws/${cep}/json/`)
-            .then( res => res.json() )
-    }
-
     return (
         <section id="formAdicionarMensalista">
             <div id="tituloDaPagina">
                 <div id="tituloDaPagina__nome">
                     <div id="tituloDaPagina__icone">
-                        <i className="material-icons">groups</i>
+                        <i className="material-icons">edit</i>
                     </div>
                     <div id="tituloDaPagina__textos">
-                        <h2>Cadastrar mensalistas</h2>
-                        <span>Cadastrando mensalistas</span>
+                        <h2>Editar mensalistas</h2>
+                        <span>Editando mensalistas</span>
                     </div>
                 </div>
                 <div id="caminhoDasEtapas">
@@ -132,8 +132,8 @@ export default function CadastrarMensalista() {
                         Mensalistas
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/mensalistas/cadastrarMensalista'>
-                        Cadastrar Mensalista
+                    <Link to={`/mensalistas/editarMensalista/${id}`}>
+                        Editar Mensalista
                     </Link>
                 </div>
 
@@ -153,19 +153,22 @@ export default function CadastrarMensalista() {
                     </BtnVoltar>
                 </div>
 
-                <form action="" className="formPadrao" onSubmit={aoCadastrarMensalista}>
+                <form action="" className="formPadrao" onSubmit={aoEditarMensalista}>
                     <div className="linhaInputs">
                         <label>
                             Nome
                             <input type="text" onChange={aoDigitarNome} value={nome} required/>
                         </label>
                         <label>
-                            Sobrenome
-                            <input type="text" onChange={aoDigitarSobrenome} value={sobrenome} required/>
-                        </label>
-                        <label>
                             Data nascimento
                             <input type="date" onChange={aoDigitarDataDeNascimento} value={dataNascimento} required/>
+                        </label>
+                        <label>
+                            Ativo
+                            <select value={`${ativo}`} onChange={aoSelecionarAtivo}>
+                                <option value='true'>Sim</option>
+                                <option value='false'>Não</option>
+                            </select>
                         </label>
                     </div>
 
@@ -176,7 +179,7 @@ export default function CadastrarMensalista() {
                         </label>
                         <label>
                             E-mail
-                            <input type="text" onChange={aoDigitarEmail} value={email}/>
+                            <input type="text" onChange={aoDigitarEmail} value={email as string}/>
                         </label>
                         <label>
                             Telefone

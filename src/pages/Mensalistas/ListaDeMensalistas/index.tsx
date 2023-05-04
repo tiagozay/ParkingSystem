@@ -5,6 +5,7 @@ import SelectFiltros from '../../../components/SelectFiltros'
 import LinksPaginacoes from '../../../components/LinksPaginacoes'
 import PaginacaoService from '../../../services/PaginacaoService';
 import { useMensalistaContext } from '../../../contexts/MensalistasContext';
+import { Link } from 'react-router-dom';
 
 export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensalista[] }) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
@@ -88,7 +89,7 @@ export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensa
                                             <p className='p_textoInativo'><i className='material-icons'>lock</i>Não</p>
                                     }</td>
                                     <td className='campoDeAcoes'>
-                                        <button className='material-icons tabela__btnEditar'>edit</button>
+                                        <Link to={`editarMensalista/${mensalista.id}`} className='material-icons tabela__btnEditar'>edit</Link>
                                         <button className='material-icons tabela__btnExcluir' onClick={() => {removerMensalista(mensalista.id)}}>delete</button>
                                     </td>
                                 </tr>

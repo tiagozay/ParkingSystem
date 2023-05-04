@@ -291,6 +291,7 @@
     border-radius: 50%;
     cursor: pointer;  
     margin-left: 5px;
+    text-decoration: none;
 }
 .tabela__btnExcluir{
     font-size: 19px;
