@@ -19,6 +19,15 @@ export abstract class DataService {
         return dataFormatada;
     }
 
+    static formataDataPadraoInput(data: Date)
+    {
+        const ano = String(data.getFullYear());
+        const mes = String(data.getMonth() + 1).padStart(2, '0');
+        const dia = String(data.getDate()).padStart(2, '0');
+        const dataFormatada = `${ano}-${mes}-${dia}`;
+        return dataFormatada;
+    }
+
     static formataDataComHorario(data: Date)
     {
         const dia = String(data.getDate()).padStart(2, '0');
