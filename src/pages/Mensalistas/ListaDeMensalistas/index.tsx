@@ -44,6 +44,14 @@ export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensa
 
     let mensalistasParaExibir = mensalistasDivididosEmPaginas[paginaAtiva - 1];
 
+    function aoClicarEmExcluir(id: number)
+    {
+        const confirmacao = window.confirm("Excluír este mensalista?");
+        if (!confirmacao) return;
+
+        removerMensalista(id);
+    }
+
     return (
         <>
             <div className="divCamposSelectEBuscaDaTabela">
@@ -90,7 +98,7 @@ export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensa
                                     }</td>
                                     <td className='campoDeAcoes'>
                                         <Link to={`editarMensalista/${mensalista.id}`} className='material-icons tabela__btnEditar'>edit</Link>
-                                        <button className='material-icons tabela__btnExcluir' onClick={() => {removerMensalista(mensalista.id)}}>delete</button>
+                                        <button className='material-icons tabela__btnExcluir' onClick={() => {aoClicarEmExcluir( mensalista.id )}}>delete</button>
                                     </td>
                                 </tr>
                             ))
