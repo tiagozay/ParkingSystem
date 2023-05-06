@@ -38,6 +38,14 @@ export const useMensalistaContext = () => {
 
     function adicionarMensalista(mensalista: Mensalista)
     {
+        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
+        const ultimoMensalistaCadastrado = mensalistas[mensalistas.length - 1];
+        if(ultimoMensalistaCadastrado){
+            mensalista.id = (ultimoMensalistaCadastrado.id as number) + 1;
+        }else{
+            mensalista.id = 1;
+        }
+
         setMensalistas([...mensalistas, mensalista] );
     }
 

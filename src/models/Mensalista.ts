@@ -4,7 +4,7 @@ import { DataService } from "../services/DataService";
 
 export class Mensalista
 {
-    public readonly id: number | null;
+    public id: number | null;
     public nome: string;
     public dataNascimento: Date | null;
     private _cpf: string;
