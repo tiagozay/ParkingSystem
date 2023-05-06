@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Estacionamento.css'
 import { Tiket } from '../../models/Tiket';
 import { Veiculo } from '../../models/Veiculo';
@@ -12,21 +12,22 @@ export default function Estacionamento() {
 
     const {tikets} = useTiketContext();
 
+    const [sucessoExcluir, setSucessoExcluir] = useState(false);
+
     const location = useLocation();
 
     let mensagemSucessoAberta = false;
     let mensagemSucesso = "";
 
-    if(location.state){
-
-        if(location.state.sucessoEditar){
-            mensagemSucessoAberta = true;
-            mensagemSucesso = "Tiket editado com sucesso!";
-        }else if(location.state.sucessoCadastrar){
-            mensagemSucessoAberta = true;
-            mensagemSucesso = "Tiket cadastrado com sucesso!";
-        }
-
+    if(location.state && location.state.sucessoEditar){
+        mensagemSucessoAberta = true;
+        mensagemSucesso = "Tiket editado com sucesso!";
+    }else if( location.state && location.state.sucessoCadastrar){
+        mensagemSucessoAberta = true;
+        mensagemSucesso = "Tiket cadastrado com sucesso!";
+    }else if(sucessoExcluir){
+        mensagemSucessoAberta = true;
+        mensagemSucesso = "Tiket excluído com sucesso!";
     }
 
     return (
@@ -68,7 +69,7 @@ export default function Estacionamento() {
                     </Link>
                 </div>
 
-                <ListaDeTikets tikets={tikets} />
+                <ListaDeTikets tikets={tikets} setSucessoExcluir={setSucessoExcluir}/>
 
             </section>
 

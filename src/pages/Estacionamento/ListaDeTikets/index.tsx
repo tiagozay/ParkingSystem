@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Tiket } from '../../../models/Tiket';
 import LinksPaginacoes from '../../../components/LinksPaginacoes';
 import { useState } from 'react';
@@ -8,7 +8,12 @@ import InputPlaca from '../../../components/InputPlaca';
 import { useTiketContext } from '../../../contexts/TiketContext';
 import { Link } from 'react-router-dom';
 
-export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
+interface ListaDeTiketsProps {
+    tikets: Tiket[],
+    setSucessoExcluir: Dispatch<SetStateAction<boolean>>
+}
+
+export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTiketsProps) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
     const [statusFiltro, setStatusFiltro] = useState('Todos');
     const [filtroPlaca, setFiltroPlaca] = useState('');
@@ -39,6 +44,7 @@ export default function ListaDeTikets({ tikets }: { tikets: Tiket[] }) {
         if (!confirmacao) return;
 
         excluirTiket(id);
+        setSucessoExcluir(true);
     }
 
     return (
