@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { Mensalista } from '../../../models/Mensalista'
 import SelectFiltros from '../../../components/SelectFiltros'
@@ -7,7 +7,12 @@ import PaginacaoService from '../../../services/PaginacaoService';
 import { useMensalistaContext } from '../../../contexts/MensalistasContext';
 import { Link } from 'react-router-dom';
 
-export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensalista[] }) {
+interface ListaDeMensalistasProps {
+    mensalistas: Mensalista[],
+    setSucessoExcluir: Dispatch<SetStateAction<boolean>>
+}
+
+export default function ListaDeMensalistas({ mensalistas, setSucessoExcluir }: ListaDeMensalistasProps) {
     const [paginaAtiva, setPaginaAtiva] = useState(1);
     const [statusFiltro, setStatusFiltro] = useState('todos');
     const [filtroNome, setFiltroNome] = useState('');
@@ -50,6 +55,7 @@ export default function ListaDeMensalistas({ mensalistas }: { mensalistas: Mensa
         if (!confirmacao) return;
 
         removerMensalista(id);
+        setSucessoExcluir(true);
     }
 
     return (

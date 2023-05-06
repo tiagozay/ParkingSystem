@@ -48,7 +48,8 @@ export default function CadastrarMensalista() {
             
             adicionarMensalista(mensalista);
 
-            navigate('/mensalistas');
+            navigate('/mensalistas', {state: {sucessoCadastrar: true}});
+
 
         }catch(e: any){
             setMensagemDeErroAberta(true);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Mensalistas.css';
 import BoasVindas from '../../components/BoasVindas';
 import { Mensalista } from '../../models/Mensalista';
@@ -11,6 +11,8 @@ export default function Mensalistas() {
     
     const {mensalistas} = useMensalistaContext();
 
+    const [sucessoExcluir, setSucessoExcluir] = useState(false);
+
     const location = useLocation();
 
     let mensagemSucessoAberta = false;
@@ -19,6 +21,14 @@ export default function Mensalistas() {
     if(location.state && location.state.sucessoEditar){
         mensagemSucessoAberta = true;
         mensagemSuceso = "Mensalista editado com sucesso!";
+        location.state.sucessoEditar = false;
+    }else if(location.state && location.state.sucessoCadastrar) {
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Mensalista cadastrado com sucesso!";
+        location.state.sucessoEditar = false;
+    }else if(sucessoExcluir){
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Mensalista excluído com sucesso!";
     }
 
     return (
@@ -58,7 +68,7 @@ export default function Mensalistas() {
                     </Link>
                 </div>
 
-                <ListaDeMensalistas mensalistas={mensalistas}/>
+                <ListaDeMensalistas mensalistas={mensalistas} setSucessoExcluir={setSucessoExcluir}/>
 
             </section>
 
