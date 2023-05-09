@@ -19,20 +19,20 @@ export default function EditarTiket() {
     const id = Number(useParams().id);
 
     const {buscarTiketPorId} = useTiketContext();
-        
-    const tiket = buscarTiketPorId(id) as Tiket;
+    
+    let tiket: Tiket | undefined;
 
-    const [placa, setPlaca] = useState(tiket?.veiculo.placa);
-    const [marcaVeiculo, setMarcaVeiculo] = useState(tiket?.veiculo.marca);
-    const [modeloVeiculo, setModeloVeiculo] = useState(tiket?.veiculo.modelo);
-    const [categoria, setCategoria] = useState(tiket?.veiculo.segmento);
-    const [valorHora, setValorHora] = useState(tiket?.valorPorHora);
-    const [status, setStatus] = useState(tiket?.status);
-    const [numeroVaga] = useState(tiket?.numeroDaVaga);
-    const [dataEntrada] = useState(tiket?.dataDeEntrada);
-    const [dataSaida, setDataSaida] = useState(tiket?.dataDeSaida);
-    const [tempoDecorrido] = useState(tiket?.tempoDecorrido.toFixed(2));
-    const [totalAPagar, setTotalAPagar] = useState(tiket?.calculaTotalAPagar(valorHora).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+    const [placa, setPlaca] = useState('');
+    const [marcaVeiculo, setMarcaVeiculo] = useState('');
+    const [modeloVeiculo, setModeloVeiculo] = useState('');
+    const [categoria, setCategoria] = useState('');
+    const [valorHora, setValorHora] = useState(0);
+    const [status, setStatus] = useState<"Em aberto" | "Pago">('Em aberto');
+    const [numeroVaga, setNumeroVaga] = useState<string | null>('');
+    const [dataEntrada, setDataEntrada] = useState(new Date());
+    const [dataSaida, setDataSaida] = useState<Date | null>(null);
+    const [tempoDecorrido, setTempoDecorrido] = useState('');
+    const [totalAPagar, setTotalAPagar] = useState('');
     const [formaDePagamento, setFormaDePagamento] = useState('');
 
     const {precificacoes, buscaValorHoraDeCategoria} = usePrecificacaoContext();
@@ -40,21 +40,41 @@ export default function EditarTiket() {
     const {formasDePagamento, buscarFormaDePagamentoPorId} = useFormaDePagamentoContext();
 
     useEffect( () => {
+        tiket = buscarTiketPorId(id) as Tiket;
         
+        if(!tiket){
+            navigate('/estacionamento');
+            return;
+        }
+    
+        setPlaca(tiket.veiculo.placa);
+        setMarcaVeiculo(tiket.veiculo.marca);
+        setModeloVeiculo(tiket.veiculo.modelo);
+        setCategoria(tiket.veiculo.segmento);
+        setValorHora(tiket.valorPorHora);
+        setStatus(tiket.status);
+        setNumeroVaga(tiket.numeroDaVaga);
+        setDataEntrada(tiket.dataDeEntrada);
+        setDataSaida(tiket.dataDeSaida);
+        setTempoDecorrido(tiket.tempoDecorrido.toFixed(2));
+        setTotalAPagar(tiket.calculaTotalAPagar(valorHora).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
+    }, [id]);
+
+    useEffect( () => {
+        
+        if(!tiket){
+            return;
+        }
+
         const valorHora = buscaValorHoraDeCategoria(categoria);
 
         setValorHora(valorHora);
         setTotalAPagar(
-            tiket?.calculaTotalAPagar(valorHora).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+            tiket.calculaTotalAPagar(valorHora).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
         );
     
     }, [categoria] );
 
-
-    if(!tiket){
-        navigate('/estacionamento');
-        return <></>; 
-    }
 
     function aoSalvarTiket(event: React.FormEvent<HTMLFormElement>)
     {
