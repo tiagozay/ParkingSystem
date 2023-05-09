@@ -10,6 +10,12 @@ export abstract class DataService {
           return valorFormatado;
     }
 
+    static corrigeFusoHorario(data : Date)
+    {
+        //Pega a diferença de fuso horário e adiciona na data, corrigindo o atraso, transformando na data correta novamente 
+        return new Date(data.getTime() + (data.getTimezoneOffset() * 60 * 1000));
+    }
+
     static formataData(data: Date)
     {
         const dia = String(data.getDate()).padStart(2, '0');

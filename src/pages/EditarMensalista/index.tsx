@@ -64,7 +64,7 @@ export default function EditarMensalista() {
             const mensalistaEditado = new Mensalista(
                 id,
                 nome, 
-                new Date(dataNascimento),
+                DataService.corrigeFusoHorario(new Date(dataNascimento)),
                 cpf,
                 email,
                 telefone,

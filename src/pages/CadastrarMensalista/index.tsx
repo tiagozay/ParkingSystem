@@ -8,6 +8,7 @@ import ReactInputMask from 'react-input-mask'
 import InputCpf from '../../components/InputCpf';
 import { useMensalistaContext } from '../../contexts/MensalistasContext';
 import MensagemErro from '../../components/MensagemErro';
+import { DataService } from '../../services/DataService';
 
 export default function CadastrarMensalista() {
 
@@ -36,7 +37,7 @@ export default function CadastrarMensalista() {
             const mensalista = new Mensalista(
                 null,
                 `${nome} ${sobrenome}`,
-                new Date(dataNascimento),
+                DataService.corrigeFusoHorario(new Date(dataNascimento)),
                 cpf,
                 email,
                 telefone,
