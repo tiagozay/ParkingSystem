@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMensalistaContext } from '../../contexts/MensalistasContext';
 import { Tiket } from '../../models/Tiket';
@@ -17,40 +17,52 @@ export default function EditarMensalista() {
 
     const {buscarMensalistaPorId, editarMensalista} = useMensalistaContext();
 
-    const mensalista = buscarMensalistaPorId(id);
+    let mensalista: Mensalista | undefined;
 
-    const [nome, setNome] = useState(mensalista?.nome as string);
-    const [dataNascimento, setDataNascimento] = useState(
-
-        mensalista?.dataNascimento ? 
-            DataService.formataDataPadraoInput(mensalista?.dataNascimento):
-            ""
-    );
-    const [ativo, setAtivo] = useState(mensalista?.ativo as boolean);
-    const [cpf, setCpf] = useState(mensalista?.cpf as string);
-    const [email, setEmail] = useState(mensalista?.email as string);
-    const [telefone, setTelefone] = useState(mensalista?.celular as string);
-    const [cep, setCep] = useState(mensalista?.cep as string);
-    const [uf, setUf] = useState(mensalista?.uf as string);
-    const [cidade, setCidade] = useState(mensalista?.cidade as string);
+    const [nome, setNome] = useState("");
+    const [dataNascimento, setDataNascimento] = useState("");
+    const [ativo, setAtivo] = useState(false);
+    const [cpf, setCpf] = useState("");
+    const [email, setEmail] = useState<string | null>("");
+    const [telefone, setTelefone] = useState("");
+    const [cep, setCep] = useState("");
+    const [uf, setUf] = useState("");
+    const [cidade, setCidade] = useState("");
 
     const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
     const [mensagemDeErro, setMensagemDeErro] = useState("");
 
-    if(!mensalista){
-        navigate('/mensalistas');
-        return <></>; 
-    }
+    useEffect(() => {
+        mensalista = buscarMensalistaPorId(id);
+
+        if(!mensalista){
+            navigate('/mensalistas');
+            return;
+        }
+
+        setNome(mensalista.nome);
+        setDataNascimento( 
+            mensalista.dataNascimento ? 
+            DataService.formataDataPadraoInput(mensalista.dataNascimento) : 
+            ""
+        );
+        setAtivo(mensalista.ativo);
+        setCpf(mensalista.cpf);
+        setEmail(mensalista.email);
+        setTelefone(mensalista.celular);
+        setCep(mensalista.cep);
+        setUf(mensalista.uf);
+        setCidade(mensalista.cidade);
+        
+    }, [id]);
 
     function aoEditarMensalista(event: React.FormEvent<HTMLFormElement>)
     {
         event.preventDefault();
 
-        if(!mensalista) return;
-
         try{
             const mensalistaEditado = new Mensalista(
-                mensalista.id,
+                id,
                 nome, 
                 new Date(dataNascimento),
                 cpf,
