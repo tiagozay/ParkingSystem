@@ -8,8 +8,6 @@ interface InputPlacaProps {
 }
 
 const InputPlaca = ({className, onChange, required, value = ''}: InputPlacaProps) => {
-  const [placa, setPlaca] = useState(value);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
@@ -21,12 +19,12 @@ const InputPlaca = ({className, onChange, required, value = ''}: InputPlacaProps
         placa = placa.replace(/(\w{3})(\w*)/, '$1-$2');
     }
 
-    //Remove o "-" e verifica se o valor digitado no input passou do numero de digitos que uma placa (do padrão antigo o mercosul) já atingiu seu tamanho, se atingiu, usa um Early Return e não define o valor no state, fazendo uma limitação na quantidade de caracteres 
+    //Remove o "-" para verificar se o valor digitado no input passou do numero de digitos que uma placa (do padrão antigo o mercosul) já atingiu seu tamanho, se atingiu, usa um Early Return e não define o valor no state, fazendo uma limitação na quantidade de caracteres 
     if(placa.replace('-', '').length > 7){
         return;
     }
 
-    setPlaca(placa);
+    e.target.value = placa;
 
     if(onChange){
         onChange(e);
@@ -37,7 +35,7 @@ const InputPlaca = ({className, onChange, required, value = ''}: InputPlacaProps
   return (
     <input
       type="text"
-      value={placa}
+      value={value}
       onChange={handleChange}
       className={className}
       required={required}

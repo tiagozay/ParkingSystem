@@ -125,7 +125,7 @@ export default function CadastrarTiket() {
                         <div className="linhaInputs">
                             <label>
                                 Placa veículo
-                                <InputPlaca onChange={aoDigitarPlaca} required/>
+                                <InputPlaca onChange={aoDigitarPlaca} value={placa} required/>
                             </label>
                             <label>
                                 Marca veículo
