@@ -20,7 +20,7 @@
     color: rgb(88, 88, 88);
 }
 .btnPaginacaoAtivado {
-    background-color: #dedede;
+    background-color: #d0d0d0;
 }
 .numeroDaPagina:nth-child(2){
     margin-left: 0px!important;
