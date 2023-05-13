@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Mensalidades.css";
 import BoasVindas from '../../components/BoasVindas';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ListaDeMensalidades from './ListaDeMensalidades';
 import { Mensalidade } from '../../models/Mensalidade';
 import { Mensalista } from '../../models/Mensalista';
 import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
+import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function Mensalidades() {
 
     const {mensalidades} = useMensalidadeContext(); 
+
+    const location = useLocation();
+
+    const [sucessoExcluir, setSucessoExcluir] = useState(false);
+
+    let mensagemSucessoAberta = false;
+    let mensagemSucesso = "";
+
+    if(sucessoExcluir){
+        mensagemSucessoAberta = true;
+        mensagemSucesso = "Mensalidade excluída com sucesso!";
+    }else if(location.state && location.state.sucessoCadastrar){
+        mensagemSucessoAberta = true;
+        mensagemSucesso = "Mensalidade cadastrada com sucesso!";
+    }
     
     return (
         <section id="mensalidades">
@@ -34,7 +50,11 @@ export default function Mensalidades() {
                 </div>
             </div>
 
-            <BoasVindas />
+            {
+                mensagemSucessoAberta ?
+                <MensagemSucesso mensagem={mensagemSucesso}/> :
+                <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
@@ -44,7 +64,7 @@ export default function Mensalidades() {
                     </Link>
                 </div>
 
-                <ListaDeMensalidades mensalidades={mensalidades}/>
+                <ListaDeMensalidades mensalidades={mensalidades} setSucessoExcluir={setSucessoExcluir}/>
             </section>
 
 
