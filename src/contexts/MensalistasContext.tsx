@@ -15,10 +15,10 @@ export default function MensalistasProvider({children}: {children: ReactNode}) {
     const [mensalistas, setMensalistas] = useState([
         new Mensalista(1, "Tiago zay", new Date('01 28 2006'), '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', true, '84620-000', 'PR', 'Cruz machado'),
         new Mensalista(2, "Zeno zay", new Date('01 28 2006'), '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true, '84620-000', 'PR', 'Cruz machado'),
-        new Mensalista(3, "Tiago zay", new Date('01 28 2006'), '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', false, '84620-000', 'PR', 'Cruz machado'),
-        new Mensalista(4, "Zeno zay", new Date('01 28 2006'), '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true, '84620-000', 'PR', 'Cruz machado'),
+        new Mensalista(3, "Sueli zay", new Date('02 06 1982'), '037.765.559-71', 'suelizay@gmail.com', '(42) 99956-7084', false, '84620-000', 'PR', 'Cruz machado'),
+        new Mensalista(4, "Gustavo zay", new Date('02 11 2012'), '334.845.341-09', 'gustavozay@gmail.com', '(42) 99956-7084', true, '84620-000', 'PR', 'Cruz machado'),
         new Mensalista(5, "Tiago zay", new Date('01 28 2006'), '132.025.979-06', 'tiagozay@gmail.com', '(42) 99931-8075', true, '84620-000', 'PR', 'Cruz machado'),
-        new Mensalista(6, "Zeno zay", new Date('01 28 2006'), '754.802.049-04', 'zenozay@gmail.com', '(42) 99956-7084', true, '84620-000', 'PR', 'Cruz machado'),
+        new Mensalista(6, "Sueli zay", new Date('02 06 1982'), '037.765.559-71', 'suelizay@gmail.com', '(42) 99956-7084', false, '84620-000', 'PR', 'Cruz machado'),
     ]);
 
     return (
