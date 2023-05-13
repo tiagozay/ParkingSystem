@@ -25,7 +25,7 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
     }
 
     const regExp = new RegExp(filtroPlaca.replace(/-/, ''), 'i');
-    tiketsFiltados = tikets.filter(tiket => regExp.test(tiket.veiculo.placa.replace(/-/, '')));
+    tiketsFiltados = tiketsFiltados.filter(tiket => regExp.test(tiket.veiculo.placa.replace(/-/, '')));
 
     function aoSelecionarFiltro(event: React.ChangeEvent<HTMLSelectElement>) {
         setStatusFiltro(event.target.value);
