@@ -11,6 +11,8 @@ import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 import { DataService } from '../../services/DataService';
 import { Tiket } from '../../models/Tiket';
 import { useTiketContext } from '../../contexts/TiketContext';
+import { useMensalistaContext } from '../../contexts/MensalistasContext';
+import { Mensalista } from '../../models/Mensalista';
 
 export default function CadastrarTiket() {
     const [placa, setPlaca] = useState('');
@@ -19,21 +21,25 @@ export default function CadastrarTiket() {
     const [categoria, setCategoria] = useState('');
     const [valorHora, setValorHora] = useState(0);
     const [dataEntrada] = useState(new Date());
+    const [mensalista, setMensalista] = useState<Mensalista>();
+
+    const [indicadorClienteMensalista, setIndicadorClienteMensalista] = useState(false);
+
+    const {mensalistas, buscarMensalistaPorId} = useMensalistaContext();
 
     const navigate = useNavigate();
 
-    const {precificacoes, buscaValorHoraDeCategoria} = usePrecificacaoContext();
-    const {adicionarTiket} = useTiketContext();
+    const { precificacoes, buscaValorHoraDeCategoria } = usePrecificacaoContext();
+    const { adicionarTiket } = useTiketContext();
 
-    useEffect( () => {
-        
+    useEffect(() => {
+
         setValorHora(buscaValorHoraDeCategoria(categoria));
-    
-    }, [categoria] )
+
+    }, [categoria])
 
 
-    function aoCadastrarTiket(event: React.FormEvent<HTMLFormElement>)
-    {
+    function aoCadastrarTiket(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         const novoTiket = new Tiket(
@@ -44,41 +50,51 @@ export default function CadastrarTiket() {
             valorHora,
             "Em aberto",
             null,
-            null
+            null,
+            indicadorClienteMensalista ? mensalista : null
         );
 
+        console.log(novoTiket);
+        
+        
         adicionarTiket(novoTiket);
 
-        navigate('/estacionamento', { state: {sucessoCadastrar: true} });
+        navigate('/estacionamento', { state: { sucessoCadastrar: true } });
     }
 
 
-    function aoDigitarPlaca(event: React.ChangeEvent<HTMLInputElement>)
+    function aoSelecionarTipoDeCliente(event: React.ChangeEvent<HTMLSelectElement>) 
     {
+        setIndicadorClienteMensalista(event.target.value === 'Mensalista');
+    }
+
+    function aoDigitarPlaca(event: React.ChangeEvent<HTMLInputElement>) {
         const placaDigitada = event.target.value;
         setPlaca(placaDigitada);
 
         const veiculo = PlacaAPIService.buscarVeiculoPorPlaca(placaDigitada.replace('-', ''));
 
-        if(veiculo){
+        if (veiculo) {
             setMarcaVeiculo(veiculo.marca);
             setModeloVeiculo(veiculo.modelo);
             setCategoria(veiculo.segmento);
         }
 
     }
-    function aoDigitarMarcaVeiculo(event: React.ChangeEvent<HTMLInputElement>)
-    {
+    function aoDigitarMarcaVeiculo(event: React.ChangeEvent<HTMLInputElement>) {
         setMarcaVeiculo(event.target.value);
     }
-    function aoDigitarModeloVeiculo(event: React.ChangeEvent<HTMLInputElement>)
-    {
+    function aoDigitarModeloVeiculo(event: React.ChangeEvent<HTMLInputElement>) {
         setModeloVeiculo(event.target.value);
     }
-    function aoSelecionarCategoria(event:  React.ChangeEvent<HTMLSelectElement>)
-    {
+    function aoSelecionarCategoria(event: React.ChangeEvent<HTMLSelectElement>) {
         setCategoria(event.target.value);
     }
+    function aoSelecionarMensalista(event: React.ChangeEvent<HTMLSelectElement>) {
+        const mensalista = buscarMensalistaPorId(Number(event.target.value));
+        setMensalista(mensalista);
+    }
+     
 
     const categoriasCadastradas = precificacoes?.map(precificacao => precificacao.categoria);
 
@@ -122,18 +138,50 @@ export default function CadastrarTiket() {
 
                 <div id="formAdcTiketView">
                     <form id="formularioCadatrarTiket" className="formPadrao" onSubmit={aoCadastrarTiket}>
+
+                    <div className="linhaInputs">
+                            <label className='labelInputMeio'>
+                                Tipo de cliente:
+                                <select onChange={aoSelecionarTipoDeCliente}>
+                                    <option value="Avulso">Avulso</option>
+                                    <option value="Mensalista">Mensalista</option>
+                                </select>
+                            </label>
+                            <label className='labelInputMeio'>
+                                Mensalista:
+
+                                { 
+                                    indicadorClienteMensalista ? 
+                                    <select onChange={aoSelecionarMensalista} required value={mensalista?.id as number}>
+                                        <option value="" disabled selected>SELECIONE</option>
+
+                                        {mensalistas.map( mensalista => (
+
+                                            mensalista.ativo &&
+                                            <option key={mensalista.id} value={mensalista.id as number}>{mensalista.nome}</option>
+
+                                        ) )}
+                                    </select> : 
+                                    <select className='inputDesativado' disabled>
+                                        
+                                    </select>
+                                }
+
+                            </label>
+                        </div>
+
                         <div className="linhaInputs">
                             <label>
                                 Placa veículo
-                                <InputPlaca onChange={aoDigitarPlaca} value={placa} required/>
+                                <InputPlaca onChange={aoDigitarPlaca} value={placa} required />
                             </label>
                             <label>
                                 Marca veículo
-                                <input type="text" onChange={aoDigitarMarcaVeiculo} value={marcaVeiculo} required/>
+                                <input type="text" onChange={aoDigitarMarcaVeiculo} value={marcaVeiculo} required />
                             </label>
                             <label>
                                 Modelo veículo
-                                <input type="text" onChange={aoDigitarModeloVeiculo} value={modeloVeiculo} required/>
+                                <input type="text" onChange={aoDigitarModeloVeiculo} value={modeloVeiculo} required />
                             </label>
                         </div>
 
@@ -143,35 +191,35 @@ export default function CadastrarTiket() {
                                 <select onChange={aoSelecionarCategoria} value={categoria} required>
                                     <option value="">Selecione</option>
                                     {
-                                        categoriasCadastradas?.map( categoria => (
+                                        categoriasCadastradas?.map(categoria => (
                                             <option key={categoria} value={categoria}>{categoria}</option>
-                                        ) )
+                                        ))
                                     }
 
                                 </select>
                             </label>
                             <label>
                                 Valor hora
-                                <input type="text" className="inputDesativado" value={valorHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} readOnly/>
+                                <input type="text" className="inputDesativado" value={valorHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} readOnly />
                             </label>
                             <label>
                                 Número vaga
-                                <input type="text" className='inputDesativado' name="numeroDaVaga" readOnly/>
+                                <input type="text" className='inputDesativado' name="numeroDaVaga" readOnly />
                             </label>
                         </div>
 
                         <div className="linhaInputs">
                             <label>
                                 Data entrada
-                                <input type="text" name="dataEntrada" className="inputDesativado inputObrigatorio" readOnly value={DataService.formataDataComHorario(dataEntrada)}/>
+                                <input type="text" name="dataEntrada" className="inputDesativado inputObrigatorio" readOnly value={DataService.formataDataComHorario(dataEntrada)} />
                             </label>
                             <label>
                                 Data saída
-                                <input type="text" name="dataSaida" className="inputDesativado" readOnly/>
+                                <input type="text" name="dataSaida" className="inputDesativado" readOnly />
                             </label>
                             <label>
                                 Tempo decorrido (horas e minutos)
-                                <input type="text" className="inputDesativado inputObrigatorio" value="0.0" readOnly/>
+                                <input type="text" className="inputDesativado inputObrigatorio" value="0.0" readOnly />
                             </label>
                         </div>
 

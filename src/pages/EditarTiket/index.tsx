@@ -87,8 +87,8 @@ export default function EditarTiket() {
             dataSaida,
             valorHora,
             status,
+            numeroVaga,
             buscarFormaDePagamentoPorId(Number(formaDePagamento)),
-            numeroVaga
         );
 
         editarTiket(novoTiket);

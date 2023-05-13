@@ -1,4 +1,5 @@
 import { FormaDePagamento } from "./FormaDePagamento.js";
+import { Mensalista } from "./Mensalista.js";
 import { Veiculo } from "./Veiculo.js";
 
 export class Tiket
@@ -11,6 +12,7 @@ export class Tiket
     public readonly dataDeEntrada: Date;
     private _dataDeSaida: Date | null;
     public readonly numeroDaVaga: string | null;
+    private _mensalista: Mensalista | null;
 
     constructor(
         id: number | null,
@@ -19,8 +21,9 @@ export class Tiket
         dataSaida: Date | null,
         valorPorHora: number,
         status: "Em aberto" | "Pago", 
-        formaDePagamento: FormaDePagamento | null = null,
         numeroDaVaga: string | null,
+        formaDePagamento: FormaDePagamento | null = null,
+        mensalista: Mensalista | null = null
     ){
         this.id = id;
 
@@ -32,6 +35,7 @@ export class Tiket
         this.status = status;
         this._dataDeSaida = dataSaida;
         this.numeroDaVaga = numeroDaVaga;
+        this.mensalista = mensalista;
     }
 
     set formaDePagamento(formaDePagamento: FormaDePagamento | null)
@@ -52,6 +56,20 @@ export class Tiket
     {
         return this._dataDeSaida;
     }
+
+    set mensalista(mensalista: Mensalista | null)
+    {
+        if(mensalista && !mensalista.ativo){
+            throw new Error("Mensalista inativo!");
+        }
+
+        this._mensalista = mensalista;
+    }
+
+    get mensalista()
+    {
+        return this._mensalista;
+    } 
 
     public fecharTiket(formaDePagamento: FormaDePagamento)
     {

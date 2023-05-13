@@ -51,6 +51,7 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
                 <td>Placa</td>
                 <td>Veículo</td>
                 <td>Forma de pagamento</td>
+                <td>Cliente</td>
                 <td>Status</td>
                 <td className='campoDeAcoes'>Ações</td>
             </tr>
@@ -70,6 +71,7 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
                 <td>{tiket.veiculo.placa}</td>
                 <td>{`${tiket.veiculo.marca} ${tiket.veiculo.modelo}`}</td>
                 <td>{`${tiket.formaDePagamento?.nomeFormaDePagamento || "Em aberto"}`}</td>
+                <td>{tiket.mensalista ? tiket.mensalista.nome : "Avulso"}</td>
                 <td>
                     <p className={tiket.status == 'Em aberto' ? 'statusEmAberto' : 'statusPago'}>
                         {`${tiket.status}`
