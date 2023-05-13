@@ -8,6 +8,10 @@
     margin-left: 18%;
 }
 
+#main > header + section{
+    padding: 70px 25px 25px 25px;
+}
+
 #tituloDaPagina{
     display: flex;
     justify-content: space-between;
