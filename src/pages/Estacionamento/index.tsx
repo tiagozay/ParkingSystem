@@ -19,15 +19,15 @@ export default function Estacionamento() {
     let mensagemSucessoAberta = false;
     let mensagemSucesso = "";
 
-    if(location.state && location.state.sucessoEditar){
+    if(sucessoExcluir){
         mensagemSucessoAberta = true;
-        mensagemSucesso = "Tiket editado com sucesso!";
+        mensagemSucesso = "Tiket excluído com sucesso!";
     }else if( location.state && location.state.sucessoCadastrar){
         mensagemSucessoAberta = true;
         mensagemSucesso = "Tiket cadastrado com sucesso!";
-    }else if(sucessoExcluir){
+    }else if(location.state && location.state.sucessoEditar){
         mensagemSucessoAberta = true;
-        mensagemSucesso = "Tiket excluído com sucesso!";
+        mensagemSucesso = "Tiket editado com sucesso!";
     }
 
     return (

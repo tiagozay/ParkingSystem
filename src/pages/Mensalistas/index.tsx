@@ -18,17 +18,15 @@ export default function Mensalistas() {
     let mensagemSucessoAberta = false;
     let mensagemSuceso = "";
 
-    if(location.state && location.state.sucessoEditar){
+    if(sucessoExcluir){
         mensagemSucessoAberta = true;
-        mensagemSuceso = "Mensalista editado com sucesso!";
-        location.state.sucessoEditar = false;
+        mensagemSuceso = "Mensalista excluído com sucesso!";
     }else if(location.state && location.state.sucessoCadastrar) {
         mensagemSucessoAberta = true;
         mensagemSuceso = "Mensalista cadastrado com sucesso!";
-        location.state.sucessoEditar = false;
-    }else if(sucessoExcluir){
+    }else if(location.state && location.state.sucessoEditar){
         mensagemSucessoAberta = true;
-        mensagemSuceso = "Mensalista excluído com sucesso!";
+        mensagemSuceso = "Mensalista editado com sucesso!";
     }
 
     return (
