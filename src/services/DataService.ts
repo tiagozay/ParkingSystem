@@ -10,6 +10,17 @@ export abstract class DataService {
           return valorFormatado;
     }
 
+    static acrescenta1MesE1DiaAData(data: Date)
+    {
+        const dataCom1MesE1DiaAmais = new Date(data);
+        dataCom1MesE1DiaAmais.setMonth(dataCom1MesE1DiaAmais.getMonth() + 1);
+        dataCom1MesE1DiaAmais.setHours(23);
+        dataCom1MesE1DiaAmais.setMinutes(59);
+        dataCom1MesE1DiaAmais.setSeconds(59);
+        return dataCom1MesE1DiaAmais;
+
+    }
+
     static corrigeFusoHorario(data : Date)
     {
         //Pega a diferença de fuso horário e adiciona na data, corrigindo o atraso, transformando na data correta novamente 

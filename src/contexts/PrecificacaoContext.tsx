@@ -30,6 +30,11 @@ export default function PrecificacoesProvider({children}: {children: ReactNode})
 export const usePrecificacaoContext = () => {
     const {precificacoes} = useContext(PrecificacaoContext);
 
+    function buscaPrecificacaoPorId(id: number) 
+    {
+        return precificacoes.find(precificacao => precificacao.id === id);
+    }
+
     function buscaValorHoraDeCategoria(categoria: string): number
     {
         const precificacao = precificacoes.find( precificacao => precificacao.categoria === categoria);
@@ -39,6 +44,7 @@ export const usePrecificacaoContext = () => {
 
     return {
         precificacoes,
-        buscaValorHoraDeCategoria
+        buscaValorHoraDeCategoria,
+        buscaPrecificacaoPorId
     }
 }
