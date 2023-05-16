@@ -57,6 +57,26 @@ export default function VisualizarTiket() {
                 <div id="formAdcTiketView">
                     <form id="formularioCadatrarTiket" className="formPadrao">
                         <div className="linhaInputs">
+                            <label className='labelInputMeio'>
+                                Tipo do cliente
+                                <input 
+                                    className="inputDesativado" 
+                                    value={tiket.mensalista ? "Mensalista" : "Avulso"} 
+                                    readOnly
+                                />
+                            </label>
+                            <label className='labelInputMeio'>
+                                Cliente
+                                <input 
+                                    type="text" 
+                                    className="inputDesativado" 
+                                    value={tiket.mensalista ? tiket.mensalista.nome : "Avulso"} 
+                                    readOnly
+                                />
+                            </label>
+                        </div>
+
+                        <div className="linhaInputs">
                             <label>
                                 Placa veículo
                                 <input className="inputDesativado" value={tiket.veiculo.placa} readOnly/>
