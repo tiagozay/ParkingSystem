@@ -35,6 +35,11 @@ export const usePrecificacaoContext = () => {
         return precificacoes.find(precificacao => precificacao.id === id);
     }
 
+    function buscaPrecificacaoPorNome(nome: string) 
+    {
+        return precificacoes.find(precificacao => precificacao.categoria === nome);
+    }
+
     function buscaValorHoraDeCategoria(categoria: string): number
     {
         const precificacao = precificacoes.find( precificacao => precificacao.categoria === categoria);
@@ -45,6 +50,7 @@ export const usePrecificacaoContext = () => {
     return {
         precificacoes,
         buscaValorHoraDeCategoria,
-        buscaPrecificacaoPorId
+        buscaPrecificacaoPorId,
+        buscaPrecificacaoPorNome
     }
 }

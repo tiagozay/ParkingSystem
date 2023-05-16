@@ -13,59 +13,102 @@ import { Tiket } from '../../models/Tiket';
 import { useTiketContext } from '../../contexts/TiketContext';
 import { useMensalistaContext } from '../../contexts/MensalistasContext';
 import { Mensalista } from '../../models/Mensalista';
+import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
+import { Precificacao } from '../../models/Precificacao';
 
 export default function CadastrarTiket() {
     const [placa, setPlaca] = useState('');
     const [marcaVeiculo, setMarcaVeiculo] = useState('');
     const [modeloVeiculo, setModeloVeiculo] = useState('');
-    const [categoria, setCategoria] = useState('');
+    const [categoria, setCategoria] = useState<Precificacao>();
     const [valorHora, setValorHora] = useState(0);
     const [dataEntrada] = useState(new Date());
+    const [tipoCliente, setTipoCliente] = useState<'Avulso' | 'Mensalista'>('Avulso');
     const [mensalista, setMensalista] = useState<Mensalista>();
 
-    const [indicadorClienteMensalista, setIndicadorClienteMensalista] = useState(false);
-
-    const {mensalistas, buscarMensalistaPorId} = useMensalistaContext();
+    const { mensalistas, buscarMensalistaPorId } = useMensalistaContext();
+    const { buscaMensalidadesDeMensalista } = useMensalidadeContext();
 
     const navigate = useNavigate();
 
-    const { precificacoes, buscaValorHoraDeCategoria } = usePrecificacaoContext();
+    const {
+        precificacoes,
+        buscaValorHoraDeCategoria,
+        buscaPrecificacaoPorId,
+        buscaPrecificacaoPorNome
+    } = usePrecificacaoContext();
     const { adicionarTiket } = useTiketContext();
+
+    const [precificacoesDisponiveis, setPrecificacoesDisponiveis] = useState(precificacoes);
 
     useEffect(() => {
 
-        setValorHora(buscaValorHoraDeCategoria(categoria));
+        preencheValorHora();
 
-    }, [categoria])
+        //Se for um cliente avulso, todas as categirias se tornam disponíveis novamente, já que quando é mensalista, só ficam as categorias disponíveis para ele
+        if(tipoCliente === 'Avulso'){
+            setPrecificacoesDisponiveis(precificacoes);
+        }
 
+    }, [tipoCliente]);
+
+    useEffect(() => {
+
+        preencheValorHora();
+
+    }, [categoria]);
+
+    useEffect(() => {
+
+        if (mensalista) {
+            const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter( mensalidade => 
+                mensalidade.status === 'Em dia'
+            );
+
+            const precificacoesDisponiveis = mensalidadesDeMensalista.map( mensalidade => 
+                mensalidade.categoria
+            );
+                
+            setPrecificacoesDisponiveis(precificacoesDisponiveis);
+
+        }else {
+            setPrecificacoesDisponiveis(precificacoes);
+        }
+
+    }, [mensalista])
+
+    function preencheValorHora() {
+        //Se for um cliente avulso, é preenchido o valor por hora, se for Mensalista, o valor por hora fica 0, já que nesse caso ele paga por mês e não por hora
+        if (tipoCliente === 'Avulso') {
+            setValorHora(buscaValorHoraDeCategoria(categoria?.categoria as string));
+        } else {
+            setValorHora(0);
+        }
+    }
 
     function aoCadastrarTiket(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         const novoTiket = new Tiket(
             null,
-            new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria, valorHora),
+            new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
             dataEntrada,
             null,
             valorHora,
             "Em aberto",
             null,
             null,
-            indicadorClienteMensalista ? mensalista : null
+            tipoCliente === "Mensalista" ? mensalista : null
         );
 
-        console.log(novoTiket);
-        
-        
         adicionarTiket(novoTiket);
 
         navigate('/estacionamento', { state: { sucessoCadastrar: true } });
     }
 
 
-    function aoSelecionarTipoDeCliente(event: React.ChangeEvent<HTMLSelectElement>) 
-    {
-        setIndicadorClienteMensalista(event.target.value === 'Mensalista');
+    function aoSelecionarTipoDeCliente(event: React.ChangeEvent<HTMLSelectElement>) {
+        setTipoCliente(event.target.value as "Avulso" | "Mensalista");
     }
 
     function aoDigitarPlaca(event: React.ChangeEvent<HTMLInputElement>) {
@@ -77,7 +120,7 @@ export default function CadastrarTiket() {
         if (veiculo) {
             setMarcaVeiculo(veiculo.marca);
             setModeloVeiculo(veiculo.modelo);
-            setCategoria(veiculo.segmento);
+            setCategoria(buscaPrecificacaoPorNome(veiculo.segmento));
         }
 
     }
@@ -88,15 +131,12 @@ export default function CadastrarTiket() {
         setModeloVeiculo(event.target.value);
     }
     function aoSelecionarCategoria(event: React.ChangeEvent<HTMLSelectElement>) {
-        setCategoria(event.target.value);
+        setCategoria(buscaPrecificacaoPorId(Number(event.target.value)));
     }
     function aoSelecionarMensalista(event: React.ChangeEvent<HTMLSelectElement>) {
         const mensalista = buscarMensalistaPorId(Number(event.target.value));
         setMensalista(mensalista);
     }
-     
-
-    const categoriasCadastradas = precificacoes?.map(precificacao => precificacao.categoria);
 
     return (
         <section id="formularioAdcNovoTiket">
@@ -139,10 +179,10 @@ export default function CadastrarTiket() {
                 <div id="formAdcTiketView">
                     <form id="formularioCadatrarTiket" className="formPadrao" onSubmit={aoCadastrarTiket}>
 
-                    <div className="linhaInputs">
+                        <div className="linhaInputs">
                             <label className='labelInputMeio'>
                                 Tipo de cliente:
-                                <select onChange={aoSelecionarTipoDeCliente}>
+                                <select onChange={aoSelecionarTipoDeCliente} value={tipoCliente}>
                                     <option value="Avulso">Avulso</option>
                                     <option value="Mensalista">Mensalista</option>
                                 </select>
@@ -150,21 +190,21 @@ export default function CadastrarTiket() {
                             <label className='labelInputMeio'>
                                 Mensalista:
 
-                                { 
-                                    indicadorClienteMensalista ? 
-                                    <select onChange={aoSelecionarMensalista} required value={mensalista?.id as number}>
-                                        <option value="" disabled selected>SELECIONE</option>
+                                {
+                                    tipoCliente === "Mensalista" ?
+                                        <select onChange={aoSelecionarMensalista} required value={mensalista?.id as number}>
+                                            <option value="" disabled selected>SELECIONE</option>
 
-                                        {mensalistas.map( mensalista => (
+                                            {mensalistas.map(mensalista => (
 
-                                            mensalista.ativo &&
-                                            <option key={mensalista.id} value={mensalista.id as number}>{mensalista.nome}</option>
+                                                mensalista.ativo &&
+                                                <option key={mensalista.id} value={mensalista.id as number}>{mensalista.nome}</option>
 
-                                        ) )}
-                                    </select> : 
-                                    <select className='inputDesativado' disabled>
-                                        
-                                    </select>
+                                            ))}
+                                        </select> :
+                                        <select className='inputDesativado' disabled>
+
+                                        </select>
                                 }
 
                             </label>
@@ -188,11 +228,18 @@ export default function CadastrarTiket() {
                         <div className="linhaInputs">
                             <label>
                                 Categoria
-                                <select onChange={aoSelecionarCategoria} value={categoria} required>
+                                <select onChange={aoSelecionarCategoria} value={categoria?.id as number} required>
                                     <option value="">Selecione</option>
                                     {
-                                        categoriasCadastradas?.map(categoria => (
-                                            <option key={categoria} value={categoria}>{categoria}</option>
+                                        precificacoesDisponiveis?.map(precificacao => (
+
+                                            precificacao.ativa &&
+
+                                            <option
+                                                key={precificacao.id}
+                                                value={precificacao.id as number}>
+                                                {precificacao.categoria}
+                                            </option>
                                         ))
                                     }
 

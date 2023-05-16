@@ -82,6 +82,11 @@ export const useMensalidadeContext = () => {
         return mensalidades.find( mensalidade => mensalidade.id === id );
     }
 
+    function buscaMensalidadesDeMensalista(mensalista: Mensalista)
+    {
+        return mensalidades.filter( mensalidade => mensalidade.mensalista.id === mensalista.id);
+    }
+
     function adicionarMensalidade(mensalidade: Mensalidade)
     {
         //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
@@ -103,6 +108,7 @@ export const useMensalidadeContext = () => {
     return {
         mensalidades,
         buscarMensalidadePorId,
+        buscaMensalidadesDeMensalista,
         adicionarMensalidade,
         removerMensalidade
     }
