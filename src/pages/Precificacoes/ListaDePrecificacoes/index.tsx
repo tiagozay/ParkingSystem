@@ -69,7 +69,7 @@ export default function ListaDePrecificacoes({ precificacoes }: { precificacoes:
                     <tbody>
                         {
                             precificacoesParaExibir?.map(precificacao => (
-                                <tr>
+                                <tr key={precificacao.id}>
                                     <td>{precificacao.categoria}</td>
                                     <td>{DataService.formataValorMonetario(precificacao.valorHora)}</td>
                                     <td>{DataService.formataValorMonetario(precificacao.valorMensalidade)}</td>
