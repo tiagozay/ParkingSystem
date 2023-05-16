@@ -48,6 +48,8 @@ export default function CadastrarTiket() {
         //Se for um cliente avulso, todas as categirias se tornam disponíveis novamente, já que quando é mensalista, só ficam as categorias disponíveis para ele
         if(tipoCliente === 'Avulso'){
             setPrecificacoesDisponiveis(precificacoes);
+        }else {
+            buscaCategoriasDisponiveisParaMensalista();
         }
 
     }, [tipoCliente]);
@@ -60,6 +62,13 @@ export default function CadastrarTiket() {
 
     useEffect(() => {
 
+        buscaCategoriasDisponiveisParaMensalista();
+
+    }, [mensalista]);
+
+
+    function buscaCategoriasDisponiveisParaMensalista()
+    {
         if (mensalista) {
             const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter( mensalidade => 
                 mensalidade.status === 'Em dia'
@@ -74,8 +83,7 @@ export default function CadastrarTiket() {
         }else {
             setPrecificacoesDisponiveis(precificacoes);
         }
-
-    }, [mensalista])
+    }
 
     function preencheValorHora() {
         //Se for um cliente avulso, é preenchido o valor por hora, se for Mensalista, o valor por hora fica 0, já que nesse caso ele paga por mês e não por hora
