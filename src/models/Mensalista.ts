@@ -1,6 +1,4 @@
-import { throws } from "assert";
 import { CpfService } from "../services/CpfService";
-import { DataService } from "../services/DataService";
 
 export class Mensalista
 {
@@ -25,10 +23,10 @@ export class Mensalista
         cpf: string,
         email: string | null, 
         celular: string,
-        ativo: boolean,
         cep: string,
         uf: string,
-        cidade: string
+        cidade: string,
+        ativo: boolean,
     ) {
         this.id = id;
         this.nome = nome;
@@ -36,10 +34,10 @@ export class Mensalista
         this.cpf = cpf;
         this.email = email;
         this.celular = celular;
-        this.ativo = ativo;
         this.cep = cep;
         this.uf = uf;
         this.cidade = cidade;
+        this.ativo = ativo;
     }
 
     get cpf()

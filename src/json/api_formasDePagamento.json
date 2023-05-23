@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "nome": "Dinheiro",
+        "ativa": true
+    },
+    {
+        "id": 2,
+        "nome": "Cartão de crédito",
+        "ativa": true
+    },
+    {
+        "id": 3,
+        "nome": "Cartão de débito",
+        "ativa": true
+    },
+    {
+        "id": 4,
+        "nome": "Cheque",
+        "ativa": false
+    }
+]
