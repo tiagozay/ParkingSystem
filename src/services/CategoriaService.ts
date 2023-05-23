@@ -5,27 +5,17 @@ import { Precificacao } from "../models/Precificacao";
 
 export default abstract class CategoriaService
 {
-    static buscaCategoriaPorId(id: number): Precificacao | undefined
+    static buscaCategorias(): Precificacao[] | []
     {
-        const categoriaDados = api_categorias.find( categoria => 
-            categoria.id = id);
-
-        if(!categoriaDados) return undefined;
-    
-        const categoria = new Precificacao(
-            categoriaDados.id,
-            categoriaDados.nome,
-            categoriaDados.valorHora,
-            categoriaDados.valorMensalidade,
-            categoriaDados.ativa,
-            categoriaDados.numeroDeVagas,
-        );
-        
-        return categoria;
-    }
-
-    static buscaMensalistas(): Mensalista[] | []
-    {
-        return [];
+        return api_categorias.map( categoriaDados => {
+            return new Precificacao(
+                categoriaDados.id,
+                categoriaDados.nome,
+                categoriaDados.valorHora,
+                categoriaDados.valorMensalidade,
+                categoriaDados.ativa,
+                categoriaDados.numeroDeVagas,
+            )
+        } )
     }
 }
