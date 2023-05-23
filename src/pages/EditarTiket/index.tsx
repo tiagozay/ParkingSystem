@@ -71,7 +71,7 @@ export default function EditarTiket() {
         setNumeroVaga(tiket.numeroDaVaga);
         setDataEntrada(tiket.dataDeEntrada);
         setDataSaida(tiket.dataDeSaida);
-        setTempoDecorrido(tiket.tempoDecorrido.toFixed(2));
+        setTempoDecorrido(tiket.tempoDecorrido);
         setTotalAPagar(tiket.calculaTotalAPagar(valorHora));
         setTipoCliente(tiket.mensalista ? "Mensalista" : "Avulso");
     }, [tiket])

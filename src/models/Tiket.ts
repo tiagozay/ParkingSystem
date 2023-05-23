@@ -85,31 +85,36 @@ export class Tiket
 
     calculaTotalAPagar(valorPorHora: number): number
     {
-        const horas = Math.floor(this.tempoDecorrido);
-        const minutos = (this.tempoDecorrido - horas) * 100;
+        const tempoDecorrido = this.tempoDecorrido;
 
-        const tempoFracao = horas + (minutos / 60);
+        const tempoDividido = tempoDecorrido.split(":");
 
-        return tempoFracao * valorPorHora;
+        const horas = Number(tempoDividido[0]);
+        const minutos = Number(tempoDividido[1]);
+
+        return (horas * valorPorHora) + (minutos / 60 * valorPorHora);
     }
 
 
-    get tempoDecorrido(): number
+    get tempoDecorrido(): string
     {
+
         let dataParaOCalculo = new Date();
 
         if(this._dataDeSaida){
             dataParaOCalculo = this._dataDeSaida;
         }
 
-        const diff = dataParaOCalculo.getTime() - this.dataDeEntrada.getTime();
+        // Calculando a diferença de tempo em milissegundos
+        let diferenca = dataParaOCalculo.getTime() - this.dataDeEntrada.getTime();
 
-        const totalMinutos = diff / 1000 / 60;
+        // Calculando o tempo decorrido em horas, minutos e segundos
+        let horas = Math.floor(diferenca / (1000 * 60 * 60));
+        let minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
 
-        const horas = Math.trunc(totalMinutos / 60);
-
-        const minutos = Math.floor(totalMinutos % 60);
-
-        return Number(`${horas}.${minutos}`);
+        //Formata a data para que numeros de apenas 1 digito tenham 0 antes, ex 1 vira 01
+        let horaFormatada = String(horas).length == 1 ? "0"+horas : String(horas);
+        let minutosFormatados = String(minutos).length == 1 ? "0"+minutos : String(minutos);
+        return `${horaFormatada}:${minutosFormatados}`;
     }
 }
