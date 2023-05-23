@@ -122,6 +122,9 @@ export default function CadastrarMensalidade() {
                                 <option value="" disabled>SELECIONE</option>
                                 {
                                     mensalistas.map(mensalista => (
+
+                                        mensalista.ativo &&
+
                                         <option key={mensalista.id as number} value={mensalista.id as number}>{mensalista.nome}
                                         </option>
                                     ))

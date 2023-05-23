@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMensalistaContext } from '../../contexts/MensalistasContext';
-import { Tiket } from '../../models/Tiket';
 import { DataService } from '../../services/DataService';
 import BtnVoltar from '../../components/BtnVoltar';
 import InputCpf from '../../components/InputCpf';
@@ -68,10 +67,10 @@ export default function EditarMensalista() {
                 cpf,
                 email,
                 telefone,
-                ativo,
                 cep,
                 uf,
-                cidade
+                cidade,
+                ativo
             );
     
             editarMensalista(mensalistaEditado);

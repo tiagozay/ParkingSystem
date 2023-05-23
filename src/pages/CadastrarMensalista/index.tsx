@@ -41,10 +41,10 @@ export default function CadastrarMensalista() {
                 cpf,
                 email,
                 telefone,
-                true,
                 cep,
                 uf,
-                cidade
+                cidade,
+                true
             );
             
             adicionarMensalista(mensalista);
