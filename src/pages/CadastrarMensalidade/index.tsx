@@ -13,6 +13,7 @@ import { useFormaDePagamentoContext } from '../../contexts/FormaDePagamentoConte
 import { eventNames } from 'process';
 import { Mensalidade } from '../../models/Mensalidade';
 import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
+import MensagemErro from '../../components/MensagemErro';
 
 export default function CadastrarMensalidade() {
 
@@ -23,6 +24,9 @@ export default function CadastrarMensalidade() {
     const [dataDeVencimento, setDataDeVencimento] = useState<Date>(DataService.acrescenta1MesE1DiaAData(dataDeContratacao));
     const [formaDePagamento, setFormaDePagamento] = useState<FormaDePagamento>();
 
+    const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
+    const [mensagemDeErro, setMensagemDeErro] = useState("");
+
     const { mensalistas, buscarMensalistaPorId } = useMensalistaContext();
     const { precificacoes, buscaPrecificacaoPorId } = usePrecificacaoContext();
     const {formasDePagamento, buscarFormaDePagamentoPorId} = useFormaDePagamentoContext();
@@ -31,21 +35,27 @@ export default function CadastrarMensalidade() {
 
     const navigate = useNavigate();
 
-    function aoCadastrarMensalista(event: React.FormEvent<HTMLFormElement>)
+    function aoCadastrarMensalidade(event: React.FormEvent<HTMLFormElement>)
     {
         event.preventDefault();
+        
+        try{
+            const mensalidade = new Mensalidade(
+                null, 
+                mensalista as Mensalista,
+                precificacao as Precificacao,
+                formaDePagamento as FormaDePagamento,
+                dataDeContratacao,
+            );
+    
+            adicionarMensalidade(mensalidade);
 
-        const mensalidade = new Mensalidade(
-            null, 
-            mensalista as Mensalista,
-            precificacao as Precificacao,
-            formaDePagamento as FormaDePagamento,
-            dataDeContratacao,
-        );
+            navigate('/mensalidades', { state: {sucessoCadastrar: true} });
+        }catch( e: any ){
+            setMensagemDeErroAberta(true);
+            setMensagemDeErro(e.message);
+        }
 
-        adicionarMensalidade(mensalidade);
-
-        navigate('/mensalidades', { state: {sucessoCadastrar: true} });
     }
 
     useEffect(() => {
@@ -104,8 +114,12 @@ export default function CadastrarMensalidade() {
 
             </div>
 
-            <BoasVindas />
-
+            {
+                mensagemDeErroAberta ?                 
+                    <MensagemErro mensagem={mensagemDeErro}/> : 
+                    <BoasVindas />
+            }
+       
             <section className="secaoDeInformacoes">
                 <div id="divBtnVoltar">
                     <BtnVoltar>
@@ -114,7 +128,7 @@ export default function CadastrarMensalidade() {
                     </BtnVoltar>
                 </div>
 
-                <form className="formPadrao" onSubmit={aoCadastrarMensalista}>
+                <form className="formPadrao" onSubmit={aoCadastrarMensalidade}>
                     <div className="linhaInputs">
                         <label>
                             Mensalista

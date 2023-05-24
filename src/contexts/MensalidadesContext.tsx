@@ -80,6 +80,22 @@ export default function MensalidadesProvider({children}: {children: ReactNode}) 
 export const useMensalidadeContext = () => {
     const {mensalidades, setMensalidades} = useContext(MensalidadeContext);
 
+    //Verifica se já tem uma mensalidade para a mesma categoria e mensalista que esteja em dia
+    function verificaSeJaTemMensalidade(novaMensalidade : Mensalidade)
+    {
+        return mensalidades.some( mensalidade => {
+            if( 
+                mensalidade.mensalista.id === novaMensalidade.mensalista.id &&  
+                mensalidade.categoria.id === novaMensalidade.categoria.id && 
+                mensalidade.status === "Em dia"
+            ){
+                return true;
+            }
+
+            return false;
+        } )
+    }
+
     function buscarMensalidadePorId(id: number)
     {
         return mensalidades.find( mensalidade => mensalidade.id === id );
@@ -97,6 +113,11 @@ export const useMensalidadeContext = () => {
 
     function adicionarMensalidade(mensalidade: Mensalidade)
     {
+
+        if(verificaSeJaTemMensalidade(mensalidade)){
+            throw new Error("Este mensalista já tem esta mensalidade");
+        }
+
         //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
         const ultimaMensalidadeCadastrada = mensalidades[mensalidades.length - 1];
         if(ultimaMensalidadeCadastrada){
