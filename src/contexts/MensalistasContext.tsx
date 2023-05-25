@@ -35,6 +35,11 @@ export default function MensalistasProvider({children}: {children: ReactNode}) {
 export const useMensalistaContext = () => {
     const {mensalistas, setMensalistas} = useContext(MensalistaContext);
 
+    function verificaSeJaTemMensalistaComCpf(cpf: string) 
+    {
+        return mensalistas.some( mensalista => mensalista.cpf === cpf );
+    }
+
     function buscarMensalistaPorId(id: number)
     {
         return mensalistas.find( mensalista => mensalista.id === id );
@@ -42,6 +47,10 @@ export const useMensalistaContext = () => {
 
     function adicionarMensalista(mensalista: Mensalista)
     {
+        if(verificaSeJaTemMensalistaComCpf(mensalista.cpf)){
+            throw new Error("Já existe um mensalista com este CPF");
+        }
+
         //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
         const ultimoMensalistaCadastrado = mensalistas[mensalistas.length - 1];
         if(ultimoMensalistaCadastrado){
@@ -75,6 +84,7 @@ export const useMensalistaContext = () => {
     return {
         mensalistas,
         buscarMensalistaPorId,
+        verificaSeJaTemMensalistaComCpf,
         adicionarMensalista,
         editarMensalista,
         removerMensalista
