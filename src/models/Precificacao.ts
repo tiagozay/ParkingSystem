@@ -20,7 +20,7 @@ export class Precificacao
     set categoria(categoria: string)
     {
         if(categoria.trim().length == 0 ){
-            throw new Error("Categoria inválida.");
+            throw new Error("Nome inválido.");
         }
 
         this._categoria = categoria;

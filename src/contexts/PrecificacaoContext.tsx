@@ -7,9 +7,10 @@ import CategoriaService from '../services/CategoriaService';
 interface TypePrecificacaoContext 
 {
     precificacoes: Precificacao[]
+    setPrecificacoes: React.Dispatch<React.SetStateAction<Precificacao[] | []>>
 }
 
-export const PrecificacaoContext = createContext<TypePrecificacaoContext>({precificacoes: []});
+export const PrecificacaoContext = createContext<TypePrecificacaoContext>({precificacoes: [], setPrecificacoes: () => {}});
 
 export default function PrecificacoesProvider({children}: {children: ReactNode}) {
     const [precificacoes, setPrecificacoes] = useState(CategoriaService.buscaCategorias());
@@ -25,14 +26,27 @@ export default function PrecificacoesProvider({children}: {children: ReactNode})
     // ]);
 
     return (
-        <PrecificacaoContext.Provider value={{precificacoes}}>
+        <PrecificacaoContext.Provider value={{precificacoes, setPrecificacoes}}>
             {children}
         </PrecificacaoContext.Provider>
     );
 }
 
 export const usePrecificacaoContext = () => {
-    const {precificacoes} = useContext(PrecificacaoContext);
+    const {precificacoes, setPrecificacoes} = useContext(PrecificacaoContext);
+
+    function adicionarPrecificacao(precificacao: Precificacao)
+    {
+        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
+        const ultimaPrecificacaoCadastrada = precificacoes[precificacoes.length - 1];
+        if(ultimaPrecificacaoCadastrada){
+            precificacao.id = (ultimaPrecificacaoCadastrada.id as number) + 1;
+        }else{
+            precificacao.id = 1;
+        }
+
+        setPrecificacoes([...precificacoes, precificacao] );
+    }
 
     function buscaPrecificacaoPorId(id: number) 
     {
@@ -53,6 +67,7 @@ export const usePrecificacaoContext = () => {
 
     return {
         precificacoes,
+        adicionarPrecificacao,
         buscaValorHoraDeCategoria,
         buscaPrecificacaoPorId,
         buscaPrecificacaoPorNome
