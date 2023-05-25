@@ -1,15 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Precificacoes.css';
 import BoasVindas from '../../components/BoasVindas';
 import { Mensalista } from '../../models/Mensalista';
 import ListaDePrecificacoes from './ListaDePrecificacoes';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Precificacao } from '../../models/Precificacao';
 import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
+import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function Precificacoes() {
     
     const {precificacoes} = usePrecificacaoContext();
+
+    const [sucessoExcluir, setSucessoExcluir] = useState(false);
+
+    const location = useLocation();
+
+    let mensagemSucessoAberta = false;
+    let mensagemSuceso = "";
+
+    if(sucessoExcluir){
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Precificação excluída com sucesso!";
+    }else if(location.state && location.state.sucessoCadastrar) {
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Precificação cadastrada com sucesso!";
+    }else if(location.state && location.state.sucessoEditar){
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Precificação editada com sucesso!";
+    }
 
     return (
         <section id="precificacoes">
@@ -34,7 +53,11 @@ export default function Precificacoes() {
                 </div>
             </div>
 
-            <BoasVindas />
+            {
+                mensagemSucessoAberta ? 
+                    <MensagemSucesso mensagem={mensagemSuceso}/> :
+                    <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
@@ -44,7 +67,7 @@ export default function Precificacoes() {
                     </Link>
                 </div>
 
-                <ListaDePrecificacoes precificacoes={precificacoes} />
+                <ListaDePrecificacoes precificacoes={precificacoes} setSucessoExcluir={setSucessoExcluir} />
 
             </section>
 

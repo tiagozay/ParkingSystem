@@ -48,6 +48,11 @@ export const usePrecificacaoContext = () => {
         setPrecificacoes([...precificacoes, precificacao] );
     }
 
+    function removerPrecificacao(id: number)
+    {
+        setPrecificacoes(precificacoes.filter( precificacao => precificacao.id !== id ));
+    }
+
     function buscaPrecificacaoPorId(id: number) 
     {
         return precificacoes.find(precificacao => precificacao.id === id);
@@ -68,6 +73,7 @@ export const usePrecificacaoContext = () => {
     return {
         precificacoes,
         adicionarPrecificacao,
+        removerPrecificacao,
         buscaValorHoraDeCategoria,
         buscaPrecificacaoPorId,
         buscaPrecificacaoPorNome
