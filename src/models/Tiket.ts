@@ -42,7 +42,9 @@ export class Tiket
     set formaDePagamento(formaDePagamento: FormaDePagamento | null)
     {
         if(formaDePagamento && !formaDePagamento.ativa){
-            throw new Error("Forma de pagamento intativa");
+            throw new Error("Forma de pagamento inativa");
+        }else if(formaDePagamento && formaDePagamento.descontinuada){
+            throw new Error("Forma de pagamento descontinuada");
         }
 
         this._formaDePagamento = formaDePagamento;

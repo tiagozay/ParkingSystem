@@ -359,7 +359,7 @@ export default function EditarTiket() {
                                     {
                                         formasDePagamento.map(formaDePagamento => (
 
-                                            formaDePagamento.ativa &&
+                                            (formaDePagamento.ativa && !formaDePagamento.descontinuada) &&
 
                                             <option key={formaDePagamento.id} value={formaDePagamento.id as number}>
                                                 {formaDePagamento.nomeFormaDePagamento}

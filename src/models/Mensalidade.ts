@@ -72,6 +72,8 @@ export class Mensalidade
     {
         if(!formaDePagamento.ativa){
             throw new Error("Forma de pagamento inativa!");
+        }else if(formaDePagamento.descontinuada){
+            throw new Error("Forma de pagamento descontinuada");
         }
 
         this._formaDePagamento = formaDePagamento    
