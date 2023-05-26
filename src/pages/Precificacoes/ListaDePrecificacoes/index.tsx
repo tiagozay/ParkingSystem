@@ -5,6 +5,8 @@ import { DataService } from '../../../services/DataService'
 import ListaDeDados from '../../../components/ListaDeDados'
 import { usePrecificacaoContext } from '../../../contexts/PrecificacaoContext'
 import { Link } from 'react-router-dom'
+import { useMensalidadeContext } from '../../../contexts/MensalidadesContext'
+import { useTiketContext } from '../../../contexts/TiketContext'
 
 interface ListaDePrecificacoesProps {
     precificacoes: Precificacao[],
@@ -16,6 +18,8 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
     const [filtroCategoria, setFiltroCategoria] = useState('');
 
     const { removerPrecificacao } = usePrecificacaoContext();
+    const { verificaSeTemMensalidadesEmDiaDePrecificacao } = useMensalidadeContext();
+    const { verificaSeTemTiketsAbertosDePrecificacao } = useTiketContext();
 
     if (statusFiltro !== "Todas") {
         precificacoes = precificacoes.filter(precificacao => {
@@ -37,6 +41,17 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
     }
 
     function aoClicarEmExcluir(id: number) {
+
+
+        if(verificaSeTemTiketsAbertosDePrecificacao(id)){
+            alert("Existem tikets em aberto para esta categoria!");
+            return;
+        };
+        if(verificaSeTemMensalidadesEmDiaDePrecificacao(id)){
+            alert("Existem mensalidades ativas para esta categoria!");
+            return;
+        };
+
         const confirmacao = window.confirm("Excluír esta precificação?");
         if (!confirmacao) return;
 

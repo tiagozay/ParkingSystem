@@ -96,6 +96,13 @@ export const useMensalidadeContext = () => {
         } )
     }
 
+    function verificaSeTemMensalidadesEmDiaDePrecificacao(idPrecificacao : number)
+    {
+        return mensalidades.some( mensalidade => {
+            return mensalidade.categoria.id === idPrecificacao && mensalidade.status === "Em dia";
+        } )
+    }
+
     function buscarMensalidadePorId(id: number)
     {
         return mensalidades.find( mensalidade => mensalidade.id === id );
@@ -139,6 +146,7 @@ export const useMensalidadeContext = () => {
         buscarMensalidadePorId,
         buscaMensalidadesDeMensalista,
         buscaMensalidadesDeMensalistaPorId,
+        verificaSeTemMensalidadesEmDiaDePrecificacao,
         adicionarMensalidade,
         removerMensalidade
     }

@@ -35,7 +35,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            10,
+            new Precificacao(2, 'Moto', 10, 150, true, 25),
             "Em aberto",
             null,
             null
@@ -45,7 +45,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            10,
+            new Precificacao(2, 'Moto', 10, 150, true, 25),
             "Em aberto",
             null,
             null
@@ -55,7 +55,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            10,
+            new Precificacao(2, 'Moto', 10, 150, true, 25),
             "Em aberto",
             null,
             null
@@ -65,7 +65,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
             null,
-            20,
+            new Precificacao(1, "Carro", 20, 200, true, 20),
             "Em aberto",
             null,
             null
@@ -75,7 +75,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            10,
+            new Precificacao(2, 'Moto', 10, 150, true, 25),
             "Em aberto",
             null,
             null
@@ -85,7 +85,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
             null,
-            20,
+            new Precificacao(1, "Carro", 20, 200, true, 20),
             "Em aberto",
             null,
             null
@@ -95,7 +95,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            10,
+            new Precificacao(2, 'Moto', 10, 150, true, 25),
             "Em aberto",
             null,
             null
@@ -105,7 +105,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            10,
+            new Precificacao(2, 'Moto', 10, 150, true, 25),
             "Em aberto",
             null,
             null
@@ -115,7 +115,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            10,
+            new Precificacao(2, 'Moto', 10, 150, true, 25),
             "Em aberto",
             null,
             null
@@ -125,7 +125,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
             null,
-            20,
+            new Precificacao(1, "Carro", 20, 200, true, 20),
             "Em aberto",
             null,
             null
@@ -135,7 +135,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
             null,
-            10,
+            new Precificacao(2, 'Moto', 10, 150, true, 25),
             "Em aberto",
             null,
             null
@@ -145,7 +145,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
             null,
-            20,
+            new Precificacao(1, "Carro", 20, 200, true, 20),
             "Em aberto",
             null,
             null
@@ -165,6 +165,13 @@ export const useTiketContext = () => {
     function buscarTiketPorId(id: number)
     {
         return tikets.find( tiket => tiket.id === id );
+    }
+
+    function verificaSeTemTiketsAbertosDePrecificacao(idPrecificacao : number)
+    {
+        return tikets.some( tiket => {
+            return tiket.precificacao.id === idPrecificacao && tiket.status === "Em aberto";
+        } )
     }
 
     function adicionarTiket(novoTiket: Tiket)
@@ -200,6 +207,7 @@ export const useTiketContext = () => {
     return {
         tikets,
         buscarTiketPorId,
+        verificaSeTemTiketsAbertosDePrecificacao,
         adicionarTiket,
         editarTiket,
         excluirTiket,
