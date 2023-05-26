@@ -28,7 +28,8 @@ export default function CadastrarFormaDePagamento() {
             const formaDePagamento = new FormaDePagamento(
                 null,
                 nome,
-                ativa
+                ativa,
+                false
             );
 
             adicionaFormaDePagamento(formaDePagamento);

@@ -3,11 +3,13 @@ export class FormaDePagamento
     public id: number | null = null;
     private _nomeFormaDePagamento: string;
     public ativa: boolean;
+    public descontinuada: boolean;
 
-    constructor(id: number | null, nomeFormaDePagamento: string, ativa: boolean = true){
+    constructor(id: number | null, nomeFormaDePagamento: string, ativa: boolean, descontinuada: boolean){
         this.id = id;
         this.nomeFormaDePagamento = nomeFormaDePagamento;
         this.ativa = ativa;
+        this.descontinuada = descontinuada;
     }
 
     set nomeFormaDePagamento(nomeFormaDePagamento: string)

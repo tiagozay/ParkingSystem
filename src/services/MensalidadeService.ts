@@ -37,7 +37,8 @@ export default abstract class MensalidadeService
             const formaDePagamentoDaMensalidade = new FormaDePagamento(
                 mensalidadeDados.formaDePagamento.id,
                 mensalidadeDados.formaDePagamento.nome,
-                mensalidadeDados.formaDePagamento.ativa
+                mensalidadeDados.formaDePagamento.ativa,
+                mensalidadeDados.formaDePagamento.descontinuada
             );
 
             return new Mensalidade(

@@ -2,21 +2,25 @@
     {
         "id": 1,
         "nome": "Dinheiro",
-        "ativa": true
+        "ativa": true,
+        "descontinuada": false
     },
     {
         "id": 2,
         "nome": "Cartão de crédito",
-        "ativa": true
+        "ativa": true,
+        "descontinuada": false
     },
     {
         "id": 3,
         "nome": "Cartão de débito",
-        "ativa": true
+        "ativa": true,
+        "descontinuada": false
     },
     {
         "id": 4,
         "nome": "Cheque",
-        "ativa": false
+        "ativa": false,
+        "descontinuada": false
     }
 ]

@@ -10,7 +10,8 @@ export default abstract class FormaDePagamentoService
             return new FormaDePagamento(
                 formaDePagamentoDados.id,
                 formaDePagamentoDados.nome,
-                formaDePagamentoDados.ativa
+                formaDePagamentoDados.ativa,
+                formaDePagamentoDados.descontinuada,
             );
         } );
     }
