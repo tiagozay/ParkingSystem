@@ -24,6 +24,7 @@ import VisualizarTiket from './pages/VisualizarTiket';
 import MensalistasProvider from './contexts/MensalistasContext';
 import EditarMensalista from './pages/EditarMensalista';
 import MensalidadesProvider from './contexts/MensalidadesContext';
+import EditarPrecificacao from './pages/EditarPrecificacao';
 
 
 function AppRoutes() {
@@ -48,6 +49,7 @@ function AppRoutes() {
                     <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
                     <Route path='precificacoes' element={<Precificacoes />} />
                     <Route path='precificacoes/cadastrarPrecificacao' element={<CadastrarPrecificacao />} />
+                    <Route path='precificacoes/editarPrecificacao/:id' element={<EditarPrecificacao />} />
                     <Route path='formasDePagamento' element={<FormasDePagamento />} />
                     <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
                     <Route path='usuarios' element={<Usuarios />} />

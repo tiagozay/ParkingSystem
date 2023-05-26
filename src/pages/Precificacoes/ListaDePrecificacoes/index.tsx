@@ -4,6 +4,7 @@ import { Precificacao } from '../../../models/Precificacao'
 import { DataService } from '../../../services/DataService'
 import ListaDeDados from '../../../components/ListaDeDados'
 import { usePrecificacaoContext } from '../../../contexts/PrecificacaoContext'
+import { Link } from 'react-router-dom'
 
 interface ListaDePrecificacoesProps {
     precificacoes: Precificacao[],
@@ -69,7 +70,7 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
                         <p className='p_textoInativo'><i className='material-icons'>lock</i>Não</p>
                 }</td>
                 <td className='campoDeAcoes'>
-                    <button className='material-icons tabela__btnEditar'>edit</button>
+                    <Link to={`editarPrecificacao/${precificacao.id}`} className='material-icons tabela__btnEditar'>edit</Link>
                     <button className='material-icons tabela__btnExcluir' onClick={() => aoClicarEmExcluir(precificacao.id as number)}>delete</button>
                 </td>
             </tr>

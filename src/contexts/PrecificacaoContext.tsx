@@ -53,6 +53,18 @@ export const usePrecificacaoContext = () => {
         setPrecificacoes(precificacoes.filter( precificacao => precificacao.id !== id ));
     }
 
+    function editarPrecificacao(novaPrecificacao: Precificacao)
+    {
+        setPrecificacoes( 
+            precificacoes.map( precificacao => {
+                if(precificacao.id === novaPrecificacao.id){
+                    return novaPrecificacao;
+                }
+
+                return precificacao;
+        } ) );
+    }
+
     function buscaPrecificacaoPorId(id: number) 
     {
         return precificacoes.find(precificacao => precificacao.id === id);
@@ -73,6 +85,7 @@ export const usePrecificacaoContext = () => {
     return {
         precificacoes,
         adicionarPrecificacao,
+        editarPrecificacao,
         removerPrecificacao,
         buscaValorHoraDeCategoria,
         buscaPrecificacaoPorId,
