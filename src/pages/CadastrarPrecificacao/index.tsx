@@ -31,10 +31,10 @@ export default function CadastrarPrecificacao() {
             const precificacao = new Precificacao(
                 null,
                 nome,
-                Number(valorHora),
-                Number(valorMensalidade),
+                parseFloat(valorHora),
+                parseFloat(valorMensalidade),
                 ativa,
-                Number(numeroDeVagas)
+                parseFloat(numeroDeVagas)
             );
             
             adicionarPrecificacao(precificacao);

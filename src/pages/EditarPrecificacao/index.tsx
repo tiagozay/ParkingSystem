@@ -67,10 +67,10 @@ export default function EditarPrecificacao() {
             const novaPrecificacao = new Precificacao(
                 id,
                 nome,
-                Number(valorHora),
-                Number(valorMensalidade),
+                parseFloat(valorHora),
+                parseFloat(valorMensalidade),
                 ativa,
-                Number(numeroDeVagas),  
+                parseFloat(numeroDeVagas),  
             );
     
             editarPrecificacao(novaPrecificacao);
@@ -87,15 +87,26 @@ export default function EditarPrecificacao() {
         setNome(event.target.value);
     }
     function aoDigitarValorHora(event: React.ChangeEvent<HTMLInputElement>) {
-        setValorHora(event.target.value);
+        const valorDigitado = event.target.value;
+
+        //Verificação para numero ter apenas 2 casas decimais
+        if (/^\d*\.?\d{0,2}$/.test(valorDigitado)) {
+            setValorHora(valorDigitado);
+        }
     }
     function aoDigitarValorMensalidade(event: React.ChangeEvent<HTMLInputElement>) {
-        setValorMensalidade(event.target.value);
+        const valorDigitado = event.target.value;
+
+        //Verificação para numero ter apenas 2 casas decimais
+        if (/^\d*\.?\d{0,2}$/.test(valorDigitado)) {
+            setValorMensalidade(valorDigitado);
+        }
     }
     function aoDigitarNumeroDeVagas(event: React.ChangeEvent<HTMLInputElement>) {
         setNumeroDeVagas(event.target.value);
     }
     function aoSelecionarAtiva(event: React.ChangeEvent<HTMLSelectElement>) {
+        //Lógica que converte string ('true' ou 'false') em booleano
         setAtiva(event.target.value === 'true');
     }
 
