@@ -25,6 +25,7 @@ import MensalistasProvider from './contexts/MensalistasContext';
 import EditarMensalista from './pages/EditarMensalista';
 import MensalidadesProvider from './contexts/MensalidadesContext';
 import EditarPrecificacao from './pages/EditarPrecificacao';
+import EditarFormaDePagamento from './pages/EditarFormaDePagamento';
 
 
 function AppRoutes() {
@@ -52,6 +53,7 @@ function AppRoutes() {
                     <Route path='precificacoes/editarPrecificacao/:id' element={<EditarPrecificacao />} />
                     <Route path='formasDePagamento' element={<FormasDePagamento />} />
                     <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
+                    <Route path='formasDePagamento/editarFormaDePagamento/:id' element={<EditarFormaDePagamento />} />
                     <Route path='usuarios' element={<Usuarios />} />
                     <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
                     <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />

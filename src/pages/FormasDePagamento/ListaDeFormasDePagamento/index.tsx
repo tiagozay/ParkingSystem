@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import SelectFiltros from '../../../components/SelectFiltros'
 import { FormaDePagamento } from '../../../models/FormaDePagamento'
-import PaginacaoService from '../../../services/PaginacaoService';
-import LinksPaginacoes from '../../../components/LinksPaginacoes';
 import { useFormaDePagamentoContext } from '../../../contexts/FormaDePagamentoContext';
 import ListaDeDados from '../../../components/ListaDeDados';
+import { Link } from 'react-router-dom';
 
 interface ListaDeFormasDePagamentoProps {
     formasDePagamento: FormaDePagamento[],
@@ -70,7 +69,7 @@ export default function ListaDeFormasDePagamento({ formasDePagamento, setSucesso
                     }
                 </td>
                 <td className='campoDeAcoes'>
-                    <button className='material-icons tabela__btnEditar'>edit</button>
+                    <Link to={`editarFormaDePagamento/${formaDePagamento.id}`} className='material-icons tabela__btnEditar'>edit</Link>
                     <button className='material-icons tabela__btnExcluir' onClick={() => aoExcluirFormaDePagamento(formaDePagamento.id as number)} >delete</button>
                 </td>
             </tr>
