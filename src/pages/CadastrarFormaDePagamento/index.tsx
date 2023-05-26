@@ -1,10 +1,57 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import BoasVindas from '../../components/BoasVindas';
 import './CadastrarFormaDePagamento.css';
 import BtnVoltar from '../../components/BtnVoltar';
+import { FormaDePagamento } from '../../models/FormaDePagamento';
+import { useFormaDePagamentoContext } from '../../contexts/FormaDePagamentoContext';
+import MensagemErro from '../../components/MensagemErro';
 
 export default function CadastrarFormaDePagamento() {
+
+    const [nome, setNome] = useState("");
+    const [ativa, setAtiva] = useState(true);
+
+    const navigate = useNavigate();
+
+    const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
+    const [mensagemDeErro, setMensagemDeErro] = useState("");
+
+    const {adicionaFormaDePagamento} = useFormaDePagamentoContext();
+
+    function aoCadastrarFormaDePagamento(event: React.FormEvent<HTMLFormElement>) 
+    {
+        event.preventDefault();
+
+        try {
+
+            const formaDePagamento = new FormaDePagamento(
+                null,
+                nome,
+                ativa
+            );
+
+            adicionaFormaDePagamento(formaDePagamento);
+
+            navigate('/formasDePagamento', { state: { sucessoCadastrar: true } });
+        }catch( e: any ){
+            setMensagemDeErroAberta(true);
+            setMensagemDeErro(e.message);
+        }
+
+    }
+
+    function aoDigitarNome(event: React.ChangeEvent<HTMLInputElement>)
+    {
+        setNome(event.target.value);
+    }
+    function aoSelecionarAtiva(event: React.ChangeEvent<HTMLSelectElement>)
+    {
+        //Lógica que converte string ('true' ou 'false') em booleano
+        setAtiva(event.target.value === "true");
+    }
+
+
     return (
         <section id="formCadastrarFormaDePagamento">
             <div id="tituloDaPagina">
@@ -33,7 +80,11 @@ export default function CadastrarFormaDePagamento() {
 
             </div>
 
-            <BoasVindas />
+            {
+                mensagemDeErroAberta ?                 
+                    <MensagemErro mensagem={mensagemDeErro} /> : 
+                    <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnVoltar">
@@ -43,17 +94,17 @@ export default function CadastrarFormaDePagamento() {
                     </BtnVoltar>
                 </div>
 
-                <form action="" className="formPadrao">
+                <form className="formPadrao" onSubmit={aoCadastrarFormaDePagamento}>
                     <div className="linhaInputs">
                         <label className="labelInputMaior">
                             Nome da forma de pagamento
-                            <input type="text" className="inputObrigatorio" />
+                            <input type="text" value={nome} onChange={aoDigitarNome}/>
                         </label>
                         <label>
                             Ativa
-                            <select name="" id="" className="inputObrigatorio">
-                                <option value="">Sim</option>
-                                <option value="">Não</option>
+                            <select value={`${ativa}`} onChange={aoSelecionarAtiva}>
+                                <option value="true">Sim</option>
+                                <option value="false">Não</option>
                             </select>
                         </label>
                     </div>

@@ -6,10 +6,11 @@ import FormaDePagamentoService from '../services/FormaDePagamentoService';
 
 interface TypeFormaDePagamentoContext 
 {
-    formasDePagamento: FormaDePagamento[]
+    formasDePagamento: FormaDePagamento[],
+    setFormasDePagamento: React.Dispatch<React.SetStateAction<FormaDePagamento[]>>
 }
 
-export const FormaDePagamentoContext = createContext<TypeFormaDePagamentoContext>({formasDePagamento: []});
+export const FormaDePagamentoContext = createContext<TypeFormaDePagamentoContext>({formasDePagamento: [], setFormasDePagamento: () => {}});
 
 export default function FormasDePagamentoProvider({children}: {children: ReactNode}) {
     const [formasDePagamento, setFormasDePagamento] = useState(FormaDePagamentoService.buscaFormasDePagamento());
@@ -22,14 +23,27 @@ export default function FormasDePagamentoProvider({children}: {children: ReactNo
     // ]);
 
     return (
-        <FormaDePagamentoContext.Provider value={{formasDePagamento}}>
+        <FormaDePagamentoContext.Provider value={{formasDePagamento, setFormasDePagamento}}>
             {children}
         </FormaDePagamentoContext.Provider>
     );
 }
 
 export const useFormaDePagamentoContext = () => {
-    const {formasDePagamento} = useContext(FormaDePagamentoContext);
+    const {formasDePagamento, setFormasDePagamento} = useContext(FormaDePagamentoContext);
+
+    function adicionaFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
+    {
+        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
+        const ultimaFormaDePagamentoCadastrada = formasDePagamento[formasDePagamento.length - 1];
+        if(ultimaFormaDePagamentoCadastrada){
+            novaFormaDePagamento.id = (ultimaFormaDePagamentoCadastrada.id as number) + 1;
+        }else{
+            novaFormaDePagamento.id = 1;
+        }
+
+        setFormasDePagamento([...formasDePagamento, novaFormaDePagamento] );
+    }
 
     function buscarFormaDePagamentoPorId(id: number)
     {
@@ -38,6 +52,7 @@ export const useFormaDePagamentoContext = () => {
 
     return {
         formasDePagamento,
-        buscarFormaDePagamentoPorId
+        buscarFormaDePagamentoPorId,
+        adicionaFormaDePagamento
     }
 }

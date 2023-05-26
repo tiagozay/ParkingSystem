@@ -1,13 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './FormasDePagamento.css';
 import BoasVindas from '../../components/BoasVindas';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ListaDeFormasDePagamento from './ListaDeFormasDePagamento';
 import { FormaDePagamento } from '../../models/FormaDePagamento';
 import { useFormaDePagamentoContext } from '../../contexts/FormaDePagamentoContext';
+import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function FormasDePagamento() {
     const {formasDePagamento} = useFormaDePagamentoContext();
+
+    const [sucessoExcluir, setSucessoExcluir] = useState(false);
+    
+    const location = useLocation();
+
+    let mensagemSucessoAberta = false;
+    let mensagemSuceso = "";
+
+    if(sucessoExcluir){
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Forma de pagamento excluída com sucesso!";
+    }else if(location.state && location.state.sucessoCadastrar) {
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Forma de pagamento cadastrada com sucesso!";
+    }else if(location.state && location.state.sucessoEditar){
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Forma de pagamento editada com sucesso!";
+    }
 
     return (
         <section id="formas_de_pagamento">
@@ -32,7 +51,11 @@ export default function FormasDePagamento() {
                 </div>
             </div>
 
-            <BoasVindas />
+            {
+                mensagemSucessoAberta ? 
+                    <MensagemSucesso  mensagem={mensagemSuceso}/> :
+                    <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
@@ -42,7 +65,7 @@ export default function FormasDePagamento() {
                     </Link>
                 </div>
 
-                <ListaDeFormasDePagamento formasDePagamento={formasDePagamento}/>
+                <ListaDeFormasDePagamento formasDePagamento={formasDePagamento} />
 
             </section>
         </section>
