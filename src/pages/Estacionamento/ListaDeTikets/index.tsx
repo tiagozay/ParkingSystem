@@ -64,7 +64,7 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
                 <td>{tiket.veiculo.segmento}</td>
                 <td>
                     {
-                        tiket.valorPorHora
+                        tiket.precificacao.valorHora
                             .toLocaleString("pt-BR", { style: "currency", currency: "BRL", })
                     }
                 </td>

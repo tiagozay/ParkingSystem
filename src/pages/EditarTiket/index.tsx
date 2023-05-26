@@ -45,7 +45,6 @@ export default function EditarTiket() {
         precificacoes,
         buscaValorHoraDeCategoria,
         buscaPrecificacaoPorId,
-        buscaPrecificacaoPorNome
     } = usePrecificacaoContext();
     const { editarTiket } = useTiketContext();
     const { formasDePagamento, buscarFormaDePagamentoPorId } = useFormaDePagamentoContext();
@@ -65,8 +64,8 @@ export default function EditarTiket() {
         setPlaca(tiket.veiculo.placa);
         setMarcaVeiculo(tiket.veiculo.marca);
         setModeloVeiculo(tiket.veiculo.modelo);
-        setCategoria( buscaPrecificacaoPorNome(tiket.veiculo.segmento));
-        setValorHora(tiket.valorPorHora);
+        setCategoria(tiket.precificacao );
+        setValorHora(tiket.precificacao.valorHora);
         setStatus(tiket.status);
         setNumeroVaga(tiket.numeroDaVaga);
         setDataEntrada(tiket.dataDeEntrada);
@@ -165,7 +164,7 @@ export default function EditarTiket() {
             new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
             dataEntrada,
             dataSaida,
-            valorHora,
+            categoria as Precificacao,
             status,
             numeroVaga,
             buscarFormaDePagamentoPorId(Number(formaDePagamento)),

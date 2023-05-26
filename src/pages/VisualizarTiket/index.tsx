@@ -98,7 +98,7 @@ export default function VisualizarTiket() {
                             </label>
                             <label>
                                 Valor hora
-                                <input type="text" className="inputDesativado" value={tiket.valorPorHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} readOnly/>
+                                <input type="text" className="inputDesativado" value={tiket.precificacao.valorHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} readOnly/>
                             </label>
                             <label>
                                 Número vaga
@@ -129,7 +129,7 @@ export default function VisualizarTiket() {
                         <div className="linhaInputs">
                             <label className='labelInputMeio'>
                                 Valor pago
-                                <input type="text" className="inputDesativado" readOnly value={tiket.calculaTotalAPagar(tiket.valorPorHora).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}/>
+                                <input type="text" className="inputDesativado" readOnly value={tiket.calculaTotalAPagar(tiket.precificacao.valorHora).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}/>
                             </label>
                             <label className='labelInputMeio'>
                                 Forma de pagamento

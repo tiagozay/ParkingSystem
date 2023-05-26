@@ -1,5 +1,6 @@
 import { FormaDePagamento } from "./FormaDePagamento.js";
 import { Mensalista } from "./Mensalista.js";
+import { Precificacao } from "./Precificacao.js";
 import { Veiculo } from "./Veiculo.js";
 
 export class Tiket
@@ -8,7 +9,7 @@ export class Tiket
     public readonly veiculo: Veiculo;
     private _formaDePagamento: FormaDePagamento | null;
     public status: "Em aberto" | "Pago";
-    public readonly valorPorHora: number;
+    public readonly precificacao: Precificacao;
     public readonly dataDeEntrada: Date;
     private _dataDeSaida: Date | null;
     public readonly numeroDaVaga: string | null;
@@ -19,7 +20,7 @@ export class Tiket
         veiculo: Veiculo, 
         dataEntrada: Date,
         dataSaida: Date | null,
-        valorPorHora: number,
+        precificacao: Precificacao,
         status: "Em aberto" | "Pago", 
         numeroDaVaga: string | null,
         formaDePagamento: FormaDePagamento | null = null,
@@ -29,7 +30,7 @@ export class Tiket
 
         this.veiculo = veiculo;
 
-        this.valorPorHora = valorPorHora;
+        this.precificacao = precificacao;
         this.dataDeEntrada = dataEntrada;
         this.formaDePagamento = formaDePagamento;
         this.status = status;

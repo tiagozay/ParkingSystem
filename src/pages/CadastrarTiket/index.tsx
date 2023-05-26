@@ -46,9 +46,9 @@ export default function CadastrarTiket() {
         preencheValorHora();
 
         //Se for um cliente avulso, todas as categirias se tornam disponíveis novamente, já que quando é mensalista, só ficam as categorias disponíveis para ele
-        if(tipoCliente === 'Avulso'){
+        if (tipoCliente === 'Avulso') {
             setPrecificacoesDisponiveis(precificacoes);
-        }else {
+        } else {
             buscaCategoriasDisponiveisParaMensalista();
         }
 
@@ -67,20 +67,19 @@ export default function CadastrarTiket() {
     }, [mensalista]);
 
 
-    function buscaCategoriasDisponiveisParaMensalista()
-    {
+    function buscaCategoriasDisponiveisParaMensalista() {
         if (mensalista) {
-            const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter( mensalidade => 
+            const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter(mensalidade =>
                 mensalidade.status === 'Em dia'
             );
 
-            const precificacoesDisponiveis = mensalidadesDeMensalista.map( mensalidade => 
+            const precificacoesDisponiveis = mensalidadesDeMensalista.map(mensalidade =>
                 mensalidade.categoria
             );
-                
+
             setPrecificacoesDisponiveis(precificacoesDisponiveis);
 
-        }else {
+        } else {
             setPrecificacoesDisponiveis(precificacoes);
         }
     }
@@ -102,7 +101,7 @@ export default function CadastrarTiket() {
             new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
             dataEntrada,
             null,
-            valorHora,
+            categoria as Precificacao,
             "Em aberto",
             null,
             null,
