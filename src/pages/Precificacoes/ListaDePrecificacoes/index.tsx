@@ -23,7 +23,7 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
 
     if (statusFiltro !== "Todas") {
         precificacoes = precificacoes.filter(precificacao => {
-            const status = precificacao.ativa ? "Ativas" : "Vencidas";
+            const status = precificacao.ativa ? "Ativas" : "Inativas";
 
             return status === statusFiltro;
         });
@@ -100,7 +100,7 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
                     <SelectFiltros value={statusFiltro} onChange={aoSelecionarFiltro}>
                         <option value="Todas">Todas</option>
                         <option value="Ativas">Ativas</option>
-                        <option value="Vencidas">Vencidas</option>
+                        <option value="Inativas">Inativas</option>
                     </SelectFiltros>
 
                 </label>
