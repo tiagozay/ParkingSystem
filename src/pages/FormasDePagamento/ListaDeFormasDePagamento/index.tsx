@@ -3,12 +3,24 @@ import SelectFiltros from '../../../components/SelectFiltros'
 import { FormaDePagamento } from '../../../models/FormaDePagamento'
 import PaginacaoService from '../../../services/PaginacaoService';
 import LinksPaginacoes from '../../../components/LinksPaginacoes';
+import { useFormaDePagamentoContext } from '../../../contexts/FormaDePagamentoContext';
 
-export default function ListaDeFormasDePagamento({ formasDePagamento }: { formasDePagamento: FormaDePagamento[] }) {
+interface ListaDeFormasDePagamentoProps
+{
+    formasDePagamento: FormaDePagamento[],
+    setSucessoExcluir: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function ListaDeFormasDePagamento({ formasDePagamento, setSucessoExcluir }: ListaDeFormasDePagamentoProps) {
 
     const [paginaAtiva, setPaginaAtiva] = useState(1);
     const [statusFiltro, setStatusFiltro] = useState('Todas');
     const [filtroNome, setFiltroNome] = useState('');
+
+    const {excluirFormaDePagamento} = useFormaDePagamentoContext();
+
+    //Traz somente as formas de pagamento que não são descontinuadas 
+    formasDePagamento = formasDePagamento.filter( formaDePagamento => !formaDePagamento.descontinuada );
 
     if (statusFiltro !== "Todas") {
         formasDePagamento = formasDePagamento?.filter(mensalidade => {
@@ -31,6 +43,16 @@ export default function ListaDeFormasDePagamento({ formasDePagamento }: { formas
 
     function aoDigitarNome(event: React.ChangeEvent<HTMLInputElement>) {
         setFiltroNome(event.target.value.trim());
+    }
+
+    function aoExcluirFormaDePagamento(id: number)
+    {
+        const confirm = window.confirm("Excluír esta forma de pagamento?");
+        if(!confirm) return;
+
+        excluirFormaDePagamento(id);
+        setSucessoExcluir(true);
+
     }
 
     return (
@@ -75,7 +97,7 @@ export default function ListaDeFormasDePagamento({ formasDePagamento }: { formas
                                     </td>
                                     <td className='campoDeAcoes'>
                                         <button className='material-icons tabela__btnEditar'>edit</button>
-                                        <button className='material-icons tabela__btnExcluir'>delete</button>
+                                        <button className='material-icons tabela__btnExcluir' onClick={() => aoExcluirFormaDePagamento(formaDePagamento.id)} >delete</button>
                                     </td>
                                 </tr>
                             ))

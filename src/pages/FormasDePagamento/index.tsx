@@ -65,7 +65,7 @@ export default function FormasDePagamento() {
                     </Link>
                 </div>
 
-                <ListaDeFormasDePagamento formasDePagamento={formasDePagamento} />
+                <ListaDeFormasDePagamento formasDePagamento={formasDePagamento} setSucessoExcluir={setSucessoExcluir}/>
 
             </section>
         </section>

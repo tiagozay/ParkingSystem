@@ -45,6 +45,27 @@ export const useFormaDePagamentoContext = () => {
         setFormasDePagamento([...formasDePagamento, novaFormaDePagamento] );
     }
 
+    function editarFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
+    {
+        setFormasDePagamento( formasDePagamento.map( formaDePagamento => {
+            if(formaDePagamento.id === novaFormaDePagamento.id){
+                return novaFormaDePagamento;
+            }
+
+            return formaDePagamento;
+        } ) );
+    }
+
+    function excluirFormaDePagamento(idFormaDePagamento: number)
+    {
+        const formaDePagamento = buscarFormaDePagamentoPorId(idFormaDePagamento);
+
+        if(formaDePagamento){
+            formaDePagamento.descontinuada = true;
+            editarFormaDePagamento(formaDePagamento);
+        }
+    }
+
     function buscarFormaDePagamentoPorId(id: number)
     {
         return formasDePagamento.find( formaDePagamento => formaDePagamento.id === id );
@@ -53,6 +74,8 @@ export const useFormaDePagamentoContext = () => {
     return {
         formasDePagamento,
         buscarFormaDePagamentoPorId,
+        editarFormaDePagamento,
+        excluirFormaDePagamento,
         adicionaFormaDePagamento
     }
 }
