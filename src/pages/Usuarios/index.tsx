@@ -65,7 +65,7 @@ export default function Usuarios() {
                     </Link>
                 </div>
 
-                <ListaDeUsuarios usuarios={usuarios}/>
+                <ListaDeUsuarios usuarios={usuarios} setSucessoExcluir={setSucessoExcluir}/>
         
             </section>
         </section>

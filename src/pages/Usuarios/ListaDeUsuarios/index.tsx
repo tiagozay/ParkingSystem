@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, {useState, Dispatch, SetStateAction } from 'react'
 import SelectFiltros from '../../../components/SelectFiltros'
 import { Usuario } from '../../../models/Usuario'
 import ListaDeDados from '../../../components/ListaDeDados';
+import { useUsuariosContext } from '../../../contexts/UsuariosContext';
 
-export default function ListaDeUsuarios({ usuarios }: { usuarios: Usuario[] }) {
+interface ListaDeUsuariosProps {
+    usuarios: Usuario[],
+    setSucessoExcluir: Dispatch<SetStateAction<boolean>>
+}
+
+export default function ListaDeUsuarios({ usuarios, setSucessoExcluir }: ListaDeUsuariosProps) {
     const [nivelFiltro, setNivelFiltro] = useState('Todos');
     const [filtroNome, setFiltroNome] = useState('');
+
+    const { excluirUsuario } = useUsuariosContext();
 
     if (nivelFiltro !== "Todos") {
         usuarios = usuarios.filter(usuario => usuario.nivelDeAcesso === nivelFiltro);
@@ -20,6 +28,15 @@ export default function ListaDeUsuarios({ usuarios }: { usuarios: Usuario[] }) {
 
     function aoDigitarNome(event: React.ChangeEvent<HTMLInputElement>) {
         setFiltroNome(event.target.value.trim());
+    }
+
+    function aoClicarEmExcluir(id: number)
+    {
+        const confirmacao = window.confirm("Excluir este Usuário?");
+        if (!confirmacao) return;
+
+        excluirUsuario(id);
+        setSucessoExcluir(true);
     }
 
     const theadTabela = (
@@ -49,7 +66,7 @@ export default function ListaDeUsuarios({ usuarios }: { usuarios: Usuario[] }) {
                 </td>
                 <td className='campoDeAcoes'>
                     <button className='material-icons tabela__btnEditar'>edit</button>
-                    <button className='material-icons tabela__btnExcluir '>delete</button>
+                    <button className='material-icons tabela__btnExcluir ' onClick={() => aoClicarEmExcluir(usuario.id as number)}>delete</button>
                 </td>
             </tr>
         )

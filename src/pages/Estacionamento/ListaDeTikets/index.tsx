@@ -36,7 +36,7 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
     }
 
     function aoClicarEmExcluir(id: number) {
-        const confirmacao = window.confirm("Excluír este Tiket?");
+        const confirmacao = window.confirm("Excluir este Tiket?");
         if (!confirmacao) return;
 
         excluirTiket(id);
