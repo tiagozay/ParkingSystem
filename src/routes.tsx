@@ -27,6 +27,7 @@ import MensalidadesProvider from './contexts/MensalidadesContext';
 import EditarPrecificacao from './pages/EditarPrecificacao';
 import EditarFormaDePagamento from './pages/EditarFormaDePagamento';
 import UsuariosProvider from './contexts/UsuariosContext';
+import EditarUsuario from './pages/EditarUsuario';
 
 
 function AppRoutes() {
@@ -58,6 +59,7 @@ function AppRoutes() {
                       <Route path='formasDePagamento/editarFormaDePagamento/:id' element={<EditarFormaDePagamento />} />
                       <Route path='usuarios' element={<Usuarios />} />
                       <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
+                      <Route path='usuarios/editarUsuario/:id' element={<EditarUsuario />} />
                       <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
                     </Route>
                   </Routes>

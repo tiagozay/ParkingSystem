@@ -1,82 +1,91 @@
-import React, {useState} from 'react';
-import BoasVindas from '../../components/BoasVindas';
-import { Link, useNavigate } from 'react-router-dom';
-import './CadastrarUsuario.css';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import BtnVoltar from '../../components/BtnVoltar';
-import { Usuario } from '../../models/Usuario';
-import { useUsuariosContext } from '../../contexts/UsuariosContext';
 import MensagemErro from '../../components/MensagemErro';
+import BoasVindas from '../../components/BoasVindas';
+import { useUsuariosContext } from '../../contexts/UsuariosContext';
+import { Usuario } from '../../models/Usuario';
 import InputSenha from '../../components/InputSenha';
 
-export default function CadastrarUsuario() {
+export default function EditarUsuario() {
+    const navigate = useNavigate();
+
+    const id = Number(useParams().id);
+
+    const { buscarUsuarioPorId, editarUsuario } = useUsuariosContext();
+
+    let usuario: Usuario | undefined;
 
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-    const [confirmarSenha, setConfirmarSenha] = useState("");
-    const [nivelDeAceso, setNivelDeAcesso] = useState<"Operador" | "Administrador">("Operador");
+    const [novaSenha, setNovaSenha] = useState("");
+    const [confirmarNovaSenha, setConfirmarNovaSenha] = useState("");
+    const [nivelDeAceso, setNivelDeAcesso] = useState<"Operador" | "Administrador">("Operador");;
     const [ativo, setAtivo] = useState(true);
 
     const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
     const [mensagemDeErro, setMensagemDeErro] = useState("");
 
-    const {adicionarUsuario} = useUsuariosContext();
+    useEffect(() => {
+        usuario = buscarUsuarioPorId(id);
 
-    const navigate = useNavigate();
+        if (!usuario) {
+            navigate('/usuarios');
+            return;
+        }
 
+        setNome(usuario.nome);
+        setEmail(usuario.email);
+        setNivelDeAcesso(usuario.nivelDeAcesso);
+        setAtivo(usuario.ativo);
 
-    function aoCadastrarUsuario(event: React.FormEvent<HTMLFormElement>)
-    {
+    }, [id]);
+
+    function aoEditarUsuario(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        try{
-            if(senha !== confirmarSenha) throw new Error("As senhas não coincidem");
+        try {
 
-            const usuario = new Usuario(
-                null,
+            if(novaSenha !== "" && novaSenha !== confirmarNovaSenha) throw new Error("As senhas não coincidem");
+
+            const usuarioEditado = new Usuario(
+                id,
                 nome,
                 email,
                 nivelDeAceso,
                 ativo,
-                senha
+                novaSenha
             );
 
-            adicionarUsuario(usuario);
+            editarUsuario(usuarioEditado);
 
-            navigate('/usuarios', {state: {sucessoCadastrar: true}});
-
-        }catch(e: any){
+            navigate('/usuarios', { state: { sucessoEditar: true } });
+        } catch (e: any) {
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);
         }
+
     }
 
-    function aoDigitarNome(event: React.ChangeEvent<HTMLInputElement>)
-    {
+    function aoDigitarNome(event: React.ChangeEvent<HTMLInputElement>) {
         setNome(event.target.value);
     }
-    function aoDigitarEmail(event: React.ChangeEvent<HTMLInputElement>)
-    {
+    function aoDigitarEmail(event: React.ChangeEvent<HTMLInputElement>) {
         setEmail(event.target.value);
     }
-    function aoDigitarSenha(event: React.ChangeEvent<HTMLInputElement>)
-    {
-        setSenha(event.target.value);
+    function aoDigitarNovaSenha(event: React.ChangeEvent<HTMLInputElement>) {
+        setNovaSenha(event.target.value);
     }
-    function aoDigitarConfirmarSenha(event: React.ChangeEvent<HTMLInputElement>)
-    {
-        setConfirmarSenha(event.target.value);
+    function aoDigitarConfirmarNovaSenha(event: React.ChangeEvent<HTMLInputElement>) {
+        setConfirmarNovaSenha(event.target.value);
     }
-    function aoSelecionarNivelDeAcesso(event: React.ChangeEvent<HTMLSelectElement>)
-    {
+    function aoSelecionarNivelDeAcesso(event: React.ChangeEvent<HTMLSelectElement>) {
         setNivelDeAcesso(event.target.value as "Operador" | "Administrador");
     }
-    function aoSelecionarAtivo(event: React.ChangeEvent<HTMLSelectElement>)
-    {
+    function aoSelecionarAtivo(event: React.ChangeEvent<HTMLSelectElement>) {
         //Lógica que converte string('true' ou 'false') em booleano
         setAtivo(event.target.value === "true");
     }
-
 
     return (
         <section id="formularioAdicionarNovoUsuario">
@@ -86,8 +95,8 @@ export default function CadastrarUsuario() {
                         <i className="material-icons">group</i>
                     </div>
                     <div id="tituloDaPagina__textos">
-                        <h2>Cadastrar ususários</h2>
-                        <span>Cadastrando usuários</span>
+                        <h2>Editar ususários</h2>
+                        <span>Editando usuários</span>
                     </div>
                 </div>
                 <div id="caminhoDasEtapas">
@@ -99,16 +108,16 @@ export default function CadastrarUsuario() {
                         Usuários
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/usuarios/cadastrarUsuario'>
-                        Cadastrar Usuário
+                    <Link to={`/usuarios/editarUsuario/${id}`}>
+                        Editar Usuário
                     </Link>
                 </div>
 
             </div>
 
             {
-                mensagemDeErroAberta ?                 
-                    <MensagemErro mensagem={mensagemDeErro} /> : 
+                mensagemDeErroAberta ?
+                    <MensagemErro mensagem={mensagemDeErro} /> :
                     <BoasVindas />
             }
 
@@ -120,26 +129,26 @@ export default function CadastrarUsuario() {
                     </BtnVoltar>
                 </div>
 
-                <form className="formPadrao" onSubmit={aoCadastrarUsuario}>
+                <form className="formPadrao" onSubmit={aoEditarUsuario}>
                     <div className="linhaInputs">
                         <label className="labelInputMeio">
                             Nome
-                            <input type="text" value={nome} onChange={aoDigitarNome} required/>
+                            <input type="text" value={nome} onChange={aoDigitarNome} required />
                         </label>
                         <label className="labelInputMeio">
                             E-mail
-                            <input type="email" value={email} onChange={aoDigitarEmail} required/>
+                            <input type="email" value={email} onChange={aoDigitarEmail} required />
                         </label>
                     </div>
 
                     <div className="linhaInputs">
-                    <label className="labelInputMeio">
-                            Senha
-                            <InputSenha value={senha} onChange={aoDigitarSenha} required/>
+                        <label className="labelInputMeio">
+                            Nova senha
+                            <InputSenha value={novaSenha} onChange={aoDigitarNovaSenha} />
                         </label>
                         <label className="labelInputMeio">
-                            Confirme a senha
-                            <InputSenha value={confirmarSenha} onChange={aoDigitarConfirmarSenha} required/>
+                            Confirme a nova senha
+                            <InputSenha value={confirmarNovaSenha} onChange={aoDigitarConfirmarNovaSenha} />
                         </label>
                     </div>
 

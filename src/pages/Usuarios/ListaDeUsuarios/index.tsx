@@ -3,6 +3,7 @@ import SelectFiltros from '../../../components/SelectFiltros'
 import { Usuario } from '../../../models/Usuario'
 import ListaDeDados from '../../../components/ListaDeDados';
 import { useUsuariosContext } from '../../../contexts/UsuariosContext';
+import { Link } from 'react-router-dom';
 
 interface ListaDeUsuariosProps {
     usuarios: Usuario[],
@@ -65,7 +66,7 @@ export default function ListaDeUsuarios({ usuarios, setSucessoExcluir }: ListaDe
                     }
                 </td>
                 <td className='campoDeAcoes'>
-                    <button className='material-icons tabela__btnEditar'>edit</button>
+                    <Link to={`editarUsuario/${usuario.id}`} className='material-icons tabela__btnEditar'>edit</Link>
                     <button className='material-icons tabela__btnExcluir ' onClick={() => aoClicarEmExcluir(usuario.id as number)}>delete</button>
                 </td>
             </tr>
