@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Usuarios.css';
 import BoasVindas from '../../components/BoasVindas';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ListaDeUsuarios from './ListaDeUsuarios';
 import { useUsuariosContext } from '../../contexts/UsuariosContext';
+import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function Usuarios() {
 
     const {usuarios} = useUsuariosContext();
+
+    const [sucessoExcluir, setSucessoExcluir] = useState(false);
+
+    const location = useLocation();
+
+    let mensagemSucessoAberta = false;
+    let mensagemSuceso = "";
+
+    if(sucessoExcluir){
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Usuário excluído com sucesso!";
+    }else if(location.state && location.state.sucessoCadastrar) {
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Usuário cadastrado com sucesso!";
+    }else if(location.state && location.state.sucessoEditar){
+        mensagemSucessoAberta = true;
+        mensagemSuceso = "Usuário editado com sucesso!";
+    }
     
     return (
         <section id="usuarios">
@@ -32,7 +51,11 @@ export default function Usuarios() {
                 </div>
             </div>
 
-            <BoasVindas />
+            {
+                mensagemSucessoAberta ? 
+                    <MensagemSucesso mensagem={mensagemSuceso}/> :
+                    <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
