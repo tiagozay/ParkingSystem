@@ -15,6 +15,7 @@ import { Mensalista } from '../../models/Mensalista';
 import { useMensalistaContext } from '../../contexts/MensalistasContext';
 import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
 import { Precificacao } from '../../models/Precificacao';
+import MensagemErro from '../../components/MensagemErro';
 
 export default function EditarTiket() {
 
@@ -40,6 +41,9 @@ export default function EditarTiket() {
     const [formaDePagamento, setFormaDePagamento] = useState('');
     const [tipoCliente, setTipoCliente] = useState<'Avulso' | 'Mensalista'>('Avulso');
     const [mensalista, setMensalista] = useState<Mensalista | null>();
+
+    const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
+    const [mensagemDeErro, setMensagemDeErro] = useState("");
 
     const {
         precificacoes,
@@ -159,21 +163,27 @@ export default function EditarTiket() {
     function aoSalvarTiket(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const novoTiket = new Tiket(
-            id,
-            new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
-            dataEntrada,
-            dataSaida,
-            categoria as Precificacao,
-            status,
-            numeroVaga,
-            buscarFormaDePagamentoPorId(Number(formaDePagamento)),
-            tipoCliente === 'Mensalista' ? mensalista : null
-        );
-
-        editarTiket(novoTiket);
-
-        navigate('/estacionamento', { state: { sucessoEditar: true } });
+        try{
+            const novoTiket = new Tiket(
+                id,
+                new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
+                dataEntrada,
+                dataSaida,
+                categoria as Precificacao,
+                status,
+                numeroVaga,
+                buscarFormaDePagamentoPorId(Number(formaDePagamento)),
+                tipoCliente === 'Mensalista' ? mensalista : null
+            );
+    
+            editarTiket(novoTiket);
+    
+            navigate('/estacionamento', { state: { sucessoEditar: true } });
+        }catch(e: any ){
+            setMensagemDeErroAberta(true);
+            setMensagemDeErro(e.message);
+        }
+        
     }
 
     function aoSelecionarTipoDeCliente(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -210,8 +220,6 @@ export default function EditarTiket() {
         setMensalista(mensalista);
     }
 
-    const categoriasCadastradas = precificacoes?.map(precificacao => precificacao.categoria);
-
     return (
         <section id="formularioAdcNovoTiket">
             <div id="tituloDaPagina">
@@ -240,7 +248,11 @@ export default function EditarTiket() {
 
             </div>
 
-            <BoasVindas />
+            {
+                mensagemDeErroAberta ?                 
+                    <MensagemErro mensagem={mensagemDeErro} /> : 
+                    <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnVoltar">

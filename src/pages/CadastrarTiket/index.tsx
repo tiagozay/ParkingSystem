@@ -15,6 +15,7 @@ import { useMensalistaContext } from '../../contexts/MensalistasContext';
 import { Mensalista } from '../../models/Mensalista';
 import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
 import { Precificacao } from '../../models/Precificacao';
+import MensagemErro from '../../components/MensagemErro';
 
 export default function CadastrarTiket() {
     const [placa, setPlaca] = useState('');
@@ -25,6 +26,9 @@ export default function CadastrarTiket() {
     const [dataEntrada] = useState(new Date());
     const [tipoCliente, setTipoCliente] = useState<'Avulso' | 'Mensalista'>('Avulso');
     const [mensalista, setMensalista] = useState<Mensalista>();
+
+    const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
+    const [mensagemDeErro, setMensagemDeErro] = useState("");
 
     const { mensalistas, buscarMensalistaPorId } = useMensalistaContext();
     const { buscaMensalidadesDeMensalista } = useMensalidadeContext();
@@ -96,21 +100,27 @@ export default function CadastrarTiket() {
     function aoCadastrarTiket(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const novoTiket = new Tiket(
-            null,
-            new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
-            dataEntrada,
-            null,
-            categoria as Precificacao,
-            "Em aberto",
-            null,
-            null,
-            tipoCliente === "Mensalista" ? mensalista : null
-        );
-
-        adicionarTiket(novoTiket);
-
-        navigate('/estacionamento', { state: { sucessoCadastrar: true } });
+        try{
+            const novoTiket = new Tiket(
+                null,
+                new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
+                dataEntrada,
+                null,
+                categoria as Precificacao,
+                "Em aberto",
+                null,
+                null,
+                tipoCliente === "Mensalista" ? mensalista : null
+            );
+    
+            adicionarTiket(novoTiket);
+    
+            navigate('/estacionamento', { state: { sucessoCadastrar: true } });
+        }catch(e: any){
+            setMensagemDeErroAberta(true);
+            setMensagemDeErro(e.message);
+        }
+        
     }
 
 
@@ -173,7 +183,11 @@ export default function CadastrarTiket() {
 
             </div>
 
-            <BoasVindas />
+            {
+                mensagemDeErroAberta ?                 
+                    <MensagemErro mensagem={mensagemDeErro} /> : 
+                    <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnVoltar">
