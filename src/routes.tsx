@@ -26,45 +26,49 @@ import EditarMensalista from './pages/EditarMensalista';
 import MensalidadesProvider from './contexts/MensalidadesContext';
 import EditarPrecificacao from './pages/EditarPrecificacao';
 import EditarFormaDePagamento from './pages/EditarFormaDePagamento';
+import UsuariosProvider from './contexts/UsuariosContext';
 
 
 function AppRoutes() {
   return (
-    <PrecificacoesProvider>
-      <FormasDePagamentoProvider>
-        <MensalistasProvider>
-          <MensalidadesProvider>
-            <TiketsProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path='/' element={<PaginaBase />}>
-                    <Route index element={<Home />} />
-                    <Route path='estacionamento' element={<Estacionamento />} />
-                    <Route path='estacionamento/cadastrarTiket' element={<CadastrarTiket />} />
-                    <Route path='estacionamento/editarTiket/:id' element={<EditarTiket />} />
-                    <Route path='estacionamento/visualizarTiket/:id' element={<VisualizarTiket />} />
-                    <Route path='mensalistas' element={<Mensalistas />} />
-                    <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
-                    <Route path='mensalistas/editarMensalista/:id' element={<EditarMensalista />} />
-                    <Route path='mensalidades' element={<Mensalidades />} />
-                    <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
-                    <Route path='precificacoes' element={<Precificacoes />} />
-                    <Route path='precificacoes/cadastrarPrecificacao' element={<CadastrarPrecificacao />} />
-                    <Route path='precificacoes/editarPrecificacao/:id' element={<EditarPrecificacao />} />
-                    <Route path='formasDePagamento' element={<FormasDePagamento />} />
-                    <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
-                    <Route path='formasDePagamento/editarFormaDePagamento/:id' element={<EditarFormaDePagamento />} />
-                    <Route path='usuarios' element={<Usuarios />} />
-                    <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
-                    <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
-            </TiketsProvider>
-          </MensalidadesProvider>
-        </MensalistasProvider>
-      </FormasDePagamentoProvider>
-    </PrecificacoesProvider>
+    <UsuariosProvider>
+      <PrecificacoesProvider>
+        <FormasDePagamentoProvider>
+          <MensalistasProvider>
+            <MensalidadesProvider>
+              <TiketsProvider>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path='/' element={<PaginaBase />}>
+                      <Route index element={<Home />} />
+                      <Route path='estacionamento' element={<Estacionamento />} />
+                      <Route path='estacionamento/cadastrarTiket' element={<CadastrarTiket />} />
+                      <Route path='estacionamento/editarTiket/:id' element={<EditarTiket />} />
+                      <Route path='estacionamento/visualizarTiket/:id' element={<VisualizarTiket />} />
+                      <Route path='mensalistas' element={<Mensalistas />} />
+                      <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
+                      <Route path='mensalistas/editarMensalista/:id' element={<EditarMensalista />} />
+                      <Route path='mensalidades' element={<Mensalidades />} />
+                      <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
+                      <Route path='precificacoes' element={<Precificacoes />} />
+                      <Route path='precificacoes/cadastrarPrecificacao' element={<CadastrarPrecificacao />} />
+                      <Route path='precificacoes/editarPrecificacao/:id' element={<EditarPrecificacao />} />
+                      <Route path='formasDePagamento' element={<FormasDePagamento />} />
+                      <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
+                      <Route path='formasDePagamento/editarFormaDePagamento/:id' element={<EditarFormaDePagamento />} />
+                      <Route path='usuarios' element={<Usuarios />} />
+                      <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
+                      <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
+                    </Route>
+                  </Routes>
+                </BrowserRouter>
+              </TiketsProvider>
+            </MensalidadesProvider>
+          </MensalistasProvider>
+        </FormasDePagamentoProvider>
+      </PrecificacoesProvider>
+    </UsuariosProvider>
+
 
   );
 }

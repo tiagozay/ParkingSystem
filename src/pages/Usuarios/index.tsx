@@ -3,20 +3,12 @@ import './Usuarios.css';
 import BoasVindas from '../../components/BoasVindas';
 import { Link } from 'react-router-dom';
 import ListaDeUsuarios from './ListaDeUsuarios';
-import { Usuario } from '../../models/Usuario';
+import { useUsuariosContext } from '../../contexts/UsuariosContext';
 
 export default function Usuarios() {
 
-    const usuarios = [
-        new Usuario(1, 'tiagozay', 'tiagozay@gmail.com', 'Tiago zay', 'Administrador', true),
-        new Usuario(2, 'pedromarques', 'pedromarques@gmail.com', 'Tiago zay', 'Operador', true),
-        new Usuario(3, 'josesouza', 'josesouza@gmail.com', 'Jose souza', 'Operador', false),
-        new Usuario(4, 'tiagozay', 'tiagozay@gmail.com', 'Tiago zay', 'Administrador', true),
-        new Usuario(5, 'pedromarques', 'pedromarques@gmail.com', 'Tiago zay', 'Operador', true),
-        new Usuario(6, 'josesouza', 'josesouza@gmail.com', 'Jose souza', 'Operador', false),
-    ];
+    const {usuarios} = useUsuariosContext();
     
-
     return (
         <section id="usuarios">
             <div id="tituloDaPagina">
