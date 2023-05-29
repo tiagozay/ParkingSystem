@@ -1,0 +1,23 @@
+#containerInputSenha{
+    display: flex;
+    align-items: center;
+    height: 33px;
+    margin-top: 8px;
+    background-color: white;
+    border: 1px #eaeaea solid;
+    border-radius: 4px;
+}
+#inputSenha{
+    width: 93%;
+    margin: 0px;
+    border: none;
+    height: 31px;
+}
+#btnExibirSenha{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    color: rgb(136, 136, 136);
+    font-size: 22px;
+}
