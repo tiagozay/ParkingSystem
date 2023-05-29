@@ -24,7 +24,7 @@ export default function EditarFormaDePagamento() {
     useEffect(() => {
         formaDePagamento = buscarFormaDePagamentoPorId(id);
 
-        if (!formaDePagamento) {
+        if (!formaDePagamento || formaDePagamento.descontinuada) {
             navigate('/formasDePagamento');
             return;
         }
