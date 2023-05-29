@@ -1,10 +1,83 @@
-import React from 'react';
+import React, {useState} from 'react';
 import BoasVindas from '../../components/BoasVindas';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './CadastrarUsuario.css';
 import BtnVoltar from '../../components/BtnVoltar';
+import { Usuario } from '../../models/Usuario';
+import { useUsuariosContext } from '../../contexts/UsuariosContext';
+import MensagemErro from '../../components/MensagemErro';
+import InputSenha from '../../components/InputSenha';
 
 export default function CadastrarUsuario() {
+
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [confirmarSenha, setConfirmarSenha] = useState("");
+    const [nivelDeAceso, setNivelDeAcesso] = useState<"Operador" | "Administrador">("Operador");
+    const [ativo, setAtivo] = useState(true);
+
+    const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
+    const [mensagemDeErro, setMensagemDeErro] = useState("");
+
+    const {adicionarUsuario} = useUsuariosContext();
+
+    const navigate = useNavigate();
+
+
+    function aoCadastrarUsuario(event: React.FormEvent<HTMLFormElement>)
+    {
+        event.preventDefault();
+
+        try{
+            if(senha !== confirmarSenha) throw new Error("As senhas não coincidem");
+
+            const usuario = new Usuario(
+                null,
+                nome,
+                email,
+                nivelDeAceso,
+                ativo,
+                senha
+            );
+
+            adicionarUsuario(usuario);
+
+            navigate('/usuarios', {state: {sucessoCadastrar: true}});
+
+        }catch(e: any){
+            setMensagemDeErroAberta(true);
+            setMensagemDeErro(e.message);
+        }
+    }
+
+    function aoDigitarNome(event: React.ChangeEvent<HTMLInputElement>)
+    {
+        setNome(event.target.value);
+    }
+    function aoDigitarEmail(event: React.ChangeEvent<HTMLInputElement>)
+    {
+        setEmail(event.target.value);
+    }
+    function aoDigitarSenha(event: React.ChangeEvent<HTMLInputElement>)
+    {
+        setSenha(event.target.value);
+    }
+    function aoDigitarConfirmarSenha(event: React.ChangeEvent<HTMLInputElement>)
+    {
+        setConfirmarSenha(event.target.value);
+    }
+    function aoSelecionarNivelDeAcesso(event: React.ChangeEvent<HTMLSelectElement>)
+    {
+        setNivelDeAcesso(event.target.value as "Operador" | "Administrador");
+    }
+    function aoSelecionarAtivo(event: React.ChangeEvent<HTMLSelectElement>)
+    {
+        //Lógica que converte string('true' ou 'false') em booleano
+        setAtivo(event.target.value === "true");
+    }
+
+
     return (
         <section id="formularioAdicionarNovoUsuario">
             <div id="tituloDaPagina">
@@ -33,7 +106,11 @@ export default function CadastrarUsuario() {
 
             </div>
 
-            <BoasVindas />
+            {
+                mensagemDeErroAberta ?                 
+                    <MensagemErro mensagem={mensagemDeErro} /> : 
+                    <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnVoltar">
@@ -43,53 +120,42 @@ export default function CadastrarUsuario() {
                     </BtnVoltar>
                 </div>
 
-                <form action="" className="formPadrao">
+                <form className="formPadrao" onSubmit={aoCadastrarUsuario}>
                     <div className="linhaInputs">
                         <label className="labelInputMeio">
                             Nome
-                            <input type="text" className="inputObrigatorio" />
-                        </label>
-                        <label className="labelInputMeio">
-                            Sobrenome
-                            <input type="text" className="inputObrigatorio" />
-                        </label>
-                    </div>
-
-                    <div className="linhaInputs">
-                        <label className="labelInputMeio">
-                            Usuário
-                            <input type="text" className="inputObrigatorio" />
+                            <input type="text" value={nome} onChange={aoDigitarNome} required/>
                         </label>
                         <label className="labelInputMeio">
                             E-mail
-                            <input type="text" className="inputObrigatorio" />
+                            <input type="email" value={email} onChange={aoDigitarEmail} required/>
                         </label>
                     </div>
 
                     <div className="linhaInputs">
-                        <label className="labelInputMeio">
+                    <label className="labelInputMeio">
                             Senha
-                            <input type="password" className="inputObrigatorio" />
+                            <InputSenha value={senha} onChange={aoDigitarSenha} required/>
                         </label>
                         <label className="labelInputMeio">
                             Confirme a senha
-                            <input type="password" className="inputObrigatorio" />
+                            <InputSenha value={confirmarSenha} onChange={aoDigitarConfirmarSenha} required/>
                         </label>
                     </div>
 
                     <div className="linhaInputs">
                         <label className="labelInputMeio">
-                            Perfil de acesso
-                            <select name="" id="" className="inputObrigatorio">
-                                <option value="">Operador</option>
-                                <option value="">Administrador</option>
+                            Nivel de acesso
+                            <select value={nivelDeAceso} onChange={aoSelecionarNivelDeAcesso} required>
+                                <option value="Operador">Operador</option>
+                                <option value="Administrador">Administrador</option>
                             </select>
                         </label>
                         <label className="labelInputMeio">
                             Ativo
-                            <select name="" id="" className="inputObrigatorio">
-                                <option value="">Sim</option>
-                                <option value="">Não</option>
+                            <select value={`${ativo}`} onChange={aoSelecionarAtivo} required>
+                                <option value="true">Sim</option>
+                                <option value="false">Não</option>
                             </select>
                         </label>
                     </div>
