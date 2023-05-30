@@ -401,6 +401,10 @@
     cursor: pointer;
     transition: 300ms;
     color: black!important;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .formPadrao__btnVoltar:hover{
     background-color: rgb(215, 215, 215);
