@@ -1,0 +1,16 @@
+{
+    "name": "tiagozay/parksistem",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "ParkSistem\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tiago zay",
+            "email": "tiagozay@gmail.com"
+        }
+    ],
+    "require": {}
+}
