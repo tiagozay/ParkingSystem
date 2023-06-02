@@ -2,18 +2,36 @@
     namespace ParkSistem\Domain\Model;
 
     use DateTime;
+    use Doctrine\ORM\Mapping\Column;
+    use Doctrine\ORM\Mapping\Entity;
+    use Doctrine\ORM\Mapping\GeneratedValue;
+    use Doctrine\ORM\Mapping\Id;
     use DomainException;
     use Exception;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Service\CPFService;
 
+    #[Entity()]
     class Precificacao
     {
-        public readonly ?int $id;
+        #[GeneratedValue]
+        #[Id]
+        #[Column]
+        public ?int $id;
+
+        #[Column(length: 50)]
         private string $categoria;
+
+        #[Column()]
         private float $valorHora;
+
+        #[Column()]
         private float $valorMensalidade;
+
+        #[Column()]
         private bool $ativa;
+
+        #[Column()]
         private int $numeroDeVagas;
 
         /**

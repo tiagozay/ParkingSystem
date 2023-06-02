@@ -3,7 +3,7 @@
 
     use DomainException;
 
-    class Usuario
+    class Sistema
     {
         private string $razaoSocial;
         private string $nomeFantasia;
