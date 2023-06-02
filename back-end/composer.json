@@ -12,8 +12,8 @@
             "email": "tiagozay@gmail.com"
         }
     ],
-    "require": {
-        "doctrine/orm": "^2.11.0",
+    "require": { 
+        "doctrine/orm": "^2.15.2",
         "doctrine/dbal": "^3.2",
         "symfony/yaml": "^5.4",
         "symfony/cache": "^5.4"
