@@ -9,7 +9,7 @@
 
     class Precificacao
     {
-        private ?int $id;
+        public readonly ?int $id;
         private string $categoria;
         private float $valorHora;
         private float $valorMensalidade;
