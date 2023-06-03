@@ -1,14 +1,30 @@
 <?php
     namespace ParkSistem\Domain\Model;
 
+    use Doctrine\ORM\Mapping\Column;
+    use Doctrine\ORM\Mapping\Entity;
+    use Doctrine\ORM\Mapping\GeneratedValue;
+    use Doctrine\ORM\Mapping\Id;
     use DomainException;
 
+    #[Entity()]
     class Usuario
     {
+        #[Id]
+        #[GeneratedValue]
+        #[Column()]
         public readonly ?int $id;
-        private string $nome ;
-        private string $email ;
+
+        #[Column(length:100)]
+        private string $nome;
+
+        #[Column(length:256)]
+        private string $email;
+
+        #[Column(length: 20)]
         private string $nivelDeAcesso;
+
+        #[Column()]
         private bool $ativo;
 
         /**
