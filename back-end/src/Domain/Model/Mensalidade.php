@@ -1,20 +1,43 @@
 <?php
     namespace ParkSistem\Domain\Model;
 
+    use Doctrine\ORM\Mapping\Column;
+    use Doctrine\ORM\Mapping\Entity;
+    use Doctrine\ORM\Mapping\GeneratedValue;
+    use Doctrine\ORM\Mapping\Id;
     use DateTime;
+    use Doctrine\ORM\Mapping\ManyToOne;
     use DomainException;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Service\DataService;
 
+    #[Entity()]
     class Mensalidade
     {
+        #[Id]
+        #[GeneratedValue]
+        #[Column()]
         private ?int $id;
+
+        #[ManyToOne(targetEntity: Mensalista::class)]
         private Mensalista $mensalista;
+        
+        #[ManyToOne(targetEntity: Precificacao::class)]
         private Precificacao $precificacao;
+
+        #[Column()]
         private float $valor;
+
+        #[ManyToOne(targetEntity: FormaDePagamento::class)]
         private FormaDePagamento $formaDePagamento;
+
+        #[Column(type: 'date')]
         private DateTime $dataDeCompra;
+
+        #[Column(type: 'date')]
         private DateTime $dataDeVencimento;
+
+        #[Column()]
         private bool $vencida;
 
 
