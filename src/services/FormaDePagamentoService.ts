@@ -1,18 +1,25 @@
 import  api_formasDePagamento from '../json/api_formasDePagamento.json';
 import { FormaDePagamento } from "../models/FormaDePagamento";
+import { APIService } from './APIService';
 
 
 export default abstract class FormaDePagamentoService
 {
-    static buscaFormasDePagamento(): FormaDePagamento[] | []
+    static buscaFormasDePagamento()
     {
-        return api_formasDePagamento.map( formaDePagamentoDados => {
-            return new FormaDePagamento(
-                formaDePagamentoDados.id,
-                formaDePagamentoDados.nome,
-                formaDePagamentoDados.ativa,
-                formaDePagamentoDados.descontinuada,
-            );
-        } );
+        return APIService.buscaObjetos('buscaFormasDePagamento.php')
+            .then( formasDePagamentoObjeto => {
+
+                    const formasDePagamento = formasDePagamentoObjeto.map( (formaDePagamento: any) => {
+                        return new FormaDePagamento(
+                            formaDePagamento.id,
+                            formaDePagamento.nomeFormaDePagamento,
+                            formaDePagamento.ativa,
+                            formaDePagamento.descontinuada
+                        );
+                    } );
+
+                    return formasDePagamento;
+            });
     }
 }

@@ -14,14 +14,10 @@ interface TypeFormaDePagamentoContext
 export const FormaDePagamentoContext = createContext<TypeFormaDePagamentoContext>({formasDePagamento: [], setFormasDePagamento: () => {}});
 
 export default function FormasDePagamentoProvider({children}: {children: ReactNode}) {
-    const [formasDePagamento, setFormasDePagamento] = useState(FormaDePagamentoService.buscaFormasDePagamento());
+    const [formasDePagamento, setFormasDePagamento] = useState<FormaDePagamento[] | []>([]);
 
-    // const [formasDePagamento, setFormasDePagamento] = useState([
-    //     new FormaDePagamento(1, "Dinheiro", true),
-    //     new FormaDePagamento(2, "Cartão de crédito", true),
-    //     new FormaDePagamento(3, "Cartão de débito", true),
-    //     new FormaDePagamento(4, "Cheque", false),
-    // ]);
+    FormaDePagamentoService.buscaFormasDePagamento()
+        .then( setFormasDePagamento );
 
     return (
         <FormaDePagamentoContext.Provider value={{formasDePagamento, setFormasDePagamento}}>
