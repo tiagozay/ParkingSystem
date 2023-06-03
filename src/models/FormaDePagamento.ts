@@ -12,7 +12,7 @@ export class FormaDePagamento
         this.descontinuada = descontinuada;
     }
 
-    set nomeFormaDePagamento(nomeFormaDePagamento: string)
+    public set nomeFormaDePagamento(nomeFormaDePagamento: string)
     {
         if(nomeFormaDePagamento.trim().length == 0){
             throw new Error("Nome para a forma de pagamento inválido.");
@@ -21,9 +21,19 @@ export class FormaDePagamento
         this._nomeFormaDePagamento = nomeFormaDePagamento;
     }
 
-    get nomeFormaDePagamento(): string
+    public get nomeFormaDePagamento(): string
     {
         return this._nomeFormaDePagamento;
+    }
+
+    //Método chamado durante a serialização do objeto
+    toJSON(){
+        return {
+            id: this.id,
+            nomeFormaDePagamento: this._nomeFormaDePagamento,
+            ativa: this.ativa,
+            descontinuada: this.descontinuada
+        }
     }
 
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { FormaDePagamento } from '../models/FormaDePagamento';
 import FormaDePagamentoService from '../services/FormaDePagamentoService';
+import { APIService } from '../services/APIService';
 
 interface TypeFormaDePagamentoContext 
 {
@@ -34,15 +35,14 @@ export const useFormaDePagamentoContext = () => {
 
     function adicionaFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
     {
-        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
-        const ultimaFormaDePagamentoCadastrada = formasDePagamento[formasDePagamento.length - 1];
-        if(ultimaFormaDePagamentoCadastrada){
-            novaFormaDePagamento.id = (ultimaFormaDePagamentoCadastrada.id as number) + 1;
-        }else{
-            novaFormaDePagamento.id = 1;
-        }
 
-        setFormasDePagamento([...formasDePagamento, novaFormaDePagamento] );
+        return APIService.enviaObjeto('cadastraFormaDePagamento.php', novaFormaDePagamento)
+        .then( formaDePagamentoCadastrada => {
+            setFormasDePagamento([...formasDePagamento, formaDePagamentoCadastrada]);
+        } )
+        .catch( () => {
+            throw new Error("Erro ao cadastrar forma de pagamento."); 
+        })        
     }
 
     function editarFormaDePagamento(novaFormaDePagamento: FormaDePagamento)

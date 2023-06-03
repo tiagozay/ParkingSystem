@@ -6,9 +6,10 @@
     use Doctrine\ORM\Mapping\GeneratedValue;
     use Doctrine\ORM\Mapping\Id;
     use DomainException;
+    use JsonSerializable;
 
     #[Entity]
-    class FormaDePagamento
+    class FormaDePagamento implements JsonSerializable
     {
         #[Id]
         #[GeneratedValue]
@@ -48,6 +49,16 @@
         public function getDescontinuada(): bool
         {
             return $this->descontinuada;
+        }
+
+        public function jsonSerialize(): mixed
+        {
+            return [
+                "id" => $this->id,
+                "nomeFormaDePagamento" => $this->nomeFormaDePagamento,
+                "ativa" => $this->ativa,
+                "descontinuada" => $this->descontinuada
+            ];
         }
     }
 ?>

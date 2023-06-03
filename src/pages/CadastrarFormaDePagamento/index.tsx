@@ -32,9 +32,15 @@ export default function CadastrarFormaDePagamento() {
                 false
             );
 
-            adicionaFormaDePagamento(formaDePagamento);
+            adicionaFormaDePagamento(formaDePagamento)
+            .then( () => {
+                navigate('/formasDePagamento', { state: { sucessoCadastrar: true } });
+            } )
+            .catch( erro => {
+                setMensagemDeErroAberta(true);
+                setMensagemDeErro(erro.message);
+            } )
 
-            navigate('/formasDePagamento', { state: { sucessoCadastrar: true } });
         }catch( e: any ){
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);
