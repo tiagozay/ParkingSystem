@@ -31,14 +31,10 @@ export const useFormaDePagamentoContext = () => {
 
     function adicionaFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
     {
-
-        return APIService.enviaObjeto('cadastraFormaDePagamento.php', novaFormaDePagamento)
-        .then( formaDePagamentoCadastrada => {
-            setFormasDePagamento([...formasDePagamento, formaDePagamentoCadastrada]);
-        } )
-        .catch( () => {
-            throw new Error("Erro ao cadastrar forma de pagamento."); 
-        })        
+        return FormaDePagamentoService.cadastraFormaDePagamento(novaFormaDePagamento)
+            .then( formaDePagamentoCadastrada => {
+                setFormasDePagamento([...formasDePagamento, formaDePagamentoCadastrada])
+            });
     }
 
     function editarFormaDePagamento(novaFormaDePagamento: FormaDePagamento)

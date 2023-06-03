@@ -22,4 +22,20 @@ export default abstract class FormaDePagamentoService
                     return formasDePagamento;
             });
     }
+
+    static cadastraFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
+    {
+        return APIService.enviaObjeto('cadastraFormaDePagamento.php', novaFormaDePagamento)
+        .then( (formaDePagamentoCadastrada) => {
+            return new FormaDePagamento(
+                formaDePagamentoCadastrada.id,
+                formaDePagamentoCadastrada.nomeFormaDePagamento,
+                formaDePagamentoCadastrada.ativa,
+                formaDePagamentoCadastrada.descontinuada,                
+            )
+        } )
+        .catch( () => {
+            throw new Error("Erro ao cadastrar forma de pagamento."); 
+        })        
+    }
 }
