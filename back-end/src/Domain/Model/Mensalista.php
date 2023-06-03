@@ -1,23 +1,48 @@
 <?php
     namespace ParkSistem\Domain\Model;
 
+    use Doctrine\ORM\Mapping\Column;
+    use Doctrine\ORM\Mapping\Entity;
+    use Doctrine\ORM\Mapping\GeneratedValue;
+    use Doctrine\ORM\Mapping\Id;
     use DateTime;
     use DomainException;
     use ParkSistem\Service\CPFService;
 
+    #[Entity]
     class Mensalista
     {
+        #[Id]
+        #[GeneratedValue]
+        #[Column()]
         public readonly ?int $id;
+    
+        #[Column(length:100)]
         private string $nome ;
-        private ?DateTime $dataNascimento;
-        private string $cpf;
-        private ?string $email;
-        private string $celular;
-        private bool $ativo;
-        private string $cep;
-        private string $uf;
-        private string $cidade;
 
+        #[Column(nullable:true, type: "date")]
+        private ?DateTime $dataNascimento;
+
+        #[Column(unique:true, length:14)]
+        private string $cpf;
+
+        #[Column(length:256, nullable:true)]
+        private ?string $email;
+
+        #[Column(length:15)]
+        private string $celular;
+
+        #[Column()]
+        private bool $ativo;
+
+        #[Column(length:9)]
+        private string $cep;
+
+        #[Column(length:2)]
+        private string $uf;
+
+        #[Column(length:100)]
+        private string $cidade;
 
         /**
          * @throws DomainException
