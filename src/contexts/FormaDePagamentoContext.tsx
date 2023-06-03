@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { FormaDePagamento } from '../models/FormaDePagamento';
@@ -16,8 +16,10 @@ export const FormaDePagamentoContext = createContext<TypeFormaDePagamentoContext
 export default function FormasDePagamentoProvider({children}: {children: ReactNode}) {
     const [formasDePagamento, setFormasDePagamento] = useState<FormaDePagamento[] | []>([]);
 
-    FormaDePagamentoService.buscaFormasDePagamento()
+    useEffect(() => {
+        FormaDePagamentoService.buscaFormasDePagamento()
         .then( setFormasDePagamento );
+    }, []);
 
     return (
         <FormaDePagamentoContext.Provider value={{formasDePagamento, setFormasDePagamento}}>
@@ -39,13 +41,17 @@ export const useFormaDePagamentoContext = () => {
 
     function editarFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
     {
-        setFormasDePagamento( formasDePagamento.map( formaDePagamento => {
-            if(formaDePagamento.id === novaFormaDePagamento.id){
-                return novaFormaDePagamento;
-            }
 
-            return formaDePagamento;
-        } ) );
+        return FormaDePagamentoService.editaFormaDePagamento(novaFormaDePagamento)
+            .then( formasDePagamentoEditada => {
+                setFormasDePagamento( formasDePagamento.map( formaDePagamento => {
+                    if(formaDePagamento.id === formasDePagamentoEditada.id){
+                        return formasDePagamentoEditada;
+                    }
+        
+                    return formaDePagamento;
+                } ) );
+            } );
     }
 
     function excluirFormaDePagamento(idFormaDePagamento: number)

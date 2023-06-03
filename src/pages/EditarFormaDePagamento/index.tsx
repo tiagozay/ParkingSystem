@@ -45,9 +45,16 @@ export default function EditarFormaDePagamento() {
                 false
             );
 
-            editarFormaDePagamento(formaDePagamentoEditada);
+            editarFormaDePagamento(formaDePagamentoEditada)
+                .then( () => {
+                    navigate('/formasDePagamento', { state: { sucessoEditar: true } });
+                } )
+                .catch( e => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(e.message);
+                } );
 
-            navigate('/formasDePagamento', { state: { sucessoEditar: true } });
+    
         } catch (e: any) {
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);

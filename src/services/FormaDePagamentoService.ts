@@ -9,7 +9,6 @@ export default abstract class FormaDePagamentoService
     {
         return APIService.buscaObjetos('buscaFormasDePagamento.php')
             .then( formasDePagamentoObjeto => {
-
                     const formasDePagamento = formasDePagamentoObjeto.map( (formaDePagamento: any) => {
                         return new FormaDePagamento(
                             formaDePagamento.id,
@@ -36,6 +35,22 @@ export default abstract class FormaDePagamentoService
         } )
         .catch( () => {
             throw new Error("Erro ao cadastrar forma de pagamento."); 
+        })        
+    }
+
+    static editaFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
+    {
+        return APIService.enviaObjeto('editarFormaDePagamento.php', novaFormaDePagamento)
+        .then( (formaDePagamentoCadastrada) => {
+            return new FormaDePagamento(
+                formaDePagamentoCadastrada.id,
+                formaDePagamentoCadastrada.nomeFormaDePagamento,
+                formaDePagamentoCadastrada.ativa,
+                formaDePagamentoCadastrada.descontinuada,                
+            )
+        } )
+        .catch( () => {
+            throw new Error("Erro ao editar forma de pagamento."); 
         })        
     }
 }

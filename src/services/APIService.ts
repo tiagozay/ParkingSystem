@@ -8,6 +8,10 @@ export abstract class APIService
             method: "POST",
             body: JSON.stringify(objeto),
         })
+            // .then( res => {
+            //     res.text().then( txt => console.log(txt))
+            //     return res;
+            // } )
             .then(res => {
                 if(!res.ok){
                     throw new Error("Erro na requisição, code: "+res.status);
