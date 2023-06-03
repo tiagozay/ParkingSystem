@@ -1,23 +1,54 @@
 <?php
     namespace ParkSistem\Domain\Model;
 
+    use Doctrine\ORM\Mapping\Column;
+    use Doctrine\ORM\Mapping\Entity;
+    use Doctrine\ORM\Mapping\GeneratedValue;
+    use Doctrine\ORM\Mapping\Id;
+    use Doctrine\ORM\Mapping\ManyToOne;
     use DateTime;
+    use Doctrine\ORM\Mapping\JoinColumn;
     use DomainException;
     use ParkSistem\Domain\Model\Mensalista;
-use ParkSistem\Service\DataService;
+    use ParkSistem\Service\DataService;
 
+    #[Entity()]
     class Tiket
     {
+        #[Id]
+        #[GeneratedValue]
+        #[Column()]
         private ?int $id;
+
+        #[Column(length: 8)]
         private string $placaVeiculo;
+
+        #[Column(length: 30)]
         private string $marcaVeiculo;
+
+        #[Column(length: 30)]
         private string $modeloVeiculo;
+
+        #[ManyToOne(targetEntity: FormaDePagamento::class)]
         private ?FormaDePagamento $formaDePagamento;
+
+        #[Column()]
         private bool $pago;
+
+        #[ManyToOne(targetEntity: Precificacao::class)]
+        #[JoinColumn(nullable:false)]
         private Precificacao $precificacao ;
+
+        #[Column(type: 'date')]
         private DateTime $dataDeEntrada ;
+
+        #[Column(type: 'date', nullable:true)]
         private ?DateTime $dataDeSaida;
+
+        #[Column(length:10, nullable:true)]
         private ?string $numeroDaVaga;
+
+        #[ManyToOne(targetEntity: Mensalista::class)]
         private ?Mensalista $mensalista;
 
         /**
