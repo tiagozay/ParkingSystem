@@ -42,9 +42,10 @@ export default function ListaDeFormasDePagamento({ formasDePagamento, setSucesso
         const confirm = window.confirm("Excluír esta forma de pagamento?");
         if (!confirm) return;
 
-        excluirFormaDePagamento(id);
-        setSucessoExcluir(true);
-
+        excluirFormaDePagamento(id)
+            .then( () => {
+                setSucessoExcluir(true);
+            }) 
     }
 
     const theadTabela = (

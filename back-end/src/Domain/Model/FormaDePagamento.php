@@ -51,6 +51,16 @@
             $this->descontinuada = $descontinuada;
         }
 
+        public function descontinuar()
+        {
+            $this->descontinuada = true;
+        }
+
+        public function tornarVigente()
+        {
+            $this->descontinuada = false;
+        }
+
         public function getAtiva(): bool
         {
             return $this->ativa;

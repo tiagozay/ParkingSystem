@@ -9,19 +9,15 @@
 
     $json = file_get_contents('php://input');
 
-    $stdFormaDePagamentoEditada = json_decode($json);
+    $idFormaDePagamento = json_decode($json);
 
     try {
         $entityManager = EntityManagerCreator::create();
 
         /** @var FormaDePagamento */
-        $formaDePagamento = $entityManager->find(FormaDePagamento::class, $stdFormaDePagamentoEditada->id);
+        $formaDePagamento = $entityManager->find(FormaDePagamento::class, $idFormaDePagamento);
 
-        $formaDePagamento->editar(
-            $stdFormaDePagamentoEditada->nomeFormaDePagamento,
-            $stdFormaDePagamentoEditada->ativa,
-            $stdFormaDePagamentoEditada->descontinuada,
-        );
+        $formaDePagamento->descontinuar();
 
         $entityManager->flush();
 

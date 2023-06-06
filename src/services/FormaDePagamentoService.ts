@@ -53,4 +53,22 @@ export default abstract class FormaDePagamentoService
             throw new Error("Erro ao editar forma de pagamento."); 
         })        
     }
+
+    static excluiFormaDePagamento(id: number)
+    {
+        return APIService.enviaObjeto('excluiFormaDePagamento.php', id)
+            .then( formaDePagamentoDescontinuada => {
+                if(formaDePagamentoDescontinuada){
+                    return new FormaDePagamento(
+                        formaDePagamentoDescontinuada.id,
+                        formaDePagamentoDescontinuada.nomeFormaDePagamento,
+                        formaDePagamentoDescontinuada.ativa,
+                        formaDePagamentoDescontinuada.descontinuada,                
+                    );
+                }
+            } )
+            .catch( () => {
+                throw new Error("Erro ao excluír forma de pagamento."); 
+            } )
+    }
 }
