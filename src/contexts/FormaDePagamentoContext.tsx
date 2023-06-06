@@ -59,7 +59,7 @@ export const useFormaDePagamentoContext = () => {
         return FormaDePagamentoService.excluiFormaDePagamento( idFormaDePagamento )    
             .then( formaDePagamentoDescontinuada => {
 
-                //Verifica se foi retornada uma forma de pagamento, sem sim, é sinal de que ela não foi necessariamentre excluída, e sim somente descontinuada, aí ela é modificada no context. Se não veio nada de retorno, é sinal de que foi literalmente excluída, removendo-a do context
+                //Verifica se foi retornada uma forma de pagamento, sem sim, é sinal de que ela não foi necessariamentre excluída, e sim somente descontinuada, aí ela é modificada no context. Se não veio nada de retorno, é sinal de que foi literalmente excluída, removendo-a do context 
 
                 if(formaDePagamentoDescontinuada){
                     setFormasDePagamento( formasDePagamento.map( formaDePagamento => {
