@@ -26,7 +26,7 @@ export default abstract class CategoriaService
             } );
     }
 
-    static cadastraPrecificacao(novaPrecificacao: Precificacao)
+    static cadastraPrecificacao(novaPrecificacao: Precificacao): Promise<Precificacao>
     {
         return APIService.enviaObjeto('cadastraPrecificacao.php', novaPrecificacao)
         .then( (precificacaoCadastradaObjeto) => {

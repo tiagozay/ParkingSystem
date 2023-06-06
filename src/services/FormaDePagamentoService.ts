@@ -1,3 +1,4 @@
+import { FormMethod } from 'react-router-dom';
 import  api_formasDePagamento from '../json/api_formasDePagamento.json';
 import { FormaDePagamento } from "../models/FormaDePagamento";
 import { APIService } from './APIService';
@@ -5,7 +6,7 @@ import { APIService } from './APIService';
 
 export default abstract class FormaDePagamentoService
 {
-    static buscaFormasDePagamento()
+    static buscaFormasDePagamento(): Promise<FormaDePagamento[] | []>
     {
         return APIService.buscaObjetos('buscaFormasDePagamento.php')
             .then( formasDePagamentoObjeto => {
@@ -22,7 +23,7 @@ export default abstract class FormaDePagamentoService
             });
     }
 
-    static cadastraFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
+    static cadastraFormaDePagamento(novaFormaDePagamento: FormaDePagamento): Promise<FormaDePagamento>
     {
         return APIService.enviaObjeto('cadastraFormaDePagamento.php', novaFormaDePagamento)
         .then( (formaDePagamentoCadastrada) => {
@@ -38,7 +39,7 @@ export default abstract class FormaDePagamentoService
         })        
     }
 
-    static editaFormaDePagamento(novaFormaDePagamento: FormaDePagamento)
+    static editaFormaDePagamento(novaFormaDePagamento: FormaDePagamento): Promise<FormaDePagamento>
     {
         return APIService.enviaObjeto('editarFormaDePagamento.php', novaFormaDePagamento)
         .then( (formaDePagamentoCadastrada) => {
@@ -54,7 +55,7 @@ export default abstract class FormaDePagamentoService
         })        
     }
 
-    static excluiFormaDePagamento(id: number)
+    static excluiFormaDePagamento(id: number): Promise<FormaDePagamento | undefined>
     {
         return APIService.enviaObjeto('excluiFormaDePagamento.php', id)
             .then( formaDePagamentoDescontinuada => {
