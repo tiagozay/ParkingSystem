@@ -8,11 +8,12 @@
     use Doctrine\ORM\Mapping\Id;
     use DomainException;
     use Exception;
+    use JsonSerializable;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Service\CPFService;
 
     #[Entity()]
-    class Precificacao
+    class Precificacao implements JsonSerializable
     {
         #[GeneratedValue]
         #[Id]
@@ -67,6 +68,18 @@
         public function getCategoria()
         {
             return $this->categoria;
+        }
+
+        public function jsonSerialize(): mixed
+        {
+            return [
+                "id" => $this->id,
+                "categoria" => $this->categoria,
+                "valorHora" => $this->valorHora,
+                "valorMensalidade" => $this->valorMensalidade,
+                "ativa" => $this->ativa,
+                "numeroDeVagas" => $this->numeroDeVagas,
+            ];
         }
     }
 ?>

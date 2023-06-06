@@ -37,15 +37,10 @@ export const usePrecificacaoContext = () => {
 
     function adicionarPrecificacao(precificacao: Precificacao)
     {
-        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
-        const ultimaPrecificacaoCadastrada = precificacoes[precificacoes.length - 1];
-        if(ultimaPrecificacaoCadastrada){
-            precificacao.id = (ultimaPrecificacaoCadastrada.id as number) + 1;
-        }else{
-            precificacao.id = 1;
-        }
-
-        setPrecificacoes([...precificacoes, precificacao] );
+        return CategoriaService.cadastraPrecificacao(precificacao)
+            .then( (precificacaoCadastrada: Precificacao) => {
+                setPrecificacoes([...precificacoes, precificacaoCadastrada]);
+            } );
     }
 
     function removerPrecificacao(id: number)

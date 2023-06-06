@@ -37,9 +37,14 @@ export default function CadastrarPrecificacao() {
                 parseFloat(numeroDeVagas)
             );
             
-            adicionarPrecificacao(precificacao);
-
-            navigate('/precificacoes', {state: {sucessoCadastrar: true}});
+            adicionarPrecificacao(precificacao)
+                .then( () => {
+                    navigate('/precificacoes', {state: {sucessoCadastrar: true}});
+                } )
+                .catch( erro => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(erro.message);
+                } );            
 
 
         }catch(e: any){

@@ -31,4 +31,16 @@ export class Precificacao
         return this._categoria;
     }
 
+    //Método chamado durante a serialização do objeto
+    toJSON(){
+        return {
+            id: this.id,
+            categoria: this.categoria,
+            valorHora: this.valorHora,
+            valorMensalidade: this.valorMensalidade,
+            ativa: this.ativa,
+            numeroDeVagas: this.numeroDeVagas
+        }
+    }
+
 }
