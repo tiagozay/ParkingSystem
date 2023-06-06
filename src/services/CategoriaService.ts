@@ -40,7 +40,7 @@ export default abstract class CategoriaService
             )
         } )
         .catch( (e) => {
-            throw new Error("Erro ao cadastrar precificação."); 
+            throw new Error("Erro ao cadastrar precificação. "); 
         })  
     }
 }
