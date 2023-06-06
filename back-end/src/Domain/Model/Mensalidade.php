@@ -6,6 +6,7 @@
     use Doctrine\ORM\Mapping\GeneratedValue;
     use Doctrine\ORM\Mapping\Id;
     use DateTime;
+    use Doctrine\ORM\Mapping\JoinColumn;
     use Doctrine\ORM\Mapping\ManyToOne;
     use DomainException;
     use ParkSistem\Domain\Model\Mensalista;
@@ -19,9 +20,11 @@
         #[Column()]
         private ?int $id;
 
+        #[JoinColumn(nullable:false)]
         #[ManyToOne(targetEntity: Mensalista::class)]
         private Mensalista $mensalista;
         
+        #[JoinColumn(nullable:false)]
         #[ManyToOne(targetEntity: Precificacao::class)]
         private Precificacao $precificacao;
 
