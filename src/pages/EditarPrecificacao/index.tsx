@@ -64,9 +64,15 @@ export default function EditarPrecificacao() {
                 parseFloat(numeroDeVagas),  
             );
     
-            editarPrecificacao(novaPrecificacao);
-    
-            navigate('/precificacoes', { state: { sucessoEditar: true } });
+            editarPrecificacao(novaPrecificacao)
+                .then( () => {
+                    navigate('/precificacoes', { state: { sucessoEditar: true } });
+                } ) 
+                .catch( e => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(e.message);
+                } );
+        
         }catch( e: any ){
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);

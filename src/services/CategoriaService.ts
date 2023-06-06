@@ -43,4 +43,22 @@ export default abstract class CategoriaService
             throw new Error("Erro ao cadastrar precificação. "); 
         })  
     }
+
+    static editaPrecificacao(novaPrecificacao: Precificacao): Promise<Precificacao>
+    {
+        return APIService.enviaObjeto('editarPrecificacao.php', novaPrecificacao)
+        .then( (precificacaoCadastrada) => {
+            return new Precificacao(
+                precificacaoCadastrada.id,
+                precificacaoCadastrada.categoria,
+                precificacaoCadastrada.valorHora,
+                precificacaoCadastrada.valorMensalidade,
+                precificacaoCadastrada.ativa,
+                precificacaoCadastrada.numeroDeVagas,
+            );
+        } )
+        .catch( () => {
+            throw new Error("Erro ao editar precificação."); 
+        })        
+    }
 }

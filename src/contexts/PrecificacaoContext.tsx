@@ -45,14 +45,20 @@ export const usePrecificacaoContext = () => {
 
     function editarPrecificacao(novaPrecificacao: Precificacao)
     {
-        setPrecificacoes( 
-            precificacoes.map( precificacao => {
-                if(precificacao.id === novaPrecificacao.id){
-                    return novaPrecificacao;
-                }
 
-                return precificacao;
-        } ) );
+        return CategoriaService.editaPrecificacao(novaPrecificacao)
+            .then( precificacaoEditada => {
+                setPrecificacoes( 
+                    precificacoes.map( precificacao => {
+                        if(precificacao.id === precificacaoEditada.id){
+                            return precificacaoEditada;
+                        }
+        
+                        return precificacao;
+                } ) );
+            } )
+
+        
     }
 
     function buscaPrecificacaoPorId(id: number) 

@@ -55,6 +55,20 @@
             $this->numeroDeVagas = $numeroDeVagas;
         }   
 
+        public function editar(
+            string $categoria,
+            float $valorHora,
+            float $valorMensalidade,
+            bool $ativa,
+            int $numeroDeVagas,
+        ){
+            $this->categoria = $categoria;
+            $this->valorHora = $valorHora;
+            $this->valorMensalidade = $valorMensalidade;
+            $this->ativa = $ativa;
+            $this->numeroDeVagas = $numeroDeVagas;
+        }
+
         public function getAtiva(): bool
         {
             return $this->ativa;
