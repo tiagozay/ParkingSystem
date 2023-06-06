@@ -3,7 +3,7 @@ import { Mensalista } from "./Mensalista.js";
 import { Precificacao } from "./Precificacao.js";
 import { Veiculo } from "./Veiculo.js";
 
-export class Tiket
+export class Ticket
 {
     public id: number | null = null;
     public readonly veiculo: Veiculo;
@@ -74,10 +74,10 @@ export class Tiket
         return this._mensalista;
     } 
 
-    public fecharTiket(formaDePagamento: FormaDePagamento)
+    public fecharTicket(formaDePagamento: FormaDePagamento)
     {
         if(this.status == "Pago"){
-            console.warn("O tiket já foi pago.");
+            console.warn("O ticket já foi pago.");
             return;
         }
 

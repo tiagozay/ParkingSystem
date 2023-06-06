@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import { Precificacao } from '../models/Precificacao';
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
-import { Tiket } from '../models/Tiket';
+import { Ticket } from '../models/Ticket';
 import { Veiculo } from '../models/Veiculo';
 import { usePrecificacaoContext } from './PrecificacaoContext';
 
@@ -13,24 +13,24 @@ function geraDataA15min()
     return agora;
 }
 
-interface TypeTiketContext 
+interface TypeTicketContext 
 {
-    tikets: Tiket[],
-    setTikets: Function,
+    tickets: Ticket[],
+    setTickets: Function,
 }
 
-export const TiketContext = createContext<TypeTiketContext>(
+export const TicketContext = createContext<TypeTicketContext>(
     {
-        tikets: [], 
-        setTikets: () => {},
+        tickets: [], 
+        setTickets: () => {},
     }
 );
 
-export default function TiketsProvider({children}: {children: ReactNode}) {
+export default function TicketsProvider({children}: {children: ReactNode}) {
     const {buscaValorHoraDeCategoria} = usePrecificacaoContext();
 
-    const [tikets, setTikets] = useState([
-        new Tiket(
+    const [tickets, setTickets] = useState([
+        new Ticket(
             1,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
@@ -40,7 +40,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             2,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
@@ -50,7 +50,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             3,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
@@ -60,7 +60,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             4,
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
@@ -70,7 +70,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             5,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
@@ -80,7 +80,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             6,
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
@@ -90,7 +90,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             7,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
@@ -100,7 +100,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             8,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
@@ -110,7 +110,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             9,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
@@ -120,7 +120,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             10,
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
@@ -130,7 +130,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             11,
             new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
             geraDataA15min(),
@@ -140,7 +140,7 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
             null,
             null
         ),
-        new Tiket(
+        new Ticket(
             12,
             new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
             geraDataA15min(),
@@ -153,63 +153,63 @@ export default function TiketsProvider({children}: {children: ReactNode}) {
     ]);
 
     return (
-        <TiketContext.Provider value={{tikets, setTikets}}>
+        <TicketContext.Provider value={{tickets, setTickets}}>
             {children}
-        </TiketContext.Provider>
+        </TicketContext.Provider>
     );
 }
 
-export const useTiketContext = () => {
-    const {tikets, setTikets} = useContext(TiketContext);
+export const useTicketContext = () => {
+    const {tickets, setTickets} = useContext(TicketContext);
 
-    function buscarTiketPorId(id: number)
+    function buscarTicketPorId(id: number)
     {
-        return tikets.find( tiket => tiket.id === id );
+        return tickets.find( ticket => ticket.id === id );
     }
 
-    function verificaSeTemTiketsAbertosDePrecificacao(idPrecificacao : number)
+    function verificaSeTemTicketsAbertosDePrecificacao(idPrecificacao : number)
     {
-        return tikets.some( tiket => {
-            return tiket.precificacao.id === idPrecificacao && tiket.status === "Em aberto";
+        return tickets.some( ticket => {
+            return ticket.precificacao.id === idPrecificacao && ticket.status === "Em aberto";
         } )
     }
 
-    function adicionarTiket(novoTiket: Tiket)
+    function adicionarTicket(novoTicket: Ticket)
     {
         //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
-        const ultimoTiketCadastrado = tikets[tikets.length - 1];
-        if(ultimoTiketCadastrado){
-            novoTiket.id = (ultimoTiketCadastrado.id as number) + 1;
+        const ultimoTicketCadastrado = tickets[tickets.length - 1];
+        if(ultimoTicketCadastrado){
+            novoTicket.id = (ultimoTicketCadastrado.id as number) + 1;
         }else{
-            novoTiket.id = 1;
+            novoTicket.id = 1;
         }
 
-        setTikets([...tikets, novoTiket]);
+        setTickets([...tickets, novoTicket]);
     }
 
-    function editarTiket(tiketEditado: Tiket)
+    function editarTicket(ticketEditado: Ticket)
     {
-        setTikets(
-            tikets.map( tiket => {
-                if(tiket.id === tiketEditado.id){
-                    return tiketEditado;
+        setTickets(
+            tickets.map( ticket => {
+                if(ticket.id === ticketEditado.id){
+                    return ticketEditado;
                 }
-                return tiket;
+                return ticket;
             } )
         )
     }
 
-    function excluirTiket(id: number)
+    function excluirTicket(id: number)
     {
-        setTikets(tikets.filter(tiket => tiket.id !== id) );
+        setTickets(tickets.filter(ticket => ticket.id !== id) );
     }
 
     return {
-        tikets,
-        buscarTiketPorId,
-        verificaSeTemTiketsAbertosDePrecificacao,
-        adicionarTiket,
-        editarTiket,
-        excluirTiket,
+        tickets,
+        buscarTicketPorId,
+        verificaSeTemTicketsAbertosDePrecificacao,
+        adicionarTicket,
+        editarTicket,
+        excluirTicket,
     }
 }

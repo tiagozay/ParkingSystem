@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './CadastrarTiket.css';
+import './CadastrarTicket.css';
 import BtnVoltar from '../../components/BtnVoltar';
 import InputPlaca from '../../components/InputPlaca';
 import BoasVindas from '../../components/BoasVindas';
@@ -9,15 +9,15 @@ import { PlacaAPIService } from '../../services/PlacaAPIService';
 import { Veiculo } from '../../models/Veiculo';
 import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 import { DataService } from '../../services/DataService';
-import { Tiket } from '../../models/Tiket';
-import { useTiketContext } from '../../contexts/TiketContext';
+import { Ticket } from '../../models/Ticket';
+import { useTicketContext } from '../../contexts/TicketContext';
 import { useMensalistaContext } from '../../contexts/MensalistasContext';
 import { Mensalista } from '../../models/Mensalista';
 import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
 import { Precificacao } from '../../models/Precificacao';
 import MensagemErro from '../../components/MensagemErro';
 
-export default function CadastrarTiket() {
+export default function CadastrarTicket() {
     const [placa, setPlaca] = useState('');
     const [marcaVeiculo, setMarcaVeiculo] = useState('');
     const [modeloVeiculo, setModeloVeiculo] = useState('');
@@ -41,7 +41,7 @@ export default function CadastrarTiket() {
         buscaPrecificacaoPorId,
         buscaPrecificacaoPorNome
     } = usePrecificacaoContext();
-    const { adicionarTiket } = useTiketContext();
+    const { adicionarTicket } = useTicketContext();
 
     const [precificacoesDisponiveis, setPrecificacoesDisponiveis] = useState(precificacoes);
 
@@ -97,11 +97,11 @@ export default function CadastrarTiket() {
         }
     }
 
-    function aoCadastrarTiket(event: React.FormEvent<HTMLFormElement>) {
+    function aoCadastrarTicket(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         try{
-            const novoTiket = new Tiket(
+            const novoTicket = new Ticket(
                 null,
                 new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
                 dataEntrada,
@@ -113,7 +113,7 @@ export default function CadastrarTiket() {
                 tipoCliente === "Mensalista" ? mensalista : null
             );
     
-            adicionarTiket(novoTiket);
+            adicionarTicket(novoTicket);
     
             navigate('/estacionamento', { state: { sucessoCadastrar: true } });
         }catch(e: any){
@@ -156,14 +156,14 @@ export default function CadastrarTiket() {
     }
 
     return (
-        <section id="formularioAdcNovoTiket">
+        <section id="formularioAdcNovoTicket">
             <div id="tituloDaPagina">
                 <div id="tituloDaPagina__nome">
                     <div id="tituloDaPagina__icone">
                         <i className="material-icons">local_parking</i>
                     </div>
                     <div id="tituloDaPagina__textos">
-                        <h2>Cadastrar tikets</h2>
+                        <h2>Cadastrar tickets</h2>
                         <span>Cadastrando tickets</span>
                     </div>
                 </div>
@@ -176,8 +176,8 @@ export default function CadastrarTiket() {
                         Estacionamento
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/estacionamento/cadastrarTiket'>
-                        Cadastrar Tiket
+                    <Link to='/estacionamento/cadastrarTicket'>
+                        Cadastrar Ticket
                     </Link>
                 </div>
 
@@ -197,8 +197,8 @@ export default function CadastrarTiket() {
                     </BtnVoltar>
                 </div>
 
-                <div id="formAdcTiketView">
-                    <form id="formularioCadatrarTiket" className="formPadrao" onSubmit={aoCadastrarTiket}>
+                <div id="formAdcTicketView">
+                    <form id="formularioCadatrarTicket" className="formPadrao" onSubmit={aoCadastrarTicket}>
 
                         <div className="linhaInputs">
                             <label className='labelInputMeio'>

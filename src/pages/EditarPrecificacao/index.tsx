@@ -2,18 +2,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './EditarPrecificacao.css';
 import BtnVoltar from '../../components/BtnVoltar';
-import InputPlaca from '../../components/InputPlaca';
 import BoasVindas from '../../components/BoasVindas';
 import { Link } from 'react-router-dom';
-import { Veiculo } from '../../models/Veiculo';
 import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
-import { DataService } from '../../services/DataService';
-import { Tiket } from '../../models/Tiket';
-import { useTiketContext } from '../../contexts/TiketContext';
-import { useFormaDePagamentoContext } from '../../contexts/FormaDePagamentoContext';
-import { Mensalista } from '../../models/Mensalista';
-import { useMensalistaContext } from '../../contexts/MensalistasContext';
-import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
 import { Precificacao } from '../../models/Precificacao';
 import MensagemErro from '../../components/MensagemErro';
 

@@ -13,7 +13,7 @@
     use ParkSistem\Service\DataService;
 
     #[Entity()]
-    class Tiket
+    class Ticket
     {
         #[Id]
         #[GeneratedValue]
@@ -103,7 +103,7 @@
             $this->numeroDaVaga = $numeroDaVaga;
             $this->mensalista = $mensalista;
 
-            //Se o tiket ainda não foi pago e foi informada uma data de saída, é sinal que o operador pagou este tiket, aí nesse caso, gero uma data de saída, já que a que é recebida do front-end não é confiável 
+            //Se o ticket ainda não foi pago e foi informada uma data de saída, é sinal que o operador pagou este ticket, aí nesse caso, gero uma data de saída, já que a que é recebida do front-end não é confiável 
             if(!$this->pago && $dataDeSaida && $formaDePagamento){
                 $this->dataDeSaida = DataService::geraDataAtual();
                 
@@ -151,7 +151,7 @@
 
         private function setDataDeEntrada(DateTime $dataDeEntrada)
         {
-            //Se o id for nulo, é sinal que o Tiket é novo, ainda não foi pesistido no banco, por isso, precisa gerar uma data do servidor e atribuir à propriedade. Se ele não for nulo, sinal que já foi persistido no banco e essa data recebida vem de lá, concluindo-se que já tenha sido gerada uma data no back-end
+            //Se o id for nulo, é sinal que o Ticket é novo, ainda não foi pesistido no banco, por isso, precisa gerar uma data do servidor e atribuir à propriedade. Se ele não for nulo, sinal que já foi persistido no banco e essa data recebida vem de lá, concluindo-se que já tenha sido gerada uma data no back-end
             if(!$this->id){
                 $this->dataDeEntrada = DataService::geraDataAtual();
             }else {

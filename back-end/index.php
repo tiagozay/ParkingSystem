@@ -7,7 +7,7 @@
     use ParkSistem\Domain\Model\Mensalidade;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Domain\Model\Precificacao;
-    use ParkSistem\Domain\Model\Tiket;
+    use ParkSistem\Domain\Model\Ticket;
     use ParkSistem\Domain\Model\Veiculo;
 
     $mensalista = new Mensalista(
@@ -36,7 +36,7 @@
         new DateTime('2023-04-31'),
     );
 
-    $tiket = new Tiket(
+    $ticket = new Ticket(
         null,
         "APN-2018",
         "Honda",
@@ -49,10 +49,10 @@
         null
     );
 
-    // $tiket->editar("APN-2018", "Honda", "Fan 125", $formaDePagamento, $precificacao, new DateTime(), new DateTime(), null, null );
+    // $ticket->editar("APN-2018", "Honda", "Fan 125", $formaDePagamento, $precificacao, new DateTime(), new DateTime(), null, null );
 
     echo "<pre>";
-    print_r($tiket);
+    print_r($ticket);
     echo "</pre>";
 
 ?>

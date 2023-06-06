@@ -1,8 +1,6 @@
 import React, {useContext} from 'react'
-import { Precificacao } from '../models/Precificacao';
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
-import { Tiket } from '../models/Tiket';
 import { Usuario } from '../models/Usuario';
 
 interface TypeUsuariosContext 

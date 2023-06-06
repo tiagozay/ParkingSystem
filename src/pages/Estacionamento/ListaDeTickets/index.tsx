@@ -1,31 +1,31 @@
 import React, { Dispatch, ReactNode, SetStateAction } from 'react'
-import { Tiket } from '../../../models/Tiket';
+import { Ticket } from '../../../models/Ticket';
 import { useState } from 'react';
 import SelectFiltros from '../../../components/SelectFiltros';
 import InputPlaca from '../../../components/InputPlaca';
-import { useTiketContext } from '../../../contexts/TiketContext';
+import { useTicketContext } from '../../../contexts/TicketContext';
 import { Link } from 'react-router-dom';
 import ListaDeDados from '../../../components/ListaDeDados';
 
-interface ListaDeTiketsProps {
-    tikets: Tiket[],
+interface ListaDeTicketsProps {
+    tickets: Ticket[],
     setSucessoExcluir: Dispatch<SetStateAction<boolean>>
 }
 
-export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTiketsProps) {
+export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTicketsProps) {
     const [statusFiltro, setStatusFiltro] = useState('Todos');
     const [filtroPlaca, setFiltroPlaca] = useState('');
 
-    const { excluirTiket } = useTiketContext();
+    const { excluirTicket } = useTicketContext();
 
-    let tiketsFiltados = tikets;
+    let ticketsFiltados = tickets;
 
     if (statusFiltro != 'Todos') {
-        tiketsFiltados = tikets.filter(tiket => tiket.status === statusFiltro);
+        ticketsFiltados = tickets.filter(ticket => ticket.status === statusFiltro);
     }
 
     const regExp = new RegExp(filtroPlaca.replace(/-/, ''), 'i');
-    tiketsFiltados = tiketsFiltados.filter(tiket => regExp.test(tiket.veiculo.placa.replace(/-/, '')));
+    ticketsFiltados = ticketsFiltados.filter(ticket => regExp.test(ticket.veiculo.placa.replace(/-/, '')));
 
     function aoSelecionarFiltro(event: React.ChangeEvent<HTMLSelectElement>) {
         setStatusFiltro(event.target.value);
@@ -36,10 +36,10 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
     }
 
     function aoClicarEmExcluir(id: number) {
-        const confirmacao = window.confirm("Excluir este Tiket?");
+        const confirmacao = window.confirm("Excluir este Ticket?");
         if (!confirmacao) return;
 
-        excluirTiket(id);
+        excluirTicket(id);
         setSucessoExcluir(true);
     }
 
@@ -58,42 +58,42 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
         </thead>
     );
 
-    function paraCadaRegistro(tiket: Tiket) {
+    function paraCadaRegistro(ticket: Ticket) {
         return (
-            <tr key={tiket.id}>
-                <td>{tiket.veiculo.segmento}</td>
+            <tr key={ticket.id}>
+                <td>{ticket.veiculo.segmento}</td>
                 <td>
                     {
-                        tiket.precificacao.valorHora
+                        ticket.precificacao.valorHora
                             .toLocaleString("pt-BR", { style: "currency", currency: "BRL", })
                     }
                 </td>
-                <td>{tiket.veiculo.placa}</td>
-                <td>{`${tiket.veiculo.marca} ${tiket.veiculo.modelo}`}</td>
-                <td>{`${tiket.formaDePagamento?.nomeFormaDePagamento || "Em aberto"}`}</td>
-                <td>{tiket.mensalista ? tiket.mensalista.nome : "Avulso"}</td>
+                <td>{ticket.veiculo.placa}</td>
+                <td>{`${ticket.veiculo.marca} ${ticket.veiculo.modelo}`}</td>
+                <td>{`${ticket.formaDePagamento?.nomeFormaDePagamento || "Em aberto"}`}</td>
+                <td>{ticket.mensalista ? ticket.mensalista.nome : "Avulso"}</td>
                 <td>
-                    <p className={tiket.status == 'Em aberto' ? 'statusEmAberto' : 'statusPago'}>
-                        {`${tiket.status}`
+                    <p className={ticket.status == 'Em aberto' ? 'statusEmAberto' : 'statusPago'}>
+                        {`${ticket.status}`
                         }</p>
                 </td>
                 <td className='campoDeAcoes'>
-                    <button id='btnImprimirTiket' className='material-icons'>print</button>
+                    <button id='btnImprimirTicket' className='material-icons'>print</button>
 
                     {
-                        tiket.status === 'Em aberto' ? (
-                            <Link to={`editarTiket/${tiket.id}`} id='btnVisualizarOuEditarTiket' className='material-icons'>
+                        ticket.status === 'Em aberto' ? (
+                            <Link to={`editarTicket/${ticket.id}`} id='btnVisualizarOuEditarTicket' className='material-icons'>
                                 edit
                             </Link>
                         ) :
                             (
-                                <Link to={`visualizarTiket/${tiket.id}`} id='btnVisualizarOuEditarTiket' className='material-icons'>
+                                <Link to={`visualizarTicket/${ticket.id}`} id='btnVisualizarOuEditarTicket' className='material-icons'>
                                     visibility
                                 </Link>
                             )
                     }
 
-                    <button id='btnExcluirTiket' className='material-icons' onClick={() => aoClicarEmExcluir(tiket.id as number)}>delete</button>
+                    <button id='btnExcluirTicket' className='material-icons' onClick={() => aoClicarEmExcluir(ticket.id as number)}>delete</button>
                 </td>
             </tr>
         )
@@ -103,7 +103,7 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
         <>
             <div className="divCamposSelectEBuscaDaTabela">
                 <label>
-                    Somente tikets
+                    Somente tickets
                     <SelectFiltros onChange={aoSelecionarFiltro} value={statusFiltro}>
                         <option value="Em aberto">Abertos</option>
                         <option value="Pago">Fechados</option>
@@ -120,7 +120,7 @@ export default function ListaDeTikets({ tikets, setSucessoExcluir }: ListaDeTike
 
 
             <ListaDeDados
-                dados={tiketsFiltados}
+                dados={ticketsFiltados}
                 registrosPorPagina={5}
                 jsxThead={jsxThead}
                 paraCadaRegistro={paraCadaRegistro}

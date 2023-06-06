@@ -6,7 +6,7 @@ import ListaDeDados from '../../../components/ListaDeDados'
 import { usePrecificacaoContext } from '../../../contexts/PrecificacaoContext'
 import { Link } from 'react-router-dom'
 import { useMensalidadeContext } from '../../../contexts/MensalidadesContext'
-import { useTiketContext } from '../../../contexts/TiketContext'
+import { useTicketContext } from '../../../contexts/TicketContext'
 
 interface ListaDePrecificacoesProps {
     precificacoes: Precificacao[],
@@ -19,7 +19,7 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
 
     const { removerPrecificacao } = usePrecificacaoContext();
     const { verificaSeTemMensalidadesEmDiaDePrecificacao } = useMensalidadeContext();
-    const { verificaSeTemTiketsAbertosDePrecificacao } = useTiketContext();
+    const { verificaSeTemTicketsAbertosDePrecificacao } = useTicketContext();
 
     if (statusFiltro !== "Todas") {
         precificacoes = precificacoes.filter(precificacao => {
@@ -43,8 +43,8 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
     function aoClicarEmExcluir(id: number) {
 
 
-        if(verificaSeTemTiketsAbertosDePrecificacao(id)){
-            alert("Existem tikets em aberto para esta categoria!");
+        if(verificaSeTemTicketsAbertosDePrecificacao(id)){
+            alert("Existem tickets em aberto para esta categoria!");
             return;
         };
         if(verificaSeTemMensalidadesEmDiaDePrecificacao(id)){

@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PaginaBase from './pages/PaginaBase';
 import Home from './pages/Home';
 import Estacionamento from './pages/Estacionamento';
-import CadastrarTiket from './pages/CadastrarTiket';
+import CadastrarTicket from './pages/CadastrarTicket';
 import './styles/style.css';
 import './styles/reset.css';
 import Mensalistas from './pages/Mensalistas';
@@ -17,10 +17,10 @@ import Usuarios from './pages/Usuarios';
 import CadastrarUsuario from './pages/CadastrarUsuario';
 import ConfiguracoesDoSistema from './pages/ConfiguracoesDoSistema';
 import PrecificacoesProvider from './contexts/PrecificacaoContext';
-import TiketsProvider from './contexts/TiketContext';
-import EditarTiket from './pages/EditarTiket';
+import TicketsProvider from './contexts/TicketContext';
+import EditarTicket from './pages/EditarTicket';
 import FormasDePagamentoProvider from './contexts/FormaDePagamentoContext';
-import VisualizarTiket from './pages/VisualizarTiket';
+import VisualizarTicket from './pages/VisualizarTicket';
 import MensalistasProvider from './contexts/MensalistasContext';
 import EditarMensalista from './pages/EditarMensalista';
 import MensalidadesProvider from './contexts/MensalidadesContext';
@@ -39,15 +39,15 @@ function AppRoutes() {
           <FormasDePagamentoProvider>
             <MensalistasProvider>
               <MensalidadesProvider>
-                <TiketsProvider>
+                <TicketsProvider>
                   <BrowserRouter>
                     <Routes>
                       <Route path='/' element={<PaginaBase />}>
                         <Route index element={<Home />} />
                         <Route path='estacionamento' element={<Estacionamento />} />
-                        <Route path='estacionamento/cadastrarTiket' element={<CadastrarTiket />} />
-                        <Route path='estacionamento/editarTiket/:id' element={<EditarTiket />} />
-                        <Route path='estacionamento/visualizarTiket/:id' element={<VisualizarTiket />} />
+                        <Route path='estacionamento/cadastrarTicket' element={<CadastrarTicket />} />
+                        <Route path='estacionamento/editarTicket/:id' element={<EditarTicket />} />
+                        <Route path='estacionamento/visualizarTicket/:id' element={<VisualizarTicket />} />
                         <Route path='mensalistas' element={<Mensalistas />} />
                         <Route path='mensalistas/cadastrarMensalista' element={<CadastrarMensalista />} />
                         <Route path='mensalistas/editarMensalista/:id' element={<EditarMensalista />} />
@@ -66,7 +66,7 @@ function AppRoutes() {
                       </Route>
                     </Routes>
                   </BrowserRouter>
-                </TiketsProvider>
+                </TicketsProvider>
               </MensalidadesProvider>
             </MensalistasProvider>
           </FormasDePagamentoProvider>

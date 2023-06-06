@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import './Estacionamento.css'
-import { Tiket } from '../../models/Tiket';
+import { Ticket } from '../../models/Ticket';
 import { Veiculo } from '../../models/Veiculo';
-import ListaDeTikets from './ListaDeTikets';
+import ListaDeTickets from './ListaDeTickets';
 import { Link, useLocation } from 'react-router-dom';
 import BoasVindas from '../../components/BoasVindas';
-import { useTiketContext } from '../../contexts/TiketContext';
+import { useTicketContext } from '../../contexts/TicketContext';
 import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function Estacionamento() {
 
-    const {tikets} = useTiketContext();
+    const {tickets} = useTicketContext();
 
     const [sucessoExcluir, setSucessoExcluir] = useState(false);
 
@@ -21,13 +21,13 @@ export default function Estacionamento() {
 
     if(sucessoExcluir){
         mensagemSucessoAberta = true;
-        mensagemSucesso = "Tiket excluído com sucesso!";
+        mensagemSucesso = "Ticket excluído com sucesso!";
     }else if( location.state && location.state.sucessoCadastrar){
         mensagemSucessoAberta = true;
-        mensagemSucesso = "Tiket cadastrado com sucesso!";
+        mensagemSucesso = "Ticket cadastrado com sucesso!";
     }else if(location.state && location.state.sucessoEditar){
         mensagemSucessoAberta = true;
-        mensagemSucesso = "Tiket editado com sucesso!";
+        mensagemSucesso = "Ticket editado com sucesso!";
     }
 
     return (
@@ -63,13 +63,13 @@ export default function Estacionamento() {
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnNovo">
-                    <Link to="cadastrarTiket" id="btnAdicionarNovo" data-pagina="formularioAdcNovoTiket">
+                    <Link to="cadastrarTicket" id="btnAdicionarNovo" data-pagina="formularioAdcNovoTicket">
                         <i className="material-icons">add</i>
                         Novo
                     </Link>
                 </div>
 
-                <ListaDeTikets tikets={tikets} setSucessoExcluir={setSucessoExcluir}/>
+                <ListaDeTickets tickets={tickets} setSucessoExcluir={setSucessoExcluir}/>
 
             </section>
 
