@@ -7,18 +7,23 @@ import { APIService } from "./APIService";
 
 export default abstract class CategoriaService
 {
-    static buscaCategorias(): Precificacao[] | []
-    {
-        return api_categorias.map( categoriaDados => {
-            return new Precificacao(
-                categoriaDados.id,
-                categoriaDados.nome,
-                categoriaDados.valorHora,
-                categoriaDados.valorMensalidade,
-                categoriaDados.ativa,
-                categoriaDados.numeroDeVagas,
-            )
-        } )
+    static buscaCategorias(): Promise<Precificacao[] | []>
+    {   
+        return APIService.buscaObjetos('buscaPrecificacoes.php')
+            .then( precificacoesObjetos => {
+                const precificacoes = precificacoesObjetos.map( (precificacaoObjeto : any) => {
+                    return new Precificacao(
+                        precificacaoObjeto.id,
+                        precificacaoObjeto.categoria,
+                        precificacaoObjeto.valorHora,
+                        precificacaoObjeto.valorMensalidade,
+                        precificacaoObjeto.ativa,
+                        precificacaoObjeto.numeroDeVagas
+                    );
+                } );
+
+                return precificacoes;
+            } );
     }
 
     static cadastraPrecificacao(novaPrecificacao: Precificacao)

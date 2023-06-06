@@ -18,7 +18,7 @@ export default function FormasDePagamentoProvider({children}: {children: ReactNo
 
     useEffect(() => {
         FormaDePagamentoService.buscaFormasDePagamento()
-        .then( setFormasDePagamento );
+            .then( setFormasDePagamento );
     }, []);
 
     return (
