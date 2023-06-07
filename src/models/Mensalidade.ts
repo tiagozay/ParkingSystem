@@ -56,9 +56,13 @@ export class Mensalidade
 
     set categoria(categoria: Precificacao)
     {
-        if(!categoria.ativa){
-            throw new Error("Categoria intativa");
+        //Se o id for nulo, é sinal que está sendo criada uma nova Mensalidade, fazendo-se necessária a validação da precificação. Se não for nulo, é sinal que está sendo iniciada uma Mensalidade já cadastrada, aí não é necessária a validação da Precificação
+        if(!this.id){
+            if(!categoria.ativa || categoria.descontinuada){
+                throw new Error("Categoria inválida (inativa ou descontinuada)");
+            }
         }
+        
 
         this._categoria = categoria;
     }

@@ -10,7 +10,7 @@ export class Ticket
     public modeloVeiculo: string;
     private _formaDePagamento: FormaDePagamento | null;
     public status: "Em aberto" | "Pago";
-    public precificacao: Precificacao;
+    public _precificacao: Precificacao;
     public dataDeEntrada: Date;
     private _dataDeSaida: Date | null;
     public numeroDaVaga: string | null;
@@ -66,6 +66,26 @@ export class Ticket
 
     }
 
+    set precificacao(precificacao: Precificacao)
+    {
+        /* 
+        Se o id for nulo e a propriedade _precificacao ainda não foi inicializada, é sinal que está sendo criado um novo Tiket, fazendo-se necessária a validação da precificação. Se não for nulo e a propriedade _precificação já tiver sido definida, é sinal de que a precificação está sendo editada, também fazendo-se necessária a validação. Mas se não acontecer nada disso é sinal que está sendo iniciado um Tiket já cadastrado, aí não é necessária a validação da Precificação
+        (!this.id && this._precificacao === undefined) -> Novo Tiket
+        (this.id && this._precificacao !== undefined) -> Tiket sendo editado
+        */
+        
+        if(
+            (!this.id && this._precificacao === undefined) || 
+            (this.id && this._precificacao !== undefined)
+        ){
+            if(!precificacao.ativa || precificacao.descontinuada){
+                throw new Error("Precificação inválida (inativa ou descontinuada)");
+            }
+        }   
+
+        this._precificacao = precificacao;
+    }
+
     set formaDePagamento(formaDePagamento: FormaDePagamento | null)
     {
         //Recebo uma forma de pagamento que preciso verificar se ela é válida (ativa e não é descontinuada) somente quando eu estiver criando um um novo ticket (quando o id for nulo) ou quando eu já tiver um ticket, porém, em aberto, que nesse caso é sinal que estou editando um ticket. Nesses dois casos tenho que fazer a validação. Caso contrário (quando o ticket já está pago), não preciso fazer as validações da forma de pagamento.
@@ -78,6 +98,11 @@ export class Ticket
         }
 
         this._formaDePagamento = formaDePagamento;
+    }
+
+    get precificacao(): Precificacao
+    {
+        return this._precificacao;
     }
 
     get formaDePagamento(): FormaDePagamento | null
