@@ -2,7 +2,6 @@ import React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useTicketContext } from '../../contexts/TicketContext';
 import { Ticket } from '../../models/Ticket';
-import InputPlaca from '../../components/InputPlaca';
 import BtnVoltar from '../../components/BtnVoltar';
 import BoasVindas from '../../components/BoasVindas';
 import { DataService } from '../../services/DataService';
@@ -79,22 +78,22 @@ export default function VisualizarTicket() {
                         <div className="linhaInputs">
                             <label>
                                 Placa veículo
-                                <input className="inputDesativado" value={ticket.veiculo.placa} readOnly/>
+                                <input className="inputDesativado" value={ticket.placaVeiculo} readOnly/>
                             </label>
                             <label>
                                 Marca veículo
-                                <input type="text" className="inputDesativado" value={ticket.veiculo.marca} readOnly/>
+                                <input type="text" className="inputDesativado" value={ticket.marcaVeiculo} readOnly/>
                             </label>
                             <label>
                                 Modelo veículo
-                                <input type="text" className="inputDesativado" value={ticket.veiculo.modelo} readOnly/>
+                                <input type="text" className="inputDesativado" value={ticket.modeloVeiculo} readOnly/>
                             </label>
                         </div>
 
                         <div className="linhaInputs">
                             <label>
                                 Categoria
-                                <input type="text" className="inputDesativado" value={ticket.veiculo.segmento} readOnly/>
+                                <input type="text" className="inputDesativado" value={ticket.precificacao.categoria} readOnly/>
                             </label>
                             <label>
                                 Valor hora

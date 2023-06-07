@@ -5,7 +5,6 @@ import BtnVoltar from '../../components/BtnVoltar';
 import InputPlaca from '../../components/InputPlaca';
 import BoasVindas from '../../components/BoasVindas';
 import { Link } from 'react-router-dom';
-import { Veiculo } from '../../models/Veiculo';
 import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 import { DataService } from '../../services/DataService';
 import { Ticket } from '../../models/Ticket';
@@ -65,10 +64,10 @@ export default function EditarTicket() {
 
         setTipoCliente(ticket.mensalista ? "Mensalista" : "Avulso");
         setMensalista(ticket.mensalista);
-        setPlaca(ticket.veiculo.placa);
-        setMarcaVeiculo(ticket.veiculo.marca);
-        setModeloVeiculo(ticket.veiculo.modelo);
-        setCategoria(ticket.precificacao );
+        setPlaca(ticket.placaVeiculo);
+        setMarcaVeiculo(ticket.marcaVeiculo);
+        setModeloVeiculo(ticket.modeloVeiculo);
+        setCategoria(ticket.precificacao);
         setValorHora(ticket.precificacao.valorHora);
         setStatus(ticket.status);
         setNumeroVaga(ticket.numeroDaVaga);
@@ -166,7 +165,9 @@ export default function EditarTicket() {
         try{
             if(ticket){
                 ticket.editar(
-                    new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
+                    placa,
+                    marcaVeiculo,
+                    modeloVeiculo,
                     dataSaida,
                     categoria as Precificacao,
                     buscarFormaDePagamentoPorId(Number(formaDePagamento)),

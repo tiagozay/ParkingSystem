@@ -1,12 +1,13 @@
 import { FormaDePagamento } from "./FormaDePagamento.js";
 import { Mensalista } from "./Mensalista.js";
 import { Precificacao } from "./Precificacao.js";
-import { Veiculo } from "./Veiculo.js";
 
 export class Ticket
 {
     public id: number | null = null;
-    public veiculo: Veiculo;
+    public placaVeiculo: string;
+    public marcaVeiculo: string;
+    public modeloVeiculo: string;
     private _formaDePagamento: FormaDePagamento | null;
     public status: "Em aberto" | "Pago";
     public precificacao: Precificacao;
@@ -17,7 +18,9 @@ export class Ticket
 
     constructor(
         id: number | null,
-        veiculo: Veiculo, 
+        placaVeiculo: string,
+        marcaVeiculo: string,
+        modeloVeiculo: string,
         dataEntrada: Date,
         dataSaida: Date | null,
         precificacao: Precificacao,
@@ -27,8 +30,9 @@ export class Ticket
         mensalista: Mensalista | null = null
     ){
         this.id = id;
-
-        this.veiculo = veiculo;
+        this.placaVeiculo = placaVeiculo;
+        this.marcaVeiculo = marcaVeiculo;
+        this.modeloVeiculo = modeloVeiculo;
         this.precificacao = precificacao;
         this.dataDeEntrada = dataEntrada;
         this.formaDePagamento = formaDePagamento;
@@ -39,13 +43,17 @@ export class Ticket
     }
 
     public editar(
-        veiculo: Veiculo, 
+        placaVeiculo: string,
+        marcaVeiculo: string,
+        modeloVeiculo: string,
         dataSaida: Date | null,
         precificacao: Precificacao,
         formaDePagamento: FormaDePagamento | null = null,
         mensalista: Mensalista | null = null
     ){
-        this.veiculo = veiculo;
+        this.placaVeiculo = placaVeiculo;
+        this.marcaVeiculo = marcaVeiculo;
+        this.modeloVeiculo = modeloVeiculo;
         this.precificacao = precificacao;
         this.mensalista = mensalista;
 

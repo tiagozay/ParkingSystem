@@ -25,7 +25,7 @@ export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTi
     }
 
     const regExp = new RegExp(filtroPlaca.replace(/-/, ''), 'i');
-    ticketsFiltados = ticketsFiltados.filter(ticket => regExp.test(ticket.veiculo.placa.replace(/-/, '')));
+    ticketsFiltados = ticketsFiltados.filter(ticket => regExp.test(ticket.placaVeiculo.replace(/-/, '')));
 
     function aoSelecionarFiltro(event: React.ChangeEvent<HTMLSelectElement>) {
         setStatusFiltro(event.target.value);
@@ -61,15 +61,15 @@ export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTi
     function paraCadaRegistro(ticket: Ticket) {
         return (
             <tr key={ticket.id}>
-                <td>{ticket.veiculo.segmento}</td>
+                <td>{ticket.precificacao.categoria}</td>
                 <td>
                     {
                         ticket.precificacao.valorHora
                             .toLocaleString("pt-BR", { style: "currency", currency: "BRL", })
                     }
                 </td>
-                <td>{ticket.veiculo.placa}</td>
-                <td>{`${ticket.veiculo.marca} ${ticket.veiculo.modelo}`}</td>
+                <td>{ticket.placaVeiculo}</td>
+                <td>{`${ticket.marcaVeiculo} ${ticket.modeloVeiculo}`}</td>
                 <td>{`${ticket.formaDePagamento?.nomeFormaDePagamento || "Em aberto"}`}</td>
                 <td>{ticket.mensalista ? ticket.mensalista.nome : "Avulso"}</td>
                 <td>

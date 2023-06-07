@@ -6,7 +6,6 @@ import InputPlaca from '../../components/InputPlaca';
 import BoasVindas from '../../components/BoasVindas';
 import { Link } from 'react-router-dom';
 import { PlacaAPIService } from '../../services/PlacaAPIService';
-import { Veiculo } from '../../models/Veiculo';
 import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 import { DataService } from '../../services/DataService';
 import { Ticket } from '../../models/Ticket';
@@ -103,7 +102,9 @@ export default function CadastrarTicket() {
         try{
             const novoTicket = new Ticket(
                 null,
-                new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
+                placa,
+                marcaVeiculo,
+                modeloVeiculo,
                 dataEntrada,
                 null,
                 categoria as Precificacao,

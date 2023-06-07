@@ -3,7 +3,6 @@ import { Precificacao } from '../models/Precificacao';
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Ticket } from '../models/Ticket';
-import { Veiculo } from '../models/Veiculo';
 import { usePrecificacaoContext } from './PrecificacaoContext';
 
 function geraDataA15min()
@@ -32,7 +31,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
     const [tickets, setTickets] = useState([
         new Ticket(
             1,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
+            'Honda',
+            'APN-2018',
+            'CG FAN 125',
             geraDataA15min(),
             null,
             new Precificacao(2, 'Moto', 10, 150, true, 25),
@@ -42,7 +43,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             2,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
+            'Honda',
+            'APN-2018',
+            'CG FAN 125',
             geraDataA15min(),
             null,
             new Precificacao(2, 'Moto', 10, 150, true, 25),
@@ -52,7 +55,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             3,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
+            'Honda',
+            'APN-2018',
+            'CG FAN 125',
             geraDataA15min(),
             null,
             new Precificacao(2, 'Moto', 10, 150, true, 25),
@@ -62,7 +67,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             4,
-            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
+            'ABA-2054',
+            'Wolksvagen',
+            'Gol',
             geraDataA15min(),
             null,
             new Precificacao(1, "Carro", 20, 200, true, 20),
@@ -72,7 +79,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             5,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
+            'Honda',
+            'APN-2018',
+            'CG FAN 125',
             geraDataA15min(),
             null,
             new Precificacao(2, 'Moto', 10, 150, true, 25),
@@ -82,7 +91,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             6,
-            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
+            'ABA-2054',
+            'Wolksvagen',
+            'Gol',
             geraDataA15min(),
             null,
             new Precificacao(1, "Carro", 20, 200, true, 20),
@@ -92,7 +103,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             7,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
+            'Honda',
+            'APN-2018',
+            'CG FAN 125',
             geraDataA15min(),
             null,
             new Precificacao(2, 'Moto', 10, 150, true, 25),
@@ -102,7 +115,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             8,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
+            'Honda',
+            'APN-2018',
+            'CG FAN 125',
             geraDataA15min(),
             null,
             new Precificacao(2, 'Moto', 10, 150, true, 25),
@@ -112,7 +127,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             9,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
+            'Honda',
+            'APN-2018',
+            'CG FAN 125',
             geraDataA15min(),
             null,
             new Precificacao(2, 'Moto', 10, 150, true, 25),
@@ -122,7 +139,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             10,
-            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
+            'ABA-2054',
+            'Wolksvagen',
+            'Gol',
             geraDataA15min(),
             null,
             new Precificacao(1, "Carro", 20, 200, true, 20),
@@ -132,7 +151,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             11,
-            new Veiculo('APN-2018', 'Honda', 'CG FAN 125', 'Moto', buscaValorHoraDeCategoria('Moto')),
+            'Honda',
+            'APN-2018',
+            'CG FAN 125',
             geraDataA15min(),
             null,
             new Precificacao(2, 'Moto', 10, 150, true, 25),
@@ -142,7 +163,9 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
         ),
         new Ticket(
             12,
-            new Veiculo('ABA-2054', 'Wolksvagen', 'Gol', 'Carro', buscaValorHoraDeCategoria('Carro')),
+            'ABA-2054',
+            'Wolksvagen',
+            'Gol',
             geraDataA15min(),
             null,
             new Precificacao(1, "Carro", 20, 200, true, 20),

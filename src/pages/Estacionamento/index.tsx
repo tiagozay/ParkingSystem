@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import './Estacionamento.css'
-import { Ticket } from '../../models/Ticket';
-import { Veiculo } from '../../models/Veiculo';
 import ListaDeTickets from './ListaDeTickets';
 import { Link, useLocation } from 'react-router-dom';
 import BoasVindas from '../../components/BoasVindas';
