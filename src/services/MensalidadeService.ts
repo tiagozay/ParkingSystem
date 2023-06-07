@@ -30,8 +30,9 @@ export default abstract class MensalidadeService
                 mensalidadeDados.categoria.nome,
                 mensalidadeDados.categoria.valorHora,
                 mensalidadeDados.categoria.valorMensalidade,
+                mensalidadeDados.categoria.numeroDeVagas,
                 mensalidadeDados.categoria.ativa,
-                mensalidadeDados.categoria.numeroDeVagas
+                mensalidadeDados.categoria.descontinuada,
             );
 
             const formaDePagamentoDaMensalidade = new FormaDePagamento(

@@ -17,8 +17,9 @@ export default abstract class CategoriaService
                         precificacaoObjeto.categoria,
                         precificacaoObjeto.valorHora,
                         precificacaoObjeto.valorMensalidade,
+                        precificacaoObjeto.numeroDeVagas,
                         precificacaoObjeto.ativa,
-                        precificacaoObjeto.numeroDeVagas
+                        precificacaoObjeto.descontinuada,
                     );
                 } );
 
@@ -35,8 +36,9 @@ export default abstract class CategoriaService
                 precificacaoCadastradaObjeto.categoria,
                 precificacaoCadastradaObjeto.valorHora,
                 precificacaoCadastradaObjeto.valorMensalidade,
-                precificacaoCadastradaObjeto.ativa,
-                precificacaoCadastradaObjeto.numeroDeVagas           
+                precificacaoCadastradaObjeto.numeroDeVagas,    
+                precificacaoCadastradaObjeto.ativa,       
+                precificacaoCadastradaObjeto.descontinuada,           
             )
         } )
         .catch( (e) => {
@@ -53,8 +55,9 @@ export default abstract class CategoriaService
                 precificacaoCadastrada.categoria,
                 precificacaoCadastrada.valorHora,
                 precificacaoCadastrada.valorMensalidade,
-                precificacaoCadastrada.ativa,
                 precificacaoCadastrada.numeroDeVagas,
+                precificacaoCadastrada.ativa,
+                precificacaoCadastrada.descontinuada,
             );
         } )
         .catch( () => {

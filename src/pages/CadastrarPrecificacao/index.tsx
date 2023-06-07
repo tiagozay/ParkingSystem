@@ -33,8 +33,9 @@ export default function CadastrarPrecificacao() {
                 nome,
                 parseFloat(valorHora),
                 parseFloat(valorMensalidade),
+                parseFloat(numeroDeVagas),
                 ativa,
-                parseFloat(numeroDeVagas)
+                false
             );
             
             adicionarPrecificacao(precificacao)

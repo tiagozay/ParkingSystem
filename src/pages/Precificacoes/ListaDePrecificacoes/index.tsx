@@ -74,6 +74,9 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
 
     function paraCadaPrecificacao(precificacao: Precificacao) {
         return (
+
+            !precificacao.descontinuada && 
+
             <tr key={precificacao.id}>
                 <td>{precificacao.categoria}</td>
                 <td>{DataService.formataValorMonetario(precificacao.valorHora)}</td>

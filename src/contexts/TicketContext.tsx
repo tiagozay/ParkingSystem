@@ -36,7 +36,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'CG FAN 125',
             geraDataA15min(),
             null,
-            new Precificacao(2, 'Moto', 10, 150, true, 25),
+            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
             "Em aberto",
             null,
             null
@@ -48,7 +48,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'CG FAN 125',
             geraDataA15min(),
             null,
-            new Precificacao(2, 'Moto', 10, 150, true, 25),
+            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
             "Em aberto",
             null,
             null
@@ -60,7 +60,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'CG FAN 125',
             geraDataA15min(),
             null,
-            new Precificacao(2, 'Moto', 10, 150, true, 25),
+            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
             "Em aberto",
             null,
             null
@@ -72,7 +72,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'Gol',
             geraDataA15min(),
             null,
-            new Precificacao(1, "Carro", 20, 200, true, 20),
+            new Precificacao(1, "Carro", 20, 200, 20, true, false),
             "Em aberto",
             null,
             null
@@ -84,7 +84,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'CG FAN 125',
             geraDataA15min(),
             null,
-            new Precificacao(2, 'Moto', 10, 150, true, 25),
+            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
             "Em aberto",
             null,
             null
@@ -96,7 +96,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'Gol',
             geraDataA15min(),
             null,
-            new Precificacao(1, "Carro", 20, 200, true, 20),
+            new Precificacao(1, "Carro", 20, 200, 20, true, false),
             "Em aberto",
             null,
             null
@@ -108,7 +108,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'CG FAN 125',
             geraDataA15min(),
             null,
-            new Precificacao(2, 'Moto', 10, 150, true, 25),
+            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
             "Em aberto",
             null,
             null
@@ -120,7 +120,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'CG FAN 125',
             geraDataA15min(),
             null,
-            new Precificacao(2, 'Moto', 10, 150, true, 25),
+            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
             "Em aberto",
             null,
             null
@@ -132,7 +132,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'CG FAN 125',
             geraDataA15min(),
             null,
-            new Precificacao(2, 'Moto', 10, 150, true, 25),
+            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
             "Em aberto",
             null,
             null
@@ -144,7 +144,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'Gol',
             geraDataA15min(),
             null,
-            new Precificacao(1, "Carro", 20, 200, true, 20),
+            new Precificacao(1, "Carro", 20, 200, 20, true, false),
             "Em aberto",
             null,
             null
@@ -156,7 +156,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'CG FAN 125',
             geraDataA15min(),
             null,
-            new Precificacao(2, 'Moto', 10, 150, true, 25),
+            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
             "Em aberto",
             null,
             null
@@ -168,7 +168,7 @@ export default function TicketsProvider({children}: {children: ReactNode}) {
             'Gol',
             geraDataA15min(),
             null,
-            new Precificacao(1, "Carro", 20, 200, true, 20),
+            new Precificacao(1, "Carro", 20, 200, 20, true, false),
             "Em aberto",
             null,
             null

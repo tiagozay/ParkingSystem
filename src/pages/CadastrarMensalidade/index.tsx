@@ -153,7 +153,7 @@ export default function CadastrarMensalidade() {
 
                                 {precificacoes.map(precificacao => (
 
-                                    precificacao.ativa &&
+                                    (precificacao.ativa && !precificacao.descontinuada ) &&
 
                                     <option key={precificacao.id as number} value={precificacao.id as number}>
                                         {precificacao.categoria}

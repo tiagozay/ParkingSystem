@@ -30,10 +30,13 @@
         private float $valorMensalidade;
 
         #[Column()]
+        private int $numeroDeVagas;
+
+        #[Column()]
         private bool $ativa;
 
         #[Column()]
-        private int $numeroDeVagas;
+        private bool $descontinuada;
 
         /**
          * @throws DomainException
@@ -45,6 +48,7 @@
             float $valorMensalidade,
             bool $ativa,
             int $numeroDeVagas,
+            bool $descontinuada
         )
         {
             $this->id = $id;
@@ -53,6 +57,7 @@
             $this->valorMensalidade = $valorMensalidade;
             $this->ativa = $ativa;
             $this->numeroDeVagas = $numeroDeVagas;
+            $this->descontinuada = $descontinuada;
         }   
 
         public function editar(
@@ -68,6 +73,17 @@
             $this->ativa = $ativa;
             $this->numeroDeVagas = $numeroDeVagas;
         }
+
+        public function descontinuar()
+        {
+            $this->descontinuada = true;
+        }
+
+        public function tornarVigente()
+        {
+            $this->descontinuada = false;
+        }
+
 
         public function getAtiva(): bool
         {
@@ -93,6 +109,7 @@
                 "valorMensalidade" => $this->valorMensalidade,
                 "ativa" => $this->ativa,
                 "numeroDeVagas" => $this->numeroDeVagas,
+                "descontinuada" => $this->descontinuada,
             ];
         }
     }

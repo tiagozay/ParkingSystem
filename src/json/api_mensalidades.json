@@ -19,7 +19,8 @@
             "valorHora": 20,
             "valorMensalidade": 250,
             "ativa": true,
-            "numeroDeVagas": 20
+            "numeroDeVagas": 20,
+            "descontinuada": false
         },
         "formaDePagamento": {
             "id": 1,
@@ -52,7 +53,8 @@
             "valorHora": 10,
             "valorMensalidade": 150,
             "ativa": true,
-            "numeroDeVagas": 25
+            "numeroDeVagas": 25,
+            "descontinuada": false
         },
         "formaDePagamento": {
             "id": 1,
@@ -85,7 +87,8 @@
             "valorHora": 10,
             "valorMensalidade": 150,
             "ativa": true,
-            "numeroDeVagas": 25
+            "numeroDeVagas": 25,
+            "descontinuada": false
         },
         "formaDePagamento": {
             "id": 2,
@@ -118,7 +121,8 @@
             "valorHora": 20,
             "valorMensalidade": 250,
             "ativa": true,
-            "numeroDeVagas": 20
+            "numeroDeVagas": 20,
+            "descontinuada": false
         },
         "formaDePagamento": {
             "id": 3,
@@ -151,7 +155,8 @@
             "valorHora": 20,
             "valorMensalidade": 250,
             "ativa": true,
-            "numeroDeVagas": 20
+            "numeroDeVagas": 20,
+            "descontinuada": false
         },
         "formaDePagamento": {
             "id": 3,
@@ -184,7 +189,8 @@
             "valorHora": 20,
             "valorMensalidade": 250,
             "ativa": true,
-            "numeroDeVagas": 20
+            "numeroDeVagas": 20,
+            "descontinuada": false
         },
         "formaDePagamento": {
             "id": 1,

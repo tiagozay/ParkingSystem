@@ -6,15 +6,17 @@ export class Precificacao
     public valorMensalidade: number;
     public ativa: boolean;
     public numeroDeVagas: number;
+    public descontinuada: boolean;
 
-    constructor(id: number | null, categoria: string, valorHora:number, valorMensalidade: number, ativa: boolean, numeroDeVagas: number)
+    constructor(id: number | null, categoria: string, valorHora:number, valorMensalidade: number, numeroDeVagas: number, ativa: boolean, descontinuada: boolean)
     {   
         this.id = id;
         this.categoria = categoria;
         this.valorHora = valorHora;
         this.valorMensalidade = valorMensalidade;
-        this.ativa = ativa;
         this.numeroDeVagas = numeroDeVagas;
+        this.ativa = ativa;
+        this.descontinuada = descontinuada;
     }
 
     set categoria(categoria: string)
@@ -38,8 +40,9 @@ export class Precificacao
             categoria: this.categoria,
             valorHora: this.valorHora,
             valorMensalidade: this.valorMensalidade,
+            numeroDeVagas: this.numeroDeVagas,
             ativa: this.ativa,
-            numeroDeVagas: this.numeroDeVagas
+            descontinuada: this.descontinuada
         }
     }
 

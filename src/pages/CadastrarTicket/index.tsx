@@ -255,7 +255,7 @@ export default function CadastrarTicket() {
                                     {
                                         precificacoesDisponiveis?.map(precificacao => (
 
-                                            precificacao.ativa &&
+                                            (precificacao.ativa && !precificacao.descontinuada) &&
 
                                             <option
                                                 key={precificacao.id}

@@ -60,8 +60,9 @@ export default function EditarPrecificacao() {
                 nome,
                 parseFloat(valorHora),
                 parseFloat(valorMensalidade),
-                ativa,
                 parseFloat(numeroDeVagas),  
+                ativa,
+                false
             );
     
             editarPrecificacao(novaPrecificacao)

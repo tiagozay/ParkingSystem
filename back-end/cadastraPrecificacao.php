@@ -20,7 +20,8 @@
             $stdPrecificacao->valorHora,
             $stdPrecificacao->valorMensalidade,
             $stdPrecificacao->ativa,
-            $stdPrecificacao->numeroDeVagas
+            $stdPrecificacao->numeroDeVagas,
+            $stdPrecificacao->descontinuada,
         );
 
         $entityManager->persist($precificacao);
