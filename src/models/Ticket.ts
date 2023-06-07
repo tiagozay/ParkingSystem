@@ -6,13 +6,13 @@ import { Veiculo } from "./Veiculo.js";
 export class Ticket
 {
     public id: number | null = null;
-    public readonly veiculo: Veiculo;
+    public veiculo: Veiculo;
     private _formaDePagamento: FormaDePagamento | null;
     public status: "Em aberto" | "Pago";
-    public readonly precificacao: Precificacao;
-    public readonly dataDeEntrada: Date;
+    public precificacao: Precificacao;
+    public dataDeEntrada: Date;
     private _dataDeSaida: Date | null;
-    public readonly numeroDaVaga: string | null;
+    public numeroDaVaga: string | null;
     private _mensalista: Mensalista | null;
 
     constructor(
@@ -29,7 +29,6 @@ export class Ticket
         this.id = id;
 
         this.veiculo = veiculo;
-
         this.precificacao = precificacao;
         this.dataDeEntrada = dataEntrada;
         this.formaDePagamento = formaDePagamento;
@@ -37,6 +36,26 @@ export class Ticket
         this._dataDeSaida = dataSaida;
         this.numeroDaVaga = numeroDaVaga;
         this.mensalista = mensalista;
+    }
+
+    public editar(
+        veiculo: Veiculo, 
+        dataSaida: Date | null,
+        precificacao: Precificacao,
+        formaDePagamento: FormaDePagamento | null = null,
+        mensalista: Mensalista | null = null
+    ){
+        this.veiculo = veiculo;
+        this.precificacao = precificacao;
+        this.mensalista = mensalista;
+
+        //Se o ticket ainda não foi pago e a data de saída e a forma de pagamento foi recebida nessa função de editar, é sinal que o operador realizou o pagamento deste ticket, aí defino a data de saída e a forma de pagamento e mudo seu status para "Pago"
+        if(this.status === "Em aberto" && dataSaida && formaDePagamento){
+            this._dataDeSaida = dataSaida;
+            this.formaDePagamento = formaDePagamento;
+            this.status = "Pago";
+        }
+
     }
 
     set formaDePagamento(formaDePagamento: FormaDePagamento | null)
@@ -73,18 +92,6 @@ export class Ticket
     {
         return this._mensalista;
     } 
-
-    public fecharTicket(formaDePagamento: FormaDePagamento)
-    {
-        if(this.status == "Pago"){
-            console.warn("O ticket já foi pago.");
-            return;
-        }
-
-        this.formaDePagamento = formaDePagamento;
-        this._dataDeSaida = new Date();
-
-    }
 
     calculaTotalAPagar(valorPorHora: number): number
     {

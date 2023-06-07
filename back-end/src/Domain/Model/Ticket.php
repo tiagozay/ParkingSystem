@@ -103,7 +103,7 @@
             $this->numeroDaVaga = $numeroDaVaga;
             $this->mensalista = $mensalista;
 
-            //Se o ticket ainda não foi pago e foi informada uma data de saída, é sinal que o operador pagou este ticket, aí nesse caso, gero uma data de saída, já que a que é recebida do front-end não é confiável 
+            //Se o ticket ainda não foi pago e foi informada uma data de saída e uma forma de pagamento, é sinal que o operador pagou este ticket, aí nesse caso, gero uma data de saída, já que a que é recebida do front-end não é confiável 
             if(!$this->pago && $dataDeSaida && $formaDePagamento){
                 $this->dataDeSaida = DataService::geraDataAtual();
                 

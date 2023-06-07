@@ -164,21 +164,20 @@ export default function EditarTicket() {
         event.preventDefault();
 
         try{
-            const novoTicket = new Ticket(
-                id,
-                new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
-                dataEntrada,
-                dataSaida,
-                categoria as Precificacao,
-                status,
-                numeroVaga,
-                buscarFormaDePagamentoPorId(Number(formaDePagamento)),
-                tipoCliente === 'Mensalista' ? mensalista : null
-            );
-    
-            editarTicket(novoTicket);
-    
-            navigate('/estacionamento', { state: { sucessoEditar: true } });
+            if(ticket){
+                ticket.editar(
+                    new Veiculo(placa, marcaVeiculo, modeloVeiculo, categoria?.categoria as string, valorHora),
+                    dataSaida,
+                    categoria as Precificacao,
+                    buscarFormaDePagamentoPorId(Number(formaDePagamento)),
+                    tipoCliente === 'Mensalista' ? mensalista : null
+                )
+        
+                editarTicket(ticket);
+        
+                navigate('/estacionamento', { state: { sucessoEditar: true } });
+            }
+
         }catch(e: any ){
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);
