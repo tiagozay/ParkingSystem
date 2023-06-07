@@ -44,11 +44,9 @@
         public function editar(
             string $nomeFormaDePagamento,
             bool $ativa,
-            bool $descontinuada
         ){
             $this->nomeFormaDePagamento = $nomeFormaDePagamento;
             $this->ativa = $ativa;
-            $this->descontinuada = $descontinuada;
         }
 
         public function descontinuar()

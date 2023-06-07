@@ -20,7 +20,6 @@
         $formaDePagamento->editar(
             $stdFormaDePagamentoEditada->nomeFormaDePagamento,
             $stdFormaDePagamentoEditada->ativa,
-            $stdFormaDePagamentoEditada->descontinuada,
         );
 
         $entityManager->flush();
