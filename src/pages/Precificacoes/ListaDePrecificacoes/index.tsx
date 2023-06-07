@@ -17,7 +17,7 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
     const [statusFiltro, setStatusFiltro] = useState('Todas');
     const [filtroCategoria, setFiltroCategoria] = useState('');
 
-    const { removerPrecificacao } = usePrecificacaoContext();
+    const { excluirPrecificacao } = usePrecificacaoContext();
     const { verificaSeTemMensalidadesEmDiaDePrecificacao } = useMensalidadeContext();
     const { verificaSeTemTicketsAbertosDePrecificacao } = useTicketContext();
 
@@ -41,22 +41,14 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
     }
 
     function aoClicarEmExcluir(id: number) {
-
-
-        if(verificaSeTemTicketsAbertosDePrecificacao(id)){
-            alert("Existem tickets em aberto para esta categoria!");
-            return;
-        };
-        if(verificaSeTemMensalidadesEmDiaDePrecificacao(id)){
-            alert("Existem mensalidades ativas para esta categoria!");
-            return;
-        };
-
         const confirmacao = window.confirm("Excluír esta precificação?");
         if (!confirmacao) return;
 
-        removerPrecificacao(id);
-        setSucessoExcluir(true);
+        excluirPrecificacao(id)
+            .then( () => {
+                setSucessoExcluir(true);
+            } );
+        
     }
 
     const theadTabela = (

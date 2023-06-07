@@ -64,4 +64,25 @@ export default abstract class CategoriaService
             throw new Error("Erro ao editar precificação."); 
         })        
     }
+
+    static excluiCategoria(id: number): Promise<Precificacao | undefined>
+    {
+        return APIService.enviaObjeto('excluiPrecificacao.php', id)
+            .then( precificacaoDescontinuada => {
+                if(precificacaoDescontinuada){
+                    return new Precificacao(
+                        precificacaoDescontinuada.id,
+                        precificacaoDescontinuada.categoria,
+                        precificacaoDescontinuada.valorHora,
+                        precificacaoDescontinuada.valorMensalidade,
+                        precificacaoDescontinuada.numeroDeVagas,
+                        precificacaoDescontinuada.ativa,
+                        precificacaoDescontinuada.descontinuada,
+                    );
+                }
+            } )
+            .catch( () => {
+                throw new Error("Erro ao excluír precificação."); 
+            } )
+    }
 }

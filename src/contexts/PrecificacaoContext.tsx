@@ -38,11 +38,6 @@ export const usePrecificacaoContext = () => {
             } );
     }
 
-    function removerPrecificacao(id: number)
-    {
-        setPrecificacoes(precificacoes.filter( precificacao => precificacao.id !== id ));
-    }
-
     function editarPrecificacao(novaPrecificacao: Precificacao)
     {
 
@@ -78,11 +73,36 @@ export const usePrecificacaoContext = () => {
         return precificacao ? precificacao.valorHora : 0;
     }
 
+    function excluirPrecificacao(idPrecificacao: number)
+    {
+        return CategoriaService.excluiCategoria( idPrecificacao )    
+            .then( precificacaoDescontinuada => {
+
+                //Verifica se foi retornada uma Precificação, sem sim, é sinal de que ela não foi necessariamentre excluída, e sim somente descontinuada, aí ela é modificada no context. Se não veio nada de retorno, é sinal de que foi literalmente excluída, removendo-a do context com o filter
+
+                if(precificacaoDescontinuada){
+
+                    setPrecificacoes( precificacoes.map( precificacao => {
+                        if(precificacao.id === precificacaoDescontinuada.id){
+                            return precificacaoDescontinuada;
+                        }
+            
+                        return precificacao;
+                    }) );
+
+                }else {
+                    setPrecificacoes( 
+                        precificacoes.filter( precificacao => precificacao.id !== idPrecificacao ) 
+                    )
+                }
+            } );
+    }
+
     return {
         precificacoes,
         adicionarPrecificacao,
         editarPrecificacao,
-        removerPrecificacao,
+        excluirPrecificacao,
         buscaValorHoraDeCategoria,
         buscaPrecificacaoPorId,
         buscaPrecificacaoPorNome
