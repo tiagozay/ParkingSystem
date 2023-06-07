@@ -69,12 +69,16 @@ export class Mensalidade
     }
 
     set formaDePagamento(formaDePagamento: FormaDePagamento)
-    {
-        if(!formaDePagamento.ativa){
-            throw new Error("Forma de pagamento inativa!");
-        }else if(formaDePagamento.descontinuada){
-            throw new Error("Forma de pagamento descontinuada");
+    {   
+        //Se id for nulo, é sinal de que está sendo criada uma nova mensalidade, nesse caso, a forma de pagamento não pode estar inativa e nem descontinuada. Porém, se já tiver um id, a forma de pagamento pode ter qualquer estado, já que a mensalidade já foi paga anteriormente, quando a forma de pagamento era valida (ativa e não descontinuada)
+        if(!this.id){
+            if(!formaDePagamento.ativa){
+                throw new Error("Forma de pagamento inativa!");
+            }else if(formaDePagamento.descontinuada){
+                throw new Error("Forma de pagamento descontinuada");
+            }
         }
+        
 
         this._formaDePagamento = formaDePagamento    
     }
