@@ -60,10 +60,13 @@ export class Ticket
 
     set formaDePagamento(formaDePagamento: FormaDePagamento | null)
     {
-        if(formaDePagamento && !formaDePagamento.ativa){
-            throw new Error("Forma de pagamento inativa");
-        }else if(formaDePagamento && formaDePagamento.descontinuada){
-            throw new Error("Forma de pagamento descontinuada");
+        //Recebo uma forma de pagamento que preciso verificar se ela é válida (ativa e não é descontinuada) somente quando eu estiver criando um um novo ticket (quando o id for nulo) ou quando eu já tiver um ticket, porém, em aberto, que nesse caso é sinal que estou editando um ticket. Nesses dois casos tenho que fazer a validação. Caso contrário (quando o ticket já está pago), não preciso fazer as validações da forma de pagamento.
+        if(!this.id || (this.id && this.status === "Em aberto") ){
+            if(formaDePagamento && !formaDePagamento.ativa){
+                throw new Error("Forma de pagamento inativa");
+            }else if(formaDePagamento && formaDePagamento.descontinuada){
+                throw new Error("Forma de pagamento descontinuada");
+            }
         }
 
         this._formaDePagamento = formaDePagamento;
