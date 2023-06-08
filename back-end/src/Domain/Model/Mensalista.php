@@ -73,6 +73,28 @@
             $this->cidade = $cidade;
         }   
 
+        public function editar(
+            string $nome ,
+            ?DateTime $dataNascimento,
+            string $cpf,
+            ?string $email,
+            string $celular,
+            bool $ativo,
+            string $cep,
+            string $uf,
+            string $cidade,
+        ){
+            $this->nome = $nome;
+            $this->dataNascimento = $dataNascimento;
+            $this->setCpf($cpf);
+            $this->email = $email;
+            $this->celular = $celular;
+            $this->ativo = $ativo;
+            $this->cep = $cep;
+            $this->uf = $uf;
+            $this->cidade = $cidade;
+        }
+
         /**
          * @throws DomainException
          */

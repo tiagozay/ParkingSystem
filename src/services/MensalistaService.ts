@@ -50,4 +50,26 @@ export default abstract class MensalistaService
         })        
     }
 
+    static editaMensalista(novoMensalista: Mensalista): Promise<Mensalista>
+    {
+        return APIService.enviaObjeto('editarMensalista.php', novoMensalista)
+        .then( (mensalistaEditadoOBJ) => {
+            return new Mensalista(
+                mensalistaEditadoOBJ.id,
+                mensalistaEditadoOBJ.nome,
+                DataService.corrigeFusoHorario(new Date(mensalistaEditadoOBJ.dataNascimento)),
+                mensalistaEditadoOBJ.cpf,
+                mensalistaEditadoOBJ.email,
+                mensalistaEditadoOBJ.celular,
+                mensalistaEditadoOBJ.cep,
+                mensalistaEditadoOBJ.uf,
+                mensalistaEditadoOBJ.cidade,
+                mensalistaEditadoOBJ.ativo,
+            );
+        } )
+        .catch( () => {
+            throw new Error("Erro ao editar mensalista."); 
+        })        
+    }
+
 }

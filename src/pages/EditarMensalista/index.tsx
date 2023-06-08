@@ -73,9 +73,15 @@ export default function EditarMensalista() {
                 ativo
             );
     
-            editarMensalista(mensalistaEditado);
-    
-            navigate('/mensalistas', {state: {sucessoEditar: true}});
+            editarMensalista(mensalistaEditado)
+                .then( () => {
+                    navigate('/mensalistas', {state: {sucessoEditar: true}});
+                } ) 
+                .catch( e => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(e.message);
+                } );
+            
         }catch(e: any){
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);

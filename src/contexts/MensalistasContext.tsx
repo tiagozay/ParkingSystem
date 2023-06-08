@@ -57,17 +57,19 @@ export const useMensalistaContext = () => {
         setMensalistas( mensalistas.filter( mensalista => mensalista.id !== id ) );
     }
 
-    function editarMensalista(novoMensalista: Mensalista) 
+    function editarMensalista(novoMensalista: Mensalista)
     {
-        setMensalistas( 
-            mensalistas.map( mensalista => {
-                if(mensalista.id === novoMensalista.id){
-                    return novoMensalista;
-                }
 
-                return mensalista;
-            } )
-        );
+        return MensalistaService.editaMensalista(novoMensalista)
+            .then( mensalistaEditado => {
+                setMensalistas( mensalistas.map( mensalista => {
+                    if(mensalista.id === mensalistaEditado.id){
+                        return mensalistaEditado;
+                    }
+        
+                    return mensalista;
+                } ) );
+            } );
     }
 
 
