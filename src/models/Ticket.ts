@@ -1,3 +1,4 @@
+import { convertCompilerOptionsFromJson } from "typescript";
 import { FormaDePagamento } from "./FormaDePagamento.js";
 import { Mensalista } from "./Mensalista.js";
 import { Precificacao } from "./Precificacao.js";
@@ -69,14 +70,14 @@ export class Ticket
     set precificacao(precificacao: Precificacao)
     {
         /* 
-        Se o id for nulo e a propriedade _precificacao ainda não foi inicializada, é sinal que está sendo criado um novo Tiket, fazendo-se necessária a validação da precificação. Se não for nulo e a propriedade _precificação já tiver sido definida, é sinal de que a precificação está sendo editada, também fazendo-se necessária a validação. Mas se não acontecer nada disso é sinal que está sendo iniciado um Tiket já cadastrado, aí não é necessária a validação da Precificação
+        Se o id for nulo e a propriedade _precificacao ainda não foi inicializada, é sinal que está sendo criado um novo Tiket, fazendo-se necessária a validação da precificação. Se não for nulo e a propriedade _precificação já tiver sido definida e o id da Precificação já definida for diferente da que estou recebendo é sinal de que a precificação está sendo editada e estou recebendo uma outra precificação, uma diferente da que já está definida, indicando que ela não é uma inativa ou descontinuada (já que o tiket pode continuar com uma dessas se estiver sido definida previamente), também fazendo-se necessária a validação. Mas se não acontecer nada disso é sinal que está sendo iniciado um Tiket já cadastrado, aí não é necessária a validação da Precificação
         (!this.id && this._precificacao === undefined) -> Novo Tiket
-        (this.id && this._precificacao !== undefined) -> Tiket sendo editado
+        this.id && this._precificacao !== undefined && this._precificacao.id !== precificacao.id) -> Tiket sendo editado e uma nova precificação entrando
         */
         
         if(
             (!this.id && this._precificacao === undefined) || 
-            (this.id && this._precificacao !== undefined)
+            (this.id && this._precificacao !== undefined && this._precificacao.id !== precificacao.id)
         ){
             if(!precificacao.ativa || precificacao.descontinuada){
                 throw new Error("Precificação inválida (inativa ou descontinuada)");

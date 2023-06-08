@@ -315,18 +315,31 @@ export default function EditarTicket() {
                                 <select onChange={aoSelecionarCategoria} value={categoria?.id as number} required>
                                     <option value="">Selecione</option>
                                     {
-                                        precificacoesDisponiveis?.map(precificacao => (
+                                        //Escreve as Precificações disponiveis para selecionar na hora de editar Tiket. Caso eu tenha um Tiket que tenha sido cadastrado com determindada Precificação (Quando ela estava ativa a não estava descontinuada), e depois desse cadastro, eu tenha inativado ou descontinuado essa Precificacao, ela vai continuar aparecendo no select, porém com o sufixo "(descontinuada)" ou "(inativa)". Nesses casos, no model tiket, não é feita a verificação se a Precificacao é válida ou não, já que quando um tiket tiver sua Precificação invalidada, ele poderá continuar com ela para não causar inconsistência
+                                    
+                                        precificacoesDisponiveis?.map(precificacao => {
 
-                                            precificacao.ativa &&
+                                            let nomeCategoria = `${precificacao.categoria}`;
 
-                                            <option
-                                                key={precificacao.id}
-                                                value={precificacao.id as number}>
-                                                {precificacao.categoria}
-                                            </option>
-                                        ))
-                                    }
+                                            if(precificacao.descontinuada){
+                                                nomeCategoria += ' (descontinuada)';
+                                            }else if(!precificacao.ativa){
+                                                nomeCategoria += ' (inativa)';
+                                            }
 
+                                            return (
+                                                (
+                                                    (precificacao.ativa && !precificacao.descontinuada) ||
+                                                    (precificacao.id === ticket?.precificacao.id)
+                                                )
+                                                &&
+                                                <option
+                                                    key={precificacao.id}
+                                                    value={precificacao.id as number}>
+                                                    {nomeCategoria}
+                                                </option>
+                                            ) } )
+                                    }       
                                 </select>
                             </label>
                             <label>
