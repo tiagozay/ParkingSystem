@@ -18,7 +18,7 @@
         #[Id]
         #[GeneratedValue]
         #[Column()]
-        private ?int $id;
+        public ?int $id;
 
         #[Column(length: 8)]
         private string $placaVeiculo;
@@ -116,8 +116,21 @@
          */
         private function setPrecificacao(Precificacao $precificacao)
         {
-            if(!$precificacao->getAtiva()){
-                throw new DomainException("Precificação inativa");
+            //Se não tiver id, é sinal de que está sendo criado um novo tiket, sendo necessária a validação. Se tiver id, mas tiver recebendo uma precificação diferente da que já está definida, também é necessária a validação, pois é sinal de que estamos recebendo uma nova precificação, e só omitimos essa validação quando recebermos uma precificação inválida na edição, que seja a mesma que já foi definidda
+
+            if(!$this->id){
+                //Novo tiket                
+
+                if(!$precificacao->getAtiva() || $precificacao->getDescontinuada()){
+                    throw new DomainException("Precificação inválida");
+                }
+
+            }else if( $this->precificacao->id !== $precificacao->id ){
+                //Edição com precificação nova
+
+                if(!$precificacao->getAtiva() || $precificacao->getDescontinuada()){
+                    throw new DomainException("Precificação inválida");
+                }
             }
 
             $this->precificacao = $precificacao;

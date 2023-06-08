@@ -78,8 +78,8 @@
          */
         private function setPrecificacao(Precificacao $precificacao)
         {
-            if(!$precificacao->getAtiva()){
-                throw new DomainException("Precificação inativa");
+            if(!$precificacao->getAtiva() || $precificacao->getDescontinuada()){
+                throw new DomainException("Precificação inválida (inativa ou descontinuada)");
             }
 
             $this->precificacao = $precificacao;

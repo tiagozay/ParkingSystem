@@ -100,6 +100,11 @@
             return $this->categoria;
         }
 
+        public function getDescontinuada()
+        {
+            return $this->descontinuada;
+        }
+
         public function jsonSerialize(): mixed
         {
             return [
