@@ -24,7 +24,8 @@
             $stdMensalista->ativo,
             $stdMensalista->cep,
             $stdMensalista->uf,
-            $stdMensalista->cidade
+            $stdMensalista->cidade,
+            $stdMensalista->descontinuado,
         );
 
         $entityManager->persist($mensalista);
