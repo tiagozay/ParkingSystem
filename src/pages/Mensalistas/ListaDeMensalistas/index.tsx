@@ -15,7 +15,7 @@ export default function ListaDeMensalistas({ mensalistas, setSucessoExcluir }: L
     const [statusFiltro, setStatusFiltro] = useState('todos');
     const [filtroNome, setFiltroNome] = useState('');
 
-    const { removerMensalista } = useMensalistaContext();
+    const { excluirMensalista } = useMensalistaContext();
 
     if (statusFiltro != 'todos') {
 
@@ -45,8 +45,10 @@ export default function ListaDeMensalistas({ mensalistas, setSucessoExcluir }: L
         const confirmacao = window.confirm("Excluír este mensalista?");
         if (!confirmacao) return;
 
-        removerMensalista(id);
-        setSucessoExcluir(true);
+        excluirMensalista(id)
+            .then( () => {
+                setSucessoExcluir(true);
+            } );
     }
 
     const theadTabela = (
@@ -64,6 +66,8 @@ export default function ListaDeMensalistas({ mensalistas, setSucessoExcluir }: L
 
     function paraCadaMensalista(mensalista: Mensalista) {
         return (
+            !mensalista.descontinuado &&
+
             <tr key={mensalista.id}>
                 <td>{mensalista.nome}</td>
                 <td>{mensalista.cpf}</td>

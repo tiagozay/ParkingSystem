@@ -52,9 +52,27 @@ export const useMensalistaContext = () => {
             });        
     }
 
-    function excluirMensalista(id: number)
+    function excluirMensalista(idMensalista: number)
     {
-        setMensalistas( mensalistas.filter( mensalista => mensalista.id !== id ) );
+        return MensalistaService.excluiMensalista( idMensalista )    
+            .then( mensalistaDescontinuado => {
+
+                //Verifica se foi retornado um mensalista, sem sim, é sinal de que ele não foi necessariamentre excluído, e sim somente descontinuada, aí ele é modificada no context. Se não veio nada de retorno, é sinal de que foi literalmente excluída, removendo-o do context 
+
+                if(mensalistaDescontinuado){
+                    setMensalistas( mensalistas.map( mensalista => {
+                        if(mensalista.id === mensalistaDescontinuado.id){
+                            return mensalistaDescontinuado;
+                        }
+            
+                        return mensalista;
+                    } ) );
+                }else {
+                    setMensalistas( 
+                        mensalistas.filter( mensalista => mensalista.id !== idMensalista ) 
+                    )
+                }
+            } );
     }
 
     function editarMensalista(novoMensalista: Mensalista)
