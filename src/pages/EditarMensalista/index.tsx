@@ -70,7 +70,8 @@ export default function EditarMensalista() {
                 cep,
                 uf,
                 cidade,
-                ativo
+                ativo,
+                false
             );
     
             editarMensalista(mensalistaEditado)

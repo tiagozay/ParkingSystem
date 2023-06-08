@@ -45,6 +45,9 @@
         #[Column(length:100)]
         private string $cidade;
 
+        #[Column()]
+        private bool $descontinuado;
+
         /**
          * @throws DomainException
          */
@@ -59,6 +62,7 @@
             string $cep,
             string $uf,
             string $cidade,
+            bool $descontinuado,
         )
         {
             $this->id = $id;
@@ -71,6 +75,7 @@
             $this->cep = $cep;
             $this->uf = $uf;
             $this->cidade = $cidade;
+            $this->descontinuado = $descontinuado;
         }   
 
         public function editar(
@@ -95,6 +100,16 @@
             $this->cidade = $cidade;
         }
 
+        public function descontinuar()
+        {
+            $this->descontinuado = true;
+        }
+
+        public function tornarVigente()
+        {
+            $this->descontinuado = false;
+        }
+
         /**
          * @throws DomainException
          */
@@ -111,6 +126,11 @@
             return $this->ativo;
         }
 
+        public function getDescontinuado()
+        {
+            return $this->descontinuado;
+        }
+
         public function jsonSerialize(): mixed
         {
             return [
@@ -124,6 +144,7 @@
                 "cep" => $this->cep,
                 "uf" => $this->uf,
                 "cidade" => $this->cidade,
+                "descontinuado" => $this->descontinuado,
             ];
         }
     }

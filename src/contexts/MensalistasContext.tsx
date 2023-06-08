@@ -52,7 +52,7 @@ export const useMensalistaContext = () => {
             });        
     }
 
-    function removerMensalista(id: number)
+    function excluirMensalista(id: number)
     {
         setMensalistas( mensalistas.filter( mensalista => mensalista.id !== id ) );
     }
@@ -79,6 +79,6 @@ export const useMensalistaContext = () => {
         verificaSeJaTemMensalistaComCpf,
         adicionarMensalista,
         editarMensalista,
-        removerMensalista
+        excluirMensalista
     }
 }

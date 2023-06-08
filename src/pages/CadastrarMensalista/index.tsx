@@ -44,7 +44,8 @@ export default function CadastrarMensalista() {
                 cep,
                 uf,
                 cidade,
-                true
+                true,
+                false
             );
             
             adicionarMensalista(mensalista)

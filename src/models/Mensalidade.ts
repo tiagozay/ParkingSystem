@@ -46,6 +46,13 @@ export class Mensalidade
 
     set mensalista(mensalista: Mensalista)
     {
+        //Se não tiver ID, é sinal de que uma nova mensalidade está sendo cadastrada, fazendo-se necessária a validação do mensalista recebido. Se tiver id, não faz a validação, pois indica que esse mensalisat já foi cadastrado da forma correta (com um mesnalista válido)
+        if(!this.id){
+            if(!mensalista.ativo || mensalista.descontinuado){
+                throw new Error("Mensalista inváldo (inativo ou descontinuado)");
+            }
+        }
+
         this._mensalista = mensalista;
     }
 

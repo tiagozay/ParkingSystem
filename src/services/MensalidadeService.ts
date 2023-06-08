@@ -22,7 +22,8 @@ export default abstract class MensalidadeService
                 mensalidadeDados.mensalista.cep,
                 mensalidadeDados.mensalista.uf,
                 mensalidadeDados.mensalista.cidade,
-                mensalidadeDados.mensalista.ativo
+                mensalidadeDados.mensalista.ativo,
+                false,
             );
 
             const categoriaDaMensalidade = new Precificacao(

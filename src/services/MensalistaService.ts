@@ -21,6 +21,7 @@ export default abstract class MensalistaService
                             mensalista.uf,
                             mensalista.cidade,
                             mensalista.ativo,
+                            mensalista.descontinuado
                         );
                     } );
 
@@ -43,6 +44,7 @@ export default abstract class MensalistaService
                 mensalistaCadastradoOBJ.uf,
                 mensalistaCadastradoOBJ.cidade,
                 mensalistaCadastradoOBJ.ativo,
+                mensalistaCadastradoOBJ.descontinuado
             );
         } )
         .catch( () => {
@@ -65,6 +67,7 @@ export default abstract class MensalistaService
                 mensalistaEditadoOBJ.uf,
                 mensalistaEditadoOBJ.cidade,
                 mensalistaEditadoOBJ.ativo,
+                mensalistaEditadoOBJ.descontinuado
             );
         } )
         .catch( () => {

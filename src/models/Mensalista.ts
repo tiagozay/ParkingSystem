@@ -12,6 +12,7 @@ export class Mensalista
     public uf: string;
     public cidade: string;
     public ativo: boolean;
+    public descontinuado: boolean;
 
     /** 
      * @throws {Error}
@@ -27,6 +28,7 @@ export class Mensalista
         uf: string,
         cidade: string,
         ativo: boolean,
+        descontinuado: boolean
     ) {
         this.id = id;
         this.nome = nome;
@@ -38,6 +40,7 @@ export class Mensalista
         this.uf = uf;
         this.cidade = cidade;
         this.ativo = ativo;
+        this.descontinuado = descontinuado;
     }
 
     get cpf()
@@ -68,6 +71,7 @@ export class Mensalista
             uf: this.uf,
             cidade: this.cidade,
             ativo: this.ativo,
+            descontinuado: this.descontinuado
         }
     }
 }
