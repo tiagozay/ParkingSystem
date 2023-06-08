@@ -7,15 +7,16 @@
     use Doctrine\ORM\Mapping\Id;
     use DateTime;
     use DomainException;
+    use JsonSerializable;
     use ParkSistem\Service\CPFService;
 
     #[Entity]
-    class Mensalista
+    class Mensalista implements JsonSerializable
     {
         #[Id]
         #[GeneratedValue]
         #[Column()]
-        public readonly ?int $id;
+        public ?int $id;
     
         #[Column(length:100)]
         private string $nome ;
@@ -86,6 +87,22 @@
         public function getAtivo()
         {
             return $this->ativo;
+        }
+
+        public function jsonSerialize(): mixed
+        {
+            return [
+                "id" => $this->id,
+                "nome" => $this->nome,
+                "dataNascimento" => $this->dataNascimento->format('Y-m-d'),
+                "cpf" => $this->cpf,
+                "email" => $this->email,
+                "celular" => $this->celular,
+                "ativo" => $this->ativo,
+                "cep" => $this->cep,
+                "uf" => $this->uf,
+                "cidade" => $this->cidade,
+            ];
         }
     }
 ?>

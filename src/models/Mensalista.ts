@@ -8,10 +8,10 @@ export class Mensalista
     private _cpf: string;
     public email: string | null;
     public celular: string;
-    public ativo: boolean;
     public cep: string;
     public uf: string;
     public cidade: string;
+    public ativo: boolean;
 
     /** 
      * @throws {Error}
@@ -52,5 +52,22 @@ export class Mensalista
         }
 
         this._cpf = cpf;
+    }
+
+    //Método chamado durante a serialização do objeto
+    toJSON()
+    {
+        return {
+            id: this.id,
+            nome: this.nome,
+            dataNascimento: this.dataNascimento,
+            cpf: this._cpf,
+            email: this.email, 
+            celular: this.celular,
+            cep: this.cep,
+            uf: this.uf,
+            cidade: this.cidade,
+            ativo: this.ativo,
+        }
     }
 }

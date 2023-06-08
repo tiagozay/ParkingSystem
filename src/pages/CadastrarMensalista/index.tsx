@@ -47,10 +47,14 @@ export default function CadastrarMensalista() {
                 true
             );
             
-            adicionarMensalista(mensalista);
-
-            navigate('/mensalistas', {state: {sucessoCadastrar: true}});
-
+            adicionarMensalista(mensalista)
+                .then( () => {
+                    navigate('/mensalistas', {state: {sucessoCadastrar: true}});
+                } )
+                .catch( erro => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(erro.message);
+                } );
 
         }catch(e: any){
             setMensagemDeErroAberta(true);
