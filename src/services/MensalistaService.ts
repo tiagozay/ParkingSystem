@@ -5,22 +5,27 @@ import { DataService } from "./DataService";
 
 export default abstract class MensalistaService
 {
-    static buscaMensalistas(): Mensalista[] | []
+    static buscaMensalistas(): Promise<Mensalista[] | []>
     {
-        return api_mensalistas.map( mensalistaDados => {
-            return new Mensalista(
-                mensalistaDados.id,
-                mensalistaDados.nome,
-                new Date(mensalistaDados.dataNascimento),
-                mensalistaDados.cpf,
-                mensalistaDados.email,
-                mensalistaDados.celular,
-                mensalistaDados.cep,
-                mensalistaDados.uf,
-                mensalistaDados.cidade,
-                mensalistaDados.ativo,
-            );
-        } );
+        return APIService.buscaObjetos('buscaMensalistas.php')
+            .then( mensalistasObjeto => {
+                    const mensalistas = mensalistasObjeto.map( (mensalista: any) => {
+                        return new Mensalista(
+                            mensalista.id,
+                            mensalista.nome,
+                            DataService.corrigeFusoHorario(new Date(mensalista.dataNascimento)),
+                            mensalista.cpf,
+                            mensalista.email,
+                            mensalista.celular,
+                            mensalista.cep,
+                            mensalista.uf,
+                            mensalista.cidade,
+                            mensalista.ativo,
+                        );
+                    } );
+
+                    return mensalistas;
+            });
     }
 
     static cadastraMensalista(novoMensalista: Mensalista): Promise<Mensalista>

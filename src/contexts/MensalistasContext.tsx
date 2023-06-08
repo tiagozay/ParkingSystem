@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Mensalista } from '../models/Mensalista';
@@ -13,8 +13,12 @@ interface TypeMensalistaContext
 export const MensalistaContext = createContext<TypeMensalistaContext>({mensalistas: [], setMensalistas: () => {}});
 
 export default function MensalistasProvider({children}: {children: ReactNode}) {
+    const [mensalistas, setMensalistas] = useState<Mensalista[] | []>([]);
 
-    const [mensalistas, setMensalistas] = useState(MensalistaService.buscaMensalistas());
+    useEffect(() => {
+        MensalistaService.buscaMensalistas()
+            .then( setMensalistas );
+    }, []);
 
     return (
         <MensalistaContext.Provider value={{mensalistas, setMensalistas}}>
