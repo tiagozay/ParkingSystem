@@ -42,12 +42,12 @@ export default abstract class FormaDePagamentoService
     static editaFormaDePagamento(novaFormaDePagamento: FormaDePagamento): Promise<FormaDePagamento>
     {
         return APIService.enviaObjeto('editarFormaDePagamento.php', novaFormaDePagamento)
-        .then( (formaDePagamentoCadastrada) => {
+        .then( (formaDePagamentoEditada) => {
             return new FormaDePagamento(
-                formaDePagamentoCadastrada.id,
-                formaDePagamentoCadastrada.nomeFormaDePagamento,
-                formaDePagamentoCadastrada.ativa,
-                formaDePagamentoCadastrada.descontinuada,                
+                formaDePagamentoEditada.id,
+                formaDePagamentoEditada.nomeFormaDePagamento,
+                formaDePagamentoEditada.ativa,
+                formaDePagamentoEditada.descontinuada,                
             )
         } )
         .catch( () => {

@@ -49,15 +49,15 @@ export default abstract class CategoriaService
     static editaPrecificacao(novaPrecificacao: Precificacao): Promise<Precificacao>
     {
         return APIService.enviaObjeto('editarPrecificacao.php', novaPrecificacao)
-        .then( (precificacaoCadastrada) => {
+        .then( (precificacaoEditada) => {
             return new Precificacao(
-                precificacaoCadastrada.id,
-                precificacaoCadastrada.categoria,
-                precificacaoCadastrada.valorHora,
-                precificacaoCadastrada.valorMensalidade,
-                precificacaoCadastrada.numeroDeVagas,
-                precificacaoCadastrada.ativa,
-                precificacaoCadastrada.descontinuada,
+                precificacaoEditada.id,
+                precificacaoEditada.categoria,
+                precificacaoEditada.valorHora,
+                precificacaoEditada.valorMensalidade,
+                precificacaoEditada.numeroDeVagas,
+                precificacaoEditada.ativa,
+                precificacaoEditada.descontinuada,
             );
         } )
         .catch( () => {
