@@ -6,15 +6,17 @@
     use Doctrine\ORM\Mapping\GeneratedValue;
     use Doctrine\ORM\Mapping\Id;
     use DateTime;
+    use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
     use Doctrine\ORM\Mapping\JoinColumn;
     use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\Persistence\Mapping\StaticReflectionService;
-use DomainException;
+    use Doctrine\ORM\Mapping\PostLoad;
+    use DomainException;
     use JsonSerializable;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Service\DataService;
 
     #[Entity()]
+    #[HasLifecycleCallbacks]
     class Mensalidade implements JsonSerializable
     {
         #[Id]
@@ -69,7 +71,8 @@ use DomainException;
             $this->inicialize();
         }   
 
-        //Função que deve ser chamada depois do doctrine criar uma entidade do mesmo tipo dessa classe
+        //Função chamada depois do doctrine criar uma entidade do mesmo tipo dessa classe ou quando é chamado o construtor
+        #[PostLoad]
         public function inicialize()
         {
             $this->setVencida();
