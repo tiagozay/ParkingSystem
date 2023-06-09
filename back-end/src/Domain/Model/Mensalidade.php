@@ -9,11 +9,12 @@
     use Doctrine\ORM\Mapping\JoinColumn;
     use Doctrine\ORM\Mapping\ManyToOne;
     use DomainException;
+    use JsonSerializable;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Service\DataService;
 
     #[Entity()]
-    class Mensalidade
+    class Mensalidade implements JsonSerializable
     {
         #[Id]
         #[GeneratedValue]
@@ -57,11 +58,12 @@
         )
         {
             $this->id = $id;
-            $this->mensalista = $mensalista;
+            $this->setMensalista($mensalista);
             $this->setPrecificacao($precificacao);
             $this->valor = $valor;
             $this->setFormaDePagamento($formaDePagamento);
             $this->setDataDeCompra($dataDeCompra);
+            $this->setDataDeVencimento();
 
             $this->inicialize();
         }   
@@ -69,8 +71,19 @@
         //Função que deve ser chamada depois do doctrine criar uma entidade do mesmo tipo dessa classe
         public function inicialize()
         {
-            $this->dataDeVencimento = DataService::acrescenta1Mes($this->dataDeCompra);
-            $this->vencida = DataService::geraDataAtual() > $this->dataDeVencimento;
+            $this->setVencida();
+        }
+
+        /**
+         * @throws DomainException
+         */
+        private function setMensalista(Mensalista $mensalista)
+        {
+            if(!$mensalista->getAtivo() || $mensalista->getDescontinuado()){
+                throw new DomainException("Mensalista inválido (inativo ou descontinuado)");
+            }
+
+            $this->mensalista = $mensalista;
         }
 
         /**
@@ -105,6 +118,30 @@
             }else {
                 $this->dataDeCompra = $dataDeCompra;
             }
+        }
+
+        private function setDataDeVencimento()
+        {
+            $this->dataDeVencimento = DataService::acrescenta1Mes($this->dataDeCompra);
+        }
+
+        private function setVencida()
+        {
+            $this->vencida = DataService::geraDataAtual() > $this->dataDeVencimento;
+        }
+
+        public function jsonSerialize(): mixed
+        {
+            return [
+                "id" => $this->id,
+                "mensalista" => $this->mensalista,
+                "precificacao" => $this->precificacao,
+                "valor" => $this->valor,
+                "formaDePagamento" => $this->formaDePagamento,
+                "dataDeCompra" => $this->dataDeCompra->format('Y-m-d'),
+                "dataDeVencimento" => $this->dataDeVencimento->format('Y-m-d'),
+                "vencida" => $this->vencida
+            ];
         }
     }
 ?>

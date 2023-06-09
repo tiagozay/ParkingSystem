@@ -25,51 +25,6 @@ export default function MensalidadesProvider({children}: {children: ReactNode}) 
 
     const [mensalidades, setMensalidades] = useState(MensalidadeService.buscaMensalidades());
 
-    // const [mensalidades, setMensalidades] = useState([
-    //     new Mensalidade(
-    //         1,
-    //         buscarMensalistaPorId(1) as Mensalista,
-    //         buscaPrecificacaoPorId(1) as Precificacao,
-    //         buscarFormaDePagamentoPorId(1) as FormaDePagamento,
-    //         new Date(),
-    //     ),
-    //     new Mensalidade(
-    //         2,
-    //         buscarMensalistaPorId(2) as Mensalista,
-    //         buscaPrecificacaoPorId(2) as Precificacao,
-    //         buscarFormaDePagamentoPorId(1) as FormaDePagamento,
-    //         new Date(),
-    //     ),
-    //     new Mensalidade(
-    //         3,
-    //         buscarMensalistaPorId(3) as Mensalista,
-    //         buscaPrecificacaoPorId(2) as Precificacao,
-    //         buscarFormaDePagamentoPorId(2) as FormaDePagamento,
-    //         new Date(),
-    //     ),
-    //     new Mensalidade(
-    //         4,
-    //         buscarMensalistaPorId(4) as Mensalista,
-    //         buscaPrecificacaoPorId(1) as Precificacao,
-    //         buscarFormaDePagamentoPorId(3) as FormaDePagamento,
-    //         new Date(),
-    //     ),
-    //     new Mensalidade(
-    //         5,
-    //         buscarMensalistaPorId(1) as Mensalista,
-    //         buscaPrecificacaoPorId(1) as Precificacao,
-    //         buscarFormaDePagamentoPorId(3) as FormaDePagamento,
-    //         new Date(' 04 12 2023 '),
-    //     ),
-    //     new Mensalidade(
-    //         6,
-    //         buscarMensalistaPorId(2) as Mensalista,
-    //         buscaPrecificacaoPorId(1) as Precificacao,
-    //         buscarFormaDePagamentoPorId(3) as FormaDePagamento,
-    //         new Date(' 04 05 2023 '),
-    //     ),
-    // ]);
-
     return (
         <MensalidadeContext.Provider value={{mensalidades, setMensalidades}}>
             {children}
@@ -125,15 +80,11 @@ export const useMensalidadeContext = () => {
             throw new Error("Este mensalista já tem esta mensalidade");
         }
 
-        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
-        const ultimaMensalidadeCadastrada = mensalidades[mensalidades.length - 1];
-        if(ultimaMensalidadeCadastrada){
-            mensalidade.id = (ultimaMensalidadeCadastrada.id as number) + 1;
-        }else{
-            mensalidade.id = 1;
-        }
+        return MensalidadeService.cadastraMensalidade(mensalidade)
+            .then( mensalidadeCadastrada => {
+                setMensalidades([...mensalidades, mensalidadeCadastrada] );
+            });        
 
-        setMensalidades([...mensalidades, mensalidade] );
     }
 
     function removerMensalidade(id: number)

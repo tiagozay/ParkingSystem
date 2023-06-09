@@ -48,9 +48,16 @@ export default function CadastrarMensalidade() {
                 dataDeContratacao,
             );
     
-            adicionarMensalidade(mensalidade);
+            adicionarMensalidade(mensalidade)
+                .then( () => {
+                    navigate('/mensalidades', { state: {sucessoCadastrar: true} });
+                } )
+                .catch( erro => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(erro.message);
+                } );
 
-            navigate('/mensalidades', { state: {sucessoCadastrar: true} });
+           
         }catch( e: any ){
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);

@@ -99,4 +99,19 @@ export class Mensalidade
         return this._formaDePagamento;
     }
 
+    //Método chamado durante a serialização do objeto
+    toJSON()
+    {
+        return {
+            id: this.id,
+            mensalista: this._mensalista,
+            categoria: this._categoria,
+            valor: this.valor,
+            formaDePagamento: this._formaDePagamento,
+            dataDeCompra: this.dataDeCompra,
+            dataDeVencimento: this.dataDeVencimento,
+            status: this.status
+        }
+    }
+
 }
