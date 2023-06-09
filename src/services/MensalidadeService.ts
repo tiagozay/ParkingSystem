@@ -8,52 +8,16 @@ import { APIService } from "./APIService";
 
 export default abstract class MensalidadeService
 {
-    static buscaMensalidades(): Mensalidade[] | []
+    static buscaMensalidades(): Promise<Mensalidade[] | []>
     {
+        return APIService.buscaObjetos('buscaMensalidades.php')
+            .then( mensalidadesObjetos => {
+                    const mensalidades = mensalidadesObjetos.map( (mensalidadeOBJ: any) => {
+                        return this.instanciaMensalidadeComObjeto(mensalidadeOBJ)
+                    } );
 
-        return api_mensalidades.map( mensalidadeDados => {
-
-            const mensalistaDaMensalidade = new Mensalista(
-                mensalidadeDados.mensalista.id,
-                mensalidadeDados.mensalista.nome,
-                new Date(mensalidadeDados.mensalista.dataNascimento),
-                mensalidadeDados.mensalista.cpf,
-                mensalidadeDados.mensalista.email,
-                mensalidadeDados.mensalista.celular,
-                mensalidadeDados.mensalista.cep,
-                mensalidadeDados.mensalista.uf,
-                mensalidadeDados.mensalista.cidade,
-                mensalidadeDados.mensalista.ativo,
-                false,
-            );
-
-            const categoriaDaMensalidade = new Precificacao(
-                mensalidadeDados.categoria.id,
-                mensalidadeDados.categoria.nome,
-                mensalidadeDados.categoria.valorHora,
-                mensalidadeDados.categoria.valorMensalidade,
-                mensalidadeDados.categoria.numeroDeVagas,
-                mensalidadeDados.categoria.ativa,
-                mensalidadeDados.categoria.descontinuada,
-            );
-
-            const formaDePagamentoDaMensalidade = new FormaDePagamento(
-                mensalidadeDados.formaDePagamento.id,
-                mensalidadeDados.formaDePagamento.nome,
-                mensalidadeDados.formaDePagamento.ativa,
-                mensalidadeDados.formaDePagamento.descontinuada
-            );
-
-            return new Mensalidade(
-                mensalidadeDados.id,
-                mensalistaDaMensalidade,
-                categoriaDaMensalidade,
-                formaDePagamentoDaMensalidade,
-                new Date( mensalidadeDados.dataDeCompra ),
-                mensalidadeDados.status as "Em dia" | "Vencida"
-            );
-
-        } );
+                    return mensalidades;
+            });
     }
 
     private static instanciaMensalidadeComObjeto(mensalidadeDados: any): Mensalidade

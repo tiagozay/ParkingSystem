@@ -1,13 +1,8 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Mensalidade } from '../models/Mensalidade';
-import { useMensalistaContext } from './MensalistasContext';
-import { usePrecificacaoContext } from './PrecificacaoContext';
-import { useFormaDePagamentoContext } from './FormaDePagamentoContext';
 import { Mensalista } from '../models/Mensalista';
-import { Precificacao } from '../models/Precificacao';
-import { FormaDePagamento } from '../models/FormaDePagamento';
 import MensalidadeService from '../services/MensalidadeService';
 
 interface TypeMensalidadeContext 
@@ -19,11 +14,12 @@ interface TypeMensalidadeContext
 export const MensalidadeContext = createContext<TypeMensalidadeContext>({mensalidades: [], setMensalidades: () => {}});
 
 export default function MensalidadesProvider({children}: {children: ReactNode}) {
-    const {buscarMensalistaPorId} = useMensalistaContext();
-    const {buscaPrecificacaoPorId} = usePrecificacaoContext();
-    const {buscarFormaDePagamentoPorId} = useFormaDePagamentoContext();
+    const [mensalidades, setMensalidades] = useState<Mensalidade[] | []>([]);
 
-    const [mensalidades, setMensalidades] = useState(MensalidadeService.buscaMensalidades());
+    useEffect(() => {
+        MensalidadeService.buscaMensalidades()
+            .then( setMensalidades );
+    }, []);
 
     return (
         <MensalidadeContext.Provider value={{mensalidades, setMensalidades}}>
