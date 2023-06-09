@@ -18,8 +18,6 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
     const [filtroCategoria, setFiltroCategoria] = useState('');
 
     const { excluirPrecificacao } = usePrecificacaoContext();
-    const { verificaSeTemMensalidadesEmDiaDePrecificacao } = useMensalidadeContext();
-    const { verificaSeTemTicketsAbertosDePrecificacao } = useTicketContext();
 
     if (statusFiltro !== "Todas") {
         precificacoes = precificacoes.filter(precificacao => {

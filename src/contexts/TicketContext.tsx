@@ -190,13 +190,6 @@ export const useTicketContext = () => {
         return tickets.find( ticket => ticket.id === id );
     }
 
-    function verificaSeTemTicketsAbertosDePrecificacao(idPrecificacao : number)
-    {
-        return tickets.some( ticket => {
-            return ticket.precificacao.id === idPrecificacao && ticket.status === "Em aberto";
-        } )
-    }
-
     function adicionarTicket(novoTicket: Ticket)
     {
         //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
@@ -230,7 +223,6 @@ export const useTicketContext = () => {
     return {
         tickets,
         buscarTicketPorId,
-        verificaSeTemTicketsAbertosDePrecificacao,
         adicionarTicket,
         editarTicket,
         excluirTicket,

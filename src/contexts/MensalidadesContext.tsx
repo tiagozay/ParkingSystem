@@ -32,7 +32,7 @@ export const useMensalidadeContext = () => {
     const {mensalidades, setMensalidades} = useContext(MensalidadeContext);
 
     //Verifica se já tem uma mensalidade para a mesma categoria e mensalista que esteja em dia
-    function verificaSeJaTemMensalidade(novaMensalidade : Mensalidade)
+    function verificaSeJaTemMensalidadeIgual(novaMensalidade : Mensalidade)
     {
         return mensalidades.some( mensalidade => {
             if( 
@@ -44,13 +44,6 @@ export const useMensalidadeContext = () => {
             }
 
             return false;
-        } )
-    }
-
-    function verificaSeTemMensalidadesEmDiaDePrecificacao(idPrecificacao : number)
-    {
-        return mensalidades.some( mensalidade => {
-            return mensalidade.categoria.id === idPrecificacao && mensalidade.status === "Em dia";
         } )
     }
 
@@ -72,7 +65,7 @@ export const useMensalidadeContext = () => {
     function adicionarMensalidade(mensalidade: Mensalidade)
     {
 
-        if(verificaSeJaTemMensalidade(mensalidade)){
+        if(verificaSeJaTemMensalidadeIgual(mensalidade)){
             throw new Error("Este mensalista já tem esta mensalidade");
         }
 
@@ -93,7 +86,6 @@ export const useMensalidadeContext = () => {
         buscarMensalidadePorId,
         buscaMensalidadesDeMensalista,
         buscaMensalidadesDeMensalistaPorId,
-        verificaSeTemMensalidadesEmDiaDePrecificacao,
         adicionarMensalidade,
         removerMensalidade
     }
