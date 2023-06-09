@@ -77,4 +77,17 @@ export default abstract class MensalidadeService
             throw new Error("Erro ao cadastrar mensalidade."); 
         })        
     }
+
+    static excluiMensalidade(id: number): Promise<Mensalidade | undefined>
+    {
+        return APIService.enviaObjeto('excluiMensalidade.php', id)
+            .then( mensalidadeDescontinuadaOBJ => {
+                if(mensalidadeDescontinuadaOBJ){
+                    return this.instanciaMensalidadeComObjeto(mensalidadeDescontinuadaOBJ);
+                }
+            } )
+            .catch( () => {
+                throw new Error("Erro ao excluír mensalidade."); 
+            } )
+    }
 }

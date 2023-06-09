@@ -76,9 +76,27 @@ export const useMensalidadeContext = () => {
 
     }
 
-    function removerMensalidade(id: number)
+    function excluirMensalidade(idMensalidade: number)
     {
-        setMensalidades( mensalidades.filter( mensalidade => mensalidade.id !== id ) );
+        return MensalidadeService.excluiMensalidade( idMensalidade )    
+            .then( mensalidadeDescontinuada => {
+
+                //Verifica se foi retornada uma Mensalidade, sem sim, é sinal de que ela não foi necessariamentre excluída, e sim somente descontinuada, aí ela é modificada no context. Se não veio nada de retorno, é sinal de que foi literalmente excluída, removendo-a do context 
+
+                if(mensalidadeDescontinuada){
+                    setMensalidades( mensalidades.map( mensalidade => {
+                        if(mensalidade.id === mensalidadeDescontinuada.id){
+                            return mensalidadeDescontinuada;
+                        }
+            
+                        return mensalidade;
+                    } ) );
+                }else {
+                    setMensalidades( 
+                        mensalidades.filter( mensalidade => mensalidade.id !== idMensalidade ) 
+                    )
+                }
+            } );
     }
 
     return {
@@ -87,6 +105,6 @@ export const useMensalidadeContext = () => {
         buscaMensalidadesDeMensalista,
         buscaMensalidadesDeMensalistaPorId,
         adicionarMensalidade,
-        removerMensalidade
+        excluirMensalidade
     }
 }

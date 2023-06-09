@@ -18,7 +18,7 @@ export default function ListaDeMensalidades({ mensalidades, setSucessoExcluir }:
     const [statusFiltro, setStatusFiltro] = useState('Todas');
     const [filtroNome, setFiltroNome] = useState('');
 
-    const {removerMensalidade} = useMensalidadeContext();
+    const {excluirMensalidade} = useMensalidadeContext();
 
     if (statusFiltro !== "Todas") {
         mensalidades = mensalidades.filter(mensalidade => mensalidade.status === statusFiltro);
@@ -40,8 +40,10 @@ export default function ListaDeMensalidades({ mensalidades, setSucessoExcluir }:
         const confirm = window.confirm("Excluír esta mensalidade?");
         if(!confirm) return;
 
-        removerMensalidade(id);
-        setSucessoExcluir(true);
+        excluirMensalidade(id)
+            .then( () => {
+                setSucessoExcluir(true);
+            }) 
     }
 
     const jsxThead = (
