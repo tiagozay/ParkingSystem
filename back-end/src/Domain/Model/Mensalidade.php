@@ -8,7 +8,8 @@
     use DateTime;
     use Doctrine\ORM\Mapping\JoinColumn;
     use Doctrine\ORM\Mapping\ManyToOne;
-    use DomainException;
+use Doctrine\Persistence\Mapping\StaticReflectionService;
+use DomainException;
     use JsonSerializable;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Service\DataService;
@@ -72,6 +73,24 @@
         public function inicialize()
         {
             $this->setVencida();
+        }
+
+        public static function verificaSeExisteMensalidadeIgual(Mensalidade $mensalidadeVerificada, array $mensalidades ): bool
+        {
+            $indicador = false;
+
+            foreach($mensalidades as $mensalidade){
+                if(
+                    $mensalidade->mensalista->id === $mensalidadeVerificada->mensalista->id &&
+                    $mensalidade->precificacao->id === $mensalidadeVerificada->precificacao->id &&
+                    !$mensalidade->vencida
+                ){
+                    $indicador = true;
+                    break;
+                }
+            }
+
+            return $indicador;
         }
 
         /**

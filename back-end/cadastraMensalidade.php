@@ -4,7 +4,9 @@
 
     require_once './vendor/autoload.php';
 
-    use ParkSistem\Domain\Model\FormaDePagamento;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
+use ParkSistem\Domain\Model\FormaDePagamento;
     use ParkSistem\Domain\Model\Mensalidade;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Domain\Model\Precificacao;
@@ -34,6 +36,12 @@
             $formaDePagamento,
             new DateTime($stdMensalidade->dataDeCompra)
         );
+
+        $mensalidadeRepositroy = $entityManager->getRepository(Mensalidade::class);
+
+        if(Mensalidade::verificaSeExisteMensalidadeIgual($mensalidade, $mensalidadeRepositroy->findAll())){
+            throw new DomainException("Esta mensalidade já existe");
+        };
 
         $entityManager->persist($mensalidade);
 
