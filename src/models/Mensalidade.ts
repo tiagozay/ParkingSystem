@@ -13,6 +13,7 @@ export class Mensalidade
     public dataDeCompra: Date;
     public dataDeVencimento: Date;
     public status: "Em dia" | "Vencida";
+    public descontinuada: boolean;
 
     constructor(
         id: number | null,
@@ -20,6 +21,7 @@ export class Mensalidade
         categoria: Precificacao,
         formaDePagamento: FormaDePagamento,
         dataDeCompra: Date,
+        descontinuada: boolean,
         status: "Em dia" | "Vencida" | undefined = undefined
     ){
         this.id = id;
@@ -29,6 +31,7 @@ export class Mensalidade
         this.formaDePagamento = formaDePagamento;
         this.dataDeCompra = dataDeCompra;
         this.dataDeVencimento = DataService.acrescenta1MesE1DiaAData(this.dataDeCompra);
+        this.descontinuada = descontinuada;
 
         //Se não for passado status no construtor, é usada a lógica de verificar as datas para calcular
         if(!status) {
@@ -114,7 +117,8 @@ export class Mensalidade
             formaDePagamento: this._formaDePagamento,
             dataDeCompra: this.dataDeCompra,
             dataDeVencimento: this.dataDeVencimento,
-            status: this.status
+            status: this.status,
+            descontinuada: this.descontinuada
         }
     }
 

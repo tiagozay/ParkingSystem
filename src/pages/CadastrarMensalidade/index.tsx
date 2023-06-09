@@ -46,6 +46,7 @@ export default function CadastrarMensalidade() {
                 precificacao as Precificacao,
                 formaDePagamento as FormaDePagamento,
                 dataDeContratacao,
+                false
             );
     
             adicionarMensalidade(mensalidade)

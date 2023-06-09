@@ -47,6 +47,9 @@
         #[Column()]
         private bool $vencida;
 
+        #[Column()]
+        private bool $descontinuada;
+
 
         /**
          * @throws DomainException
@@ -58,6 +61,7 @@
             float $valor,
             FormaDePagamento $formaDePagamento,
             DateTime $dataDeCompra,
+            bool $descontinuada,
         )
         {
             $this->id = $id;
@@ -67,6 +71,7 @@
             $this->setFormaDePagamento($formaDePagamento);
             $this->setDataDeCompra($dataDeCompra);
             $this->setDataDeVencimento();
+            $this->descontinuada = $descontinuada;
 
             $this->inicialize();
         }   
@@ -94,6 +99,16 @@
             }
 
             return $indicador;
+        }
+
+        public function descontinuar()
+        {
+            $this->descontinuada = true;
+        }
+
+        public function tornarVigente()
+        {
+            $this->descontinuada = false;
         }
 
         /**
@@ -152,6 +167,11 @@
             $this->vencida = DataService::geraDataAtual() > $this->dataDeVencimento;
         }
 
+        public function getDescontinuada()
+        {
+            return $this->descontinuada;
+        }
+
         public function jsonSerialize(): mixed
         {
             return [
@@ -162,7 +182,8 @@
                 "formaDePagamento" => $this->formaDePagamento,
                 "dataDeCompra" => $this->dataDeCompra->format('Y-m-d'),
                 "dataDeVencimento" => $this->dataDeVencimento->format('Y-m-d'),
-                "vencida" => $this->vencida
+                "vencida" => $this->vencida,
+                "descontinuada" => $this->descontinuada
             ];
         }
     }

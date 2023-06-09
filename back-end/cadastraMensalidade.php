@@ -34,7 +34,8 @@ use ParkSistem\Domain\Model\FormaDePagamento;
             $precificacao,
             $stdMensalidade->valor,
             $formaDePagamento,
-            new DateTime($stdMensalidade->dataDeCompra)
+            new DateTime($stdMensalidade->dataDeCompra),
+            $stdMensalidade->descontinuada,
         );
 
         $mensalidadeRepositroy = $entityManager->getRepository(Mensalidade::class);

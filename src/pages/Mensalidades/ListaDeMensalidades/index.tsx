@@ -62,6 +62,9 @@ export default function ListaDeMensalidades({ mensalidades, setSucessoExcluir }:
 
     function paraCadaRegistro(mensalidade: Mensalidade) {
         return (
+
+            !mensalidade.descontinuada &&
+
             <tr key={mensalidade.id}>
                 <td>{mensalidade.mensalista.nome}</td>
                 <td>{CpfService.formataCpf(mensalidade.mensalista.cpf)}</td>

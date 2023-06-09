@@ -59,7 +59,8 @@ export default abstract class MensalidadeService
             categoriaDaMensalidade,
             formaDePagamentoDaMensalidade,
             new Date( mensalidadeDados.dataDeCompra ),
-            mensalidadeDados.status as "Em dia" | "Vencida"
+            mensalidadeDados.descontinuada,
+            mensalidadeDados.status as "Em dia" | "Vencida",
         );
     }
 
