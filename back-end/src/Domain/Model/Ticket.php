@@ -77,10 +77,7 @@
             $this->dataDeSaida = $dataDeSaida;
             $this->numeroDaVaga = $numeroDaVaga;
             $this->setPago();
-
-            if($mensalista){
-                $this->setMensalista($mensalista);
-            }                 
+            $this->setMensalista($mensalista);
         }   
 
         public function editar(
@@ -101,7 +98,7 @@
             $this->setPrecificacao($precificacao);
             $this->dataDeEntrada = $dataDeEntrada;
             $this->numeroDaVaga = $numeroDaVaga;
-            $this->mensalista = $mensalista;
+            $this->setMensalista($mensalista);
 
             //Se o ticket ainda não foi pago e foi informada uma data de saída e uma forma de pagamento, é sinal que o operador pagou este ticket, aí nesse caso, gero uma data de saída, já que a que é recebida do front-end não é confiável 
             if(!$this->pago && $dataDeSaida && $formaDePagamento){
@@ -153,12 +150,18 @@
         /**
          * @throws DomainException
          */
-        private function setMensalista(Mensalista $mensalista)
+        private function setMensalista(?Mensalista $mensalista)
         {
-            if(!$mensalista->getAtivo()){
-                throw new DomainException("Mensalista inativo");
-            }
+            //Se eu receber um Mensalista e se eu tiver cadastrando um novo Tiket ou editando um Tiket já cadastrado passando um mensalista diferente da que já foi cadastrada, faço a verificação para ver se o mensalista é válido, isso porquê nesses dois casos é necessária a validação do mensalista. Nesse caso não temos problemas na hora que o doctrine for buscar os tikets do banco, pois nesse caso, ele não usará este setter. Este setter só será usado no cadastro de um novo Tiket ou na edição de um existente
 
+            if($mensalista){
+                if(!$this->id || $this->mensalista->id !== $mensalista->id){
+                    if(!$mensalista->getAtivo() || $mensalista->getDescontinuado()){
+                        throw new DomainException("Mensalista inválido (inativo ou descontinuado)");
+                    }
+                }                
+            }
+            
             $this->mensalista = $mensalista;
         }
 

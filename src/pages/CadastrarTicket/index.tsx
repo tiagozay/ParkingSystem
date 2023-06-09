@@ -219,7 +219,7 @@ export default function CadastrarTicket() {
 
                                             {mensalistas.map(mensalista => (
 
-                                                mensalista.ativo &&
+                                                (mensalista.ativo && !mensalista.descontinuado) &&
                                                 <option key={mensalista.id} value={mensalista.id as number}>{mensalista.nome}</option>
 
                                             ))}

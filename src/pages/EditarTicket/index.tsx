@@ -58,7 +58,7 @@ export default function EditarTicket() {
     const [precificacoesDisponiveis, setPrecificacoesDisponiveis] = useState(precificacoes);
 
     useEffect(() => {
-        if(!ticket){
+        if (!ticket) {
             return;
         }
 
@@ -95,9 +95,9 @@ export default function EditarTicket() {
         preencheValorHora();
 
         //Se for um cliente avulso, todas as categirias se tornam disponíveis novamente, já que quando é mensalista, só ficam as categorias disponíveis para ele
-        if(tipoCliente === 'Avulso'){
+        if (tipoCliente === 'Avulso') {
             setPrecificacoesDisponiveis(precificacoes);
-        }else {
+        } else {
             buscaCategoriasDisponiveisParaMensalista();
         }
 
@@ -118,27 +118,26 @@ export default function EditarTicket() {
 
     }, [mensalista])
 
-    function buscaCategoriasDisponiveisParaMensalista()
-    {
+    function buscaCategoriasDisponiveisParaMensalista() {
         if (mensalista) {
-            const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter( mensalidade => 
+            const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter(mensalidade =>
                 mensalidade.status === 'Em dia'
             );
 
-            const precificacoesDisponiveis = mensalidadesDeMensalista.map( mensalidade => 
+            const precificacoesDisponiveis = mensalidadesDeMensalista.map(mensalidade =>
                 mensalidade.categoria
             );
-                
+
             setPrecificacoesDisponiveis(precificacoesDisponiveis);
 
-        }else {
+        } else {
             setPrecificacoesDisponiveis(precificacoes);
         }
     }
 
     function preencheValorHora() {
 
-        if(!ticket){
+        if (!ticket) {
             return;
         }
 
@@ -162,8 +161,8 @@ export default function EditarTicket() {
     function aoSalvarTicket(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        try{
-            if(ticket){
+        try {
+            if (ticket) {
                 ticket.editar(
                     placa,
                     marcaVeiculo,
@@ -173,17 +172,17 @@ export default function EditarTicket() {
                     buscarFormaDePagamentoPorId(Number(formaDePagamento)),
                     tipoCliente === 'Mensalista' ? mensalista : null
                 )
-        
+
                 editarTicket(ticket);
-        
+
                 navigate('/estacionamento', { state: { sucessoEditar: true } });
             }
 
-        }catch(e: any ){
+        } catch (e: any) {
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);
         }
-        
+
     }
 
     function aoSelecionarTipoDeCliente(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -249,8 +248,8 @@ export default function EditarTicket() {
             </div>
 
             {
-                mensagemDeErroAberta ?                 
-                    <MensagemErro mensagem={mensagemDeErro} /> : 
+                mensagemDeErroAberta ?
+                    <MensagemErro mensagem={mensagemDeErro} /> :
                     <BoasVindas />
             }
 
@@ -279,13 +278,31 @@ export default function EditarTicket() {
                                     tipoCliente === "Mensalista" ?
                                         <select onChange={aoSelecionarMensalista} required value={mensalista?.id as number}>
                                             <option value="" disabled selected>SELECIONE</option>
+                                            {
+                                                //Escreve os Mensalistas disponiveis para selecionar na hora de editar Tiket. Caso eu tenha um Tiket que tenha sido cadastrado com determindado Mensalista (Quando ela estava ativo e não estava descontinuada), e depois desse cadastro, eu tenha inativado ou descontinuado esse Mensalista, ela vai continuar aparecendo no select, porém com o sufixo "(descontinuado)" ou "(inativo)". Nesses casos, no model tiket, não é feita a verificação se o Mensalista é válido ou não, já que quando um tiket tiver seu Mensalista inválido, ele poderá continuar com ele para não causar inconsistência
 
-                                            {mensalistas.map(mensalista => (
+                                                mensalistas.map(mensalista => {
 
-                                                mensalista.ativo &&
-                                                <option key={mensalista.id} value={mensalista.id as number}>{mensalista.nome}</option>
+                                                    let nomeMensalista = `${mensalista.nome}`;
 
-                                            ))}
+                                                    if (mensalista.descontinuado) {
+                                                        nomeMensalista += ' (descontinuado)';
+                                                    } else if (!mensalista.ativo) {
+                                                        nomeMensalista += ' (inativo)';
+                                                    }
+
+                                                    return (
+                                                        (
+                                                            (mensalista.ativo && !mensalista.descontinuado) ||
+                                                            (mensalista.id === ticket?.mensalista?.id)
+                                                        )
+                                                        &&
+                                                        <option key={mensalista.id} value={mensalista.id as number}>{mensalista.nome}</option>
+                                                    );
+                                                }
+
+                                                )
+                                            }
                                         </select> :
                                         <select className='inputDesativado' disabled>
 
@@ -316,14 +333,14 @@ export default function EditarTicket() {
                                     <option value="">Selecione</option>
                                     {
                                         //Escreve as Precificações disponiveis para selecionar na hora de editar Tiket. Caso eu tenha um Tiket que tenha sido cadastrado com determindada Precificação (Quando ela estava ativa a não estava descontinuada), e depois desse cadastro, eu tenha inativado ou descontinuado essa Precificacao, ela vai continuar aparecendo no select, porém com o sufixo "(descontinuada)" ou "(inativa)". Nesses casos, no model tiket, não é feita a verificação se a Precificacao é válida ou não, já que quando um tiket tiver sua Precificação invalidada, ele poderá continuar com ela para não causar inconsistência
-                                    
+
                                         precificacoesDisponiveis?.map(precificacao => {
 
                                             let nomeCategoria = `${precificacao.categoria}`;
 
-                                            if(precificacao.descontinuada){
+                                            if (precificacao.descontinuada) {
                                                 nomeCategoria += ' (descontinuada)';
-                                            }else if(!precificacao.ativa){
+                                            } else if (!precificacao.ativa) {
                                                 nomeCategoria += ' (inativa)';
                                             }
 
@@ -338,8 +355,9 @@ export default function EditarTicket() {
                                                     value={precificacao.id as number}>
                                                     {nomeCategoria}
                                                 </option>
-                                            ) } )
-                                    }       
+                                            )
+                                        })
+                                    }
                                 </select>
                             </label>
                             <label>

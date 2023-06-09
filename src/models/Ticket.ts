@@ -118,10 +118,6 @@ export class Ticket
 
     set mensalista(mensalista: Mensalista | null)
     {
-        if(mensalista && !mensalista.ativo){
-            throw new Error("Mensalista inativo!");
-        }
-
         this._mensalista = mensalista;
     }
 
