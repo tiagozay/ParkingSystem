@@ -90,8 +90,6 @@ export class Ticket
 
     set formaDePagamento(formaDePagamento: FormaDePagamento | null)
     {
-        console.log(formaDePagamento);
-
         const ehNovoTiket = !this.id;
 
         if(formaDePagamento){
