@@ -46,8 +46,10 @@ export class Mensalidade
 
     set mensalista(mensalista: Mensalista)
     {
-        //Se não tiver ID, é sinal de que uma nova mensalidade está sendo cadastrada, fazendo-se necessária a validação do mensalista recebido. Se tiver id, não faz a validação, pois indica que esse mensalisat já foi cadastrado da forma correta (com um mesnalista válido)
-        if(!this.id){
+    
+        const ehMensalidadeNova = !this.id;
+
+        if(ehMensalidadeNova){
             if(!mensalista.ativo || mensalista.descontinuado){
                 throw new Error("Mensalista inváldo (inativo ou descontinuado)");
             }
@@ -63,8 +65,9 @@ export class Mensalidade
 
     set categoria(categoria: Precificacao)
     {
-        //Se o id for nulo, é sinal que está sendo criada uma nova Mensalidade, fazendo-se necessária a validação da precificação. Se não for nulo, é sinal que está sendo iniciada uma Mensalidade já cadastrada, aí não é necessária a validação da Precificação
-        if(!this.id){
+        const ehMensalidadeNova = !this.id;
+
+        if(ehMensalidadeNova){
             if(!categoria.ativa || categoria.descontinuada){
                 throw new Error("Categoria inválida (inativa ou descontinuada)");
             }
@@ -81,8 +84,9 @@ export class Mensalidade
 
     set formaDePagamento(formaDePagamento: FormaDePagamento)
     {   
-        //Se id for nulo, é sinal de que está sendo criada uma nova mensalidade, nesse caso, a forma de pagamento não pode estar inativa e nem descontinuada. Porém, se já tiver um id, a forma de pagamento pode ter qualquer estado, já que a mensalidade já foi paga anteriormente, quando a forma de pagamento era valida (ativa e não descontinuada)
-        if(!this.id){
+        const ehMensalidadeNova = !this.id;
+
+        if(ehMensalidadeNova){
             if(!formaDePagamento.ativa){
                 throw new Error("Forma de pagamento inativa!");
             }else if(formaDePagamento.descontinuada){

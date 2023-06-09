@@ -79,7 +79,9 @@ export const useFormaDePagamentoContext = () => {
 
     function buscarFormaDePagamentoPorId(id: number)
     {
-        return formasDePagamento.find( formaDePagamento => formaDePagamento.id === id );
+        const formaDePagamento = formasDePagamento.find( formaDePagamento => formaDePagamento.id === id );
+
+        return formaDePagamento ? formaDePagamento : null;
     }
 
     return {

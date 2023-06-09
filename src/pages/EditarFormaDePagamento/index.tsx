@@ -13,7 +13,7 @@ export default function EditarFormaDePagamento() {
 
     const { buscarFormaDePagamentoPorId , editarFormaDePagamento } = useFormaDePagamentoContext();
 
-    let formaDePagamento: FormaDePagamento | undefined;
+    let formaDePagamento: FormaDePagamento | null;
 
     const [nome, setNome] = useState("");
     const [ativa, setAtiva] = useState(true);

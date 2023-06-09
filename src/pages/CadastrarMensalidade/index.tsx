@@ -22,7 +22,7 @@ export default function CadastrarMensalidade() {
     const [valorMensalidade, setValorMensalidade] = useState(0);
     const [dataDeContratacao, setDataDeContratacao] = useState(new Date());
     const [dataDeVencimento, setDataDeVencimento] = useState<Date>(DataService.acrescenta1MesE1DiaAData(dataDeContratacao));
-    const [formaDePagamento, setFormaDePagamento] = useState<FormaDePagamento>();
+    const [formaDePagamento, setFormaDePagamento] = useState<FormaDePagamento | null>();
 
     const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
     const [mensagemDeErro, setMensagemDeErro] = useState("");

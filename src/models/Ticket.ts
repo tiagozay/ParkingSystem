@@ -69,15 +69,16 @@ export class Ticket
 
     set precificacao(precificacao: Precificacao)
     {
-        /* 
-        Se o id for nulo e a propriedade _precificacao ainda não foi inicializada, é sinal que está sendo criado um novo Tiket, fazendo-se necessária a validação da precificação. Se não for nulo e a propriedade _precificação já tiver sido definida e o id da Precificação já definida for diferente da que estou recebendo é sinal de que a precificação está sendo editada e estou recebendo uma outra precificação, uma diferente da que já está definida, indicando que ela não é uma inativa ou descontinuada (já que o tiket pode continuar com uma dessas se estiver sido definida previamente), também fazendo-se necessária a validação. Mas se não acontecer nada disso é sinal que está sendo iniciado um Tiket já cadastrado, aí não é necessária a validação da Precificação
-        (!this.id && this._precificacao === undefined) -> Novo Tiket
-        this.id && this._precificacao !== undefined && this._precificacao.id !== precificacao.id) -> Tiket sendo editado e uma nova precificação entrando
-        */
-        
+        const ehNovoTiket = !this.id;
+
+        //Indica se este setter não foi chamado a partir do construtor, e sim da função editar, que é chamada quando a propriedade já foi incializada (quando ela não é undefined)
+        const ehChamadaDeEdicao = this._mensalista !== undefined;
+
+        const ehPrecificacaoDiferenteDaJaCadastrada = this._precificacao?.id !== precificacao?.id;
+
         if(
-            (!this.id && this._precificacao === undefined) || 
-            (this.id && this._precificacao !== undefined && this._precificacao.id !== precificacao.id)
+            (ehNovoTiket) || 
+            (ehChamadaDeEdicao && ehPrecificacaoDiferenteDaJaCadastrada)
         ){
             if(!precificacao.ativa || precificacao.descontinuada){
                 throw new Error("Precificação inválida (inativa ou descontinuada)");
@@ -89,16 +90,46 @@ export class Ticket
 
     set formaDePagamento(formaDePagamento: FormaDePagamento | null)
     {
-        //Recebo uma forma de pagamento que preciso verificar se ela é válida (ativa e não é descontinuada) somente quando eu estiver criando um um novo ticket (quando o id for nulo) ou quando eu já tiver um ticket, porém, em aberto, que nesse caso é sinal que estou editando um ticket. Nesses dois casos tenho que fazer a validação. Caso contrário (quando o ticket já está pago), não preciso fazer as validações da forma de pagamento.
-        if(!this.id || (this.id && this.status === "Em aberto") ){
-            if(formaDePagamento && !formaDePagamento.ativa){
-                throw new Error("Forma de pagamento inativa");
-            }else if(formaDePagamento && formaDePagamento.descontinuada){
-                throw new Error("Forma de pagamento descontinuada");
+        console.log(formaDePagamento);
+
+        const ehNovoTiket = !this.id;
+
+        if(formaDePagamento){
+            if(ehNovoTiket || this.status === "Em aberto"){
+
+                console.log("Deve fazer a validação!");
+
+                if(!formaDePagamento.ativa || formaDePagamento.descontinuada){
+                    throw new Error("Forma de pagamento inválida (inativa ou descontinuada)");
+                }
             }
         }
 
         this._formaDePagamento = formaDePagamento;
+    }
+
+    set mensalista(mensalista: Mensalista | null)
+    {
+        const ehNovoTiket = !this.id;
+
+        //Indica se este setter não foi chamado a partir do construtor, e sim da função editar, que é chamada quando a propriedade já foi incializada (quando ela não é undefined)
+        const ehChamadaDeEdicao = this._mensalista !== undefined;
+
+        const ehMensalistaDiferenteDoJaCadastrado = this._mensalista?.id !== mensalista?.id;
+
+        //Só é realizada a verificação se for um novo tiket ou se estiver editando e for passado um mensalista diferente do já cadastrado
+        if(mensalista){
+            if(
+                (ehNovoTiket) ||
+                ( ehChamadaDeEdicao && ehMensalistaDiferenteDoJaCadastrado)
+            ){
+                if(!mensalista.ativo || mensalista.descontinuado){
+                    throw new Error("Mensalista inválido (inativo ou descontinuado)");
+                }
+            }
+        }
+        
+        this._mensalista = mensalista;
     }
 
     get precificacao(): Precificacao
@@ -114,11 +145,6 @@ export class Ticket
     get dataDeSaida(): Date | null
     {
         return this._dataDeSaida;
-    }
-
-    set mensalista(mensalista: Mensalista | null)
-    {
-        this._mensalista = mensalista;
     }
 
     get mensalista()
