@@ -132,10 +132,13 @@ export default function EditarTicket() {
         if (mensalista) {
 
             const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter(mensalidade => {
-                const mensalidadeDescontinuadaPoremSelecionada = mensalidade.descontinuada && mensalidade.categoria.id === ticket?.precificacao.id;   
+                const mensalidadeDescontinuadaPoremJaCadastradaAnteriormente = 
+                    mensalidade.descontinuada && 
+                    mensalidade.categoria.id === ticket?.precificacao.id &&
+                    mensalidade.mensalista.id === ticket?.mensalista?.id ;  
 
                 return (mensalidade.status === 'Em dia' && !mensalidade.descontinuada) || 
-                (mensalidadeDescontinuadaPoremSelecionada);
+                (mensalidadeDescontinuadaPoremJaCadastradaAnteriormente);
 
             }
                 

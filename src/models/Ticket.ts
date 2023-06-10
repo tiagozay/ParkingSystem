@@ -61,10 +61,7 @@ export class Ticket {
         this.modeloVeiculo = modeloVeiculo;
         this.precificacao = precificacao;
         this.mensalista = mensalista;
-
-        console.log("aaaaaa");
         this.mensalidade = mensalidade;
-        console.log("bbbbbb");
 
         //Se o ticket ainda não foi pago e a data de saída e a forma de pagamento foi recebida nessa função de editar, é sinal que o operador realizou o pagamento deste ticket, aí defino a data de saída e a forma de pagamento e mudo seu status para "Pago"
         if (this.status === "Em aberto" && dataSaida && formaDePagamento) {
