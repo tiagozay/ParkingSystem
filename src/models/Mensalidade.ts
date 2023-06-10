@@ -20,9 +20,10 @@ export class Mensalidade
         mensalista: Mensalista,
         categoria: Precificacao,
         formaDePagamento: FormaDePagamento,
-        dataDeCompra: Date,
         descontinuada: boolean,
-        status: "Em dia" | "Vencida" | undefined = undefined
+        dataDeCompra: Date,
+        dataDeVencimento: Date | null = null,
+        status: "Em dia" | "Vencida" | null = null,
     ){
         this.id = id;
         this.mensalista = mensalista;
@@ -30,20 +31,22 @@ export class Mensalidade
         this.valor = categoria.valorMensalidade;
         this.formaDePagamento = formaDePagamento;
         this.dataDeCompra = dataDeCompra;
-        this.dataDeVencimento = DataService.acrescenta1MesE1DiaAData(this.dataDeCompra);
         this.descontinuada = descontinuada;
 
-        //Se não for passado status no construtor, é usada a lógica de verificar as datas para calcular
-        if(!status) {
-            if(new Date() > this.dataDeVencimento){
-                this.status = "Vencida";
-            }else{
-                this.status = "Em dia";
-            }
+        const ehMensalidadeNova = !this.id;
+
+        if(ehMensalidadeNova){
+            this.dataDeVencimento = DataService.acrescenta1MesE1DiaAData(this.dataDeCompra);
+            this.status = "Em dia";
         }else {
+
+            if(!dataDeVencimento || !status){
+                throw new Error("Informe da data de vencimento e status corretamente");
+            }
+
+            this.dataDeVencimento = dataDeVencimento;
             this.status = status;
         }
-
         
     }
 

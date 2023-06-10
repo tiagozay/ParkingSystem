@@ -4,6 +4,7 @@ import { Mensalista } from "../models/Mensalista";
 import { Precificacao } from "../models/Precificacao";
 import { FormaDePagamento } from "../models/FormaDePagamento";
 import { APIService } from "./APIService";
+import { DataService } from "./DataService";
 
 
 export default abstract class MensalidadeService
@@ -58,9 +59,10 @@ export default abstract class MensalidadeService
             mensalistaDaMensalidade,
             categoriaDaMensalidade,
             formaDePagamentoDaMensalidade,
-            new Date( mensalidadeDados.dataDeCompra ),
             mensalidadeDados.descontinuada,
-            mensalidadeDados.status as "Em dia" | "Vencida",
+            DataService.corrigeFusoHorario(new Date( mensalidadeDados.dataDeCompra )),
+            DataService.corrigeFusoHorario(new Date( mensalidadeDados.dataDeVencimento )),
+            mensalidadeDados.vencida ? "Vencida" : "Em dia",
         );
     }
 
