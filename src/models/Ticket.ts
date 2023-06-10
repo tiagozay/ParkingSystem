@@ -2,6 +2,7 @@ import { convertCompilerOptionsFromJson } from "typescript";
 import { FormaDePagamento } from "./FormaDePagamento.js";
 import { Mensalista } from "./Mensalista.js";
 import { Precificacao } from "./Precificacao.js";
+import { Mensalidade } from "./Mensalidade.js";
 
 export class Ticket
 {
@@ -16,6 +17,7 @@ export class Ticket
     private _dataDeSaida: Date | null;
     public numeroDaVaga: string | null;
     private _mensalista: Mensalista | null;
+    private _mensalidade: Mensalidade | null;
 
     constructor(
         id: number | null,
@@ -28,7 +30,8 @@ export class Ticket
         status: "Em aberto" | "Pago", 
         numeroDaVaga: string | null,
         formaDePagamento: FormaDePagamento | null = null,
-        mensalista: Mensalista | null = null
+        mensalista: Mensalista | null = null,
+        mensalidade: Mensalidade | null = null
     ){
         this.id = id;
         this.placaVeiculo = placaVeiculo;
@@ -41,6 +44,7 @@ export class Ticket
         this._dataDeSaida = dataSaida;
         this.numeroDaVaga = numeroDaVaga;
         this.mensalista = mensalista;
+        this.mensalidade = mensalidade;
     }
 
     public editar(
@@ -50,13 +54,18 @@ export class Ticket
         dataSaida: Date | null,
         precificacao: Precificacao,
         formaDePagamento: FormaDePagamento | null = null,
-        mensalista: Mensalista | null = null
+        mensalista: Mensalista | null = null,
+        mensalidade: Mensalidade | null = null
     ){
         this.placaVeiculo = placaVeiculo;
         this.marcaVeiculo = marcaVeiculo;
         this.modeloVeiculo = modeloVeiculo;
         this.precificacao = precificacao;
         this.mensalista = mensalista;
+        
+        console.log("aaaaaa");
+        this.mensalidade = mensalidade;
+        console.log("bbbbbb");
 
         //Se o ticket ainda não foi pago e a data de saída e a forma de pagamento foi recebida nessa função de editar, é sinal que o operador realizou o pagamento deste ticket, aí defino a data de saída e a forma de pagamento e mudo seu status para "Pago"
         if(this.status === "Em aberto" && dataSaida && formaDePagamento){
@@ -94,9 +103,6 @@ export class Ticket
 
         if(formaDePagamento){
             if(ehNovoTiket || this.status === "Em aberto"){
-
-                console.log("Deve fazer a validação!");
-
                 if(!formaDePagamento.ativa || formaDePagamento.descontinuada){
                     throw new Error("Forma de pagamento inválida (inativa ou descontinuada)");
                 }
@@ -128,6 +134,33 @@ export class Ticket
         }
         
         this._mensalista = mensalista;
+    }
+
+    set mensalidade(mensalidade: Mensalidade | null)
+    {
+        if(this.mensalista && !mensalidade){
+            throw new Error("Informe a mensalidade corretamente!");
+        }  
+
+        const ehNovoTiket = !this.id;
+
+        //Indica se este setter não foi chamado a partir do construtor, e sim da função editar, que é chamada quando a propriedade já foi incializada (quando ela não é undefined)
+        const ehChamadaDeEdicao = this._mensalidade !== undefined;
+
+        const ehMensalidadeDiferenteDaJaCadastrada = this._mensalidade?.id !== mensalidade?.id;
+
+        if(
+            (ehNovoTiket) ||
+            (ehChamadaDeEdicao && ehMensalidadeDiferenteDaJaCadastrada)
+        ){
+            
+            if(mensalidade?.status === 'Vencida' || mensalidade?.descontinuada){
+                throw new Error("Mensalidade inválida (vencida ou descontinuada)");
+            }
+
+        }
+
+        this._mensalidade = mensalidade;
     }
 
     get precificacao(): Precificacao

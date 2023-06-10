@@ -4,6 +4,7 @@ import { createContext, ReactNode } from 'react';
 import { Mensalidade } from '../models/Mensalidade';
 import { Mensalista } from '../models/Mensalista';
 import MensalidadeService from '../services/MensalidadeService';
+import { Precificacao } from '../models/Precificacao';
 
 interface TypeMensalidadeContext 
 {
@@ -57,6 +58,14 @@ export const useMensalidadeContext = () => {
         return mensalidades.filter( mensalidade => mensalidade.mensalista.id === mensalista.id);
     }
 
+    function buscaMensalidadeDeMensalistaDeCategoria(mensalista: Mensalista, precificacao: Precificacao)
+    {
+        const mensalidade = mensalidades.find( mensalidade => 
+            (mensalidade.mensalista.id === mensalista.id) && (mensalidade.categoria.id === precificacao.id) );
+
+        return mensalidade ? mensalidade : null;
+    }
+
     function buscaMensalidadesDeMensalistaPorId(id: number)
     {
         return mensalidades.filter( mensalidade => mensalidade.mensalista.id === id);
@@ -104,6 +113,7 @@ export const useMensalidadeContext = () => {
         buscarMensalidadePorId,
         buscaMensalidadesDeMensalista,
         buscaMensalidadesDeMensalistaPorId,
+        buscaMensalidadeDeMensalistaDeCategoria,
         adicionarMensalidade,
         excluirMensalidade
     }

@@ -15,6 +15,7 @@ import { useMensalistaContext } from '../../contexts/MensalistasContext';
 import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
 import { Precificacao } from '../../models/Precificacao';
 import MensagemErro from '../../components/MensagemErro';
+import { Mensalidade } from '../../models/Mensalidade';
 
 export default function EditarTicket() {
 
@@ -40,6 +41,7 @@ export default function EditarTicket() {
     const [formaDePagamento, setFormaDePagamento] = useState('');
     const [tipoCliente, setTipoCliente] = useState<'Avulso' | 'Mensalista'>('Avulso');
     const [mensalista, setMensalista] = useState<Mensalista | null>();
+    const [mensalidade, setMensalidade] = useState<Mensalidade | null>(null);
 
     const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
     const [mensagemDeErro, setMensagemDeErro] = useState("");
@@ -53,7 +55,7 @@ export default function EditarTicket() {
     const { formasDePagamento, buscarFormaDePagamentoPorId } = useFormaDePagamentoContext();
 
     const { mensalistas, buscarMensalistaPorId } = useMensalistaContext();
-    const { buscaMensalidadesDeMensalista } = useMensalidadeContext();
+    const { buscaMensalidadesDeMensalista, buscaMensalidadeDeMensalistaDeCategoria } = useMensalidadeContext();
 
     const [precificacoesDisponiveis, setPrecificacoesDisponiveis] = useState(precificacoes);
 
@@ -109,6 +111,10 @@ export default function EditarTicket() {
             return;
         }
 
+        if(tipoCliente === "Mensalista" && mensalista && categoria){
+            setMensalidade(buscaMensalidadeDeMensalistaDeCategoria(mensalista, categoria));
+        }
+
         preencheValorHora();
     }, [categoria]);
 
@@ -116,17 +122,43 @@ export default function EditarTicket() {
 
         buscaCategoriasDisponiveisParaMensalista();
 
+        if(tipoCliente === "Mensalista" && mensalista && categoria){
+            setMensalidade(buscaMensalidadeDeMensalistaDeCategoria(mensalista, categoria));
+        }
+
     }, [mensalista])
 
     function buscaCategoriasDisponiveisParaMensalista() {
         if (mensalista) {
-            const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter(mensalidade =>
-                mensalidade.status === 'Em dia'
+
+            const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter(mensalidade => {
+                const mensalidadeDescontinuadaPoremSelecionada = mensalidade.descontinuada && mensalidade.categoria.id === ticket?.precificacao.id;   
+
+                return (mensalidade.status === 'Em dia' && !mensalidade.descontinuada) || 
+                (mensalidadeDescontinuadaPoremSelecionada);
+
+            }
+                
             );
 
-            const precificacoesDisponiveis = mensalidadesDeMensalista.map(mensalidade =>
-                mensalidade.categoria
-            );
+            const precificacoesDisponiveis = mensalidadesDeMensalista.map(mensalidade => {
+
+                let categoria = mensalidade.categoria;
+
+                if(mensalidade.descontinuada){
+                    categoria = new Precificacao(
+                        categoria.id,
+                        categoria.categoria + " (Mensalidade descontinuada)",
+                        categoria.valorHora,
+                        categoria.valorMensalidade,
+                        categoria.numeroDeVagas,
+                        categoria.ativa,
+                        categoria.descontinuada,
+                    );
+                }
+
+                return categoria;
+            });
 
             setPrecificacoesDisponiveis(precificacoesDisponiveis);
 
@@ -170,7 +202,8 @@ export default function EditarTicket() {
                     dataSaida,
                     categoria as Precificacao,
                     buscarFormaDePagamentoPorId(Number(formaDePagamento)),
-                    tipoCliente === 'Mensalista' ? mensalista : null
+                    tipoCliente === 'Mensalista' ? mensalista : null,
+                    tipoCliente === 'Mensalista' ? mensalidade : null
                 )
 
                 editarTicket(ticket);

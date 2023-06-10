@@ -15,6 +15,7 @@ import { Mensalista } from '../../models/Mensalista';
 import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
 import { Precificacao } from '../../models/Precificacao';
 import MensagemErro from '../../components/MensagemErro';
+import { Mensalidade } from '../../models/Mensalidade';
 
 export default function CadastrarTicket() {
     const [placa, setPlaca] = useState('');
@@ -25,12 +26,13 @@ export default function CadastrarTicket() {
     const [dataEntrada] = useState(new Date());
     const [tipoCliente, setTipoCliente] = useState<'Avulso' | 'Mensalista'>('Avulso');
     const [mensalista, setMensalista] = useState<Mensalista>();
+    const [mensalidade, setMensalidade] = useState<Mensalidade | null>(null);
 
     const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
     const [mensagemDeErro, setMensagemDeErro] = useState("");
 
     const { mensalistas, buscarMensalistaPorId } = useMensalistaContext();
-    const { buscaMensalidadesDeMensalista } = useMensalidadeContext();
+    const { buscaMensalidadesDeMensalista, buscaMensalidadeDeMensalistaDeCategoria } = useMensalidadeContext();
 
     const navigate = useNavigate();
 
@@ -61,11 +63,19 @@ export default function CadastrarTicket() {
 
         preencheValorHora();
 
+        if(tipoCliente === "Mensalista" && mensalista && categoria){
+            setMensalidade(buscaMensalidadeDeMensalistaDeCategoria(mensalista, categoria));
+        }
+
     }, [categoria]);
 
     useEffect(() => {
 
         buscaCategoriasDisponiveisParaMensalista();
+
+        if(tipoCliente === "Mensalista" && mensalista && categoria){
+            setMensalidade(buscaMensalidadeDeMensalistaDeCategoria(mensalista, categoria));
+        }
 
     }, [mensalista]);
 
@@ -73,7 +83,7 @@ export default function CadastrarTicket() {
     function buscaCategoriasDisponiveisParaMensalista() {
         if (mensalista) {
             const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter(mensalidade =>
-                mensalidade.status === 'Em dia'
+                mensalidade.status === 'Em dia' && !mensalidade.descontinuada
             );
 
             const precificacoesDisponiveis = mensalidadesDeMensalista.map(mensalidade =>
@@ -111,7 +121,8 @@ export default function CadastrarTicket() {
                 "Em aberto",
                 null,
                 null,
-                tipoCliente === "Mensalista" ? mensalista : null
+                tipoCliente === "Mensalista" ? mensalista : null,
+                tipoCliente === "Mensalista" ? mensalidade : null
             );
     
             adicionarTicket(novoTicket);
