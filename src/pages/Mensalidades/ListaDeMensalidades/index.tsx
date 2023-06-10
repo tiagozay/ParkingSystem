@@ -20,6 +20,8 @@ export default function ListaDeMensalidades({ mensalidades, setSucessoExcluir }:
 
     const {excluirMensalidade} = useMensalidadeContext();
 
+    mensalidades = mensalidades.filter( mensalidade => !mensalidade.descontinuada );
+
     if (statusFiltro !== "Todas") {
         mensalidades = mensalidades.filter(mensalidade => mensalidade.status === statusFiltro);
     }
@@ -64,9 +66,6 @@ export default function ListaDeMensalidades({ mensalidades, setSucessoExcluir }:
 
     function paraCadaRegistro(mensalidade: Mensalidade) {
         return (
-
-            !mensalidade.descontinuada &&
-
             <tr key={mensalidade.id}>
                 <td>{mensalidade.mensalista.nome}</td>
                 <td>{CpfService.formataCpf(mensalidade.mensalista.cpf)}</td>

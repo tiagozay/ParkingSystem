@@ -17,6 +17,8 @@ export default function ListaDeMensalistas({ mensalistas, setSucessoExcluir }: L
 
     const { excluirMensalista } = useMensalistaContext();
 
+    mensalistas = mensalistas.filter( mensalista => !mensalista.descontinuado );
+
     if (statusFiltro != 'todos') {
 
         let status = true;
@@ -66,7 +68,6 @@ export default function ListaDeMensalistas({ mensalistas, setSucessoExcluir }: L
 
     function paraCadaMensalista(mensalista: Mensalista) {
         return (
-            !mensalista.descontinuado &&
 
             <tr key={mensalista.id}>
                 <td>{mensalista.nome}</td>

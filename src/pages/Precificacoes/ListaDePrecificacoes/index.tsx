@@ -19,6 +19,8 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
 
     const { excluirPrecificacao } = usePrecificacaoContext();
 
+    precificacoes = precificacoes.filter( precificacao => !precificacao.descontinuada );
+
     if (statusFiltro !== "Todas") {
         precificacoes = precificacoes.filter(precificacao => {
             const status = precificacao.ativa ? "Ativas" : "Inativas";
@@ -64,9 +66,6 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
 
     function paraCadaPrecificacao(precificacao: Precificacao) {
         return (
-
-            !precificacao.descontinuada && 
-
             <tr key={precificacao.id}>
                 <td>{precificacao.categoria}</td>
                 <td>{DataService.formataValorMonetario(precificacao.valorHora)}</td>
@@ -89,7 +88,7 @@ export default function ListaDePrecificacoes({ precificacoes, setSucessoExcluir 
         <>
             <div className="divCamposSelectEBuscaDaTabela">
                 <label>
-                    Somente mensalidades
+                    Somente precificações
                     <SelectFiltros value={statusFiltro} onChange={aoSelecionarFiltro}>
                         <option value="Todas">Todas</option>
                         <option value="Ativas">Ativas</option>
