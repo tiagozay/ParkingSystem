@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 import { Precificacao } from '../../models/Precificacao';
 import MensagemErro from '../../components/MensagemErro';
+import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
 
 export default function EditarPrecificacao() {
 
@@ -15,6 +16,7 @@ export default function EditarPrecificacao() {
     const id = Number(useParams().id);
 
     const { buscaPrecificacaoPorId, editarPrecificacao } = usePrecificacaoContext();
+    const { atualizarDados } = useMensalidadeContext();
 
     const [precificacao, setPrecificacao] = useState<Precificacao>()
 
@@ -67,6 +69,8 @@ export default function EditarPrecificacao() {
     
             editarPrecificacao(novaPrecificacao)
                 .then( () => {
+                    atualizarDados();
+
                     navigate('/precificacoes', { state: { sucessoEditar: true } });
                 } ) 
                 .catch( e => {

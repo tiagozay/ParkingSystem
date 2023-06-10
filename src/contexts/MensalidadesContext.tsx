@@ -9,28 +9,37 @@ import { Precificacao } from '../models/Precificacao';
 interface TypeMensalidadeContext 
 {
     mensalidades: Mensalidade[],
-    setMensalidades: Function
+    setMensalidades: Function,
+    indicadorParaDispararAtualizacao: boolean,
+    setIndicador: Function
 }
 
-export const MensalidadeContext = createContext<TypeMensalidadeContext>({mensalidades: [], setMensalidades: () => {}});
+export const MensalidadeContext = createContext<TypeMensalidadeContext>({mensalidades: [], setMensalidades: () => {},indicadorParaDispararAtualizacao: false, setIndicador: () => {}});
 
 export default function MensalidadesProvider({children}: {children: ReactNode}) {
     const [mensalidades, setMensalidades] = useState<Mensalidade[] | []>([]);
 
+    const [indicadorParaDispararAtualizacao, setIndicador] = useState(false);
+
     useEffect(() => {
         MensalidadeService.buscaMensalidades()
             .then( setMensalidades );
-    }, []);
+    }, [indicadorParaDispararAtualizacao] );
 
     return (
-        <MensalidadeContext.Provider value={{mensalidades, setMensalidades}}>
+        <MensalidadeContext.Provider value={{mensalidades, setMensalidades, indicadorParaDispararAtualizacao, setIndicador,}}>
             {children}
         </MensalidadeContext.Provider>
     );
 }
 
 export const useMensalidadeContext = () => {
-    const {mensalidades, setMensalidades} = useContext(MensalidadeContext);
+    const {mensalidades, setMensalidades, setIndicador, indicadorParaDispararAtualizacao} = useContext(MensalidadeContext);
+
+    function atualizarDados()
+    {
+        setIndicador(!indicadorParaDispararAtualizacao);
+    }
 
     //Verifica se já tem uma mensalidade para a mesma categoria e mensalista que esteja em dia
     function verificaSeJaTemMensalidadeIgual(novaMensalidade : Mensalidade)
@@ -110,6 +119,7 @@ export const useMensalidadeContext = () => {
 
     return {
         mensalidades,
+        atualizarDados,
         buscarMensalidadePorId,
         buscaMensalidadesDeMensalista,
         buscaMensalidadesDeMensalistaPorId,
