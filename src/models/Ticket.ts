@@ -196,6 +196,10 @@ export class Ticket {
     }
 
     calculaTotalAPagar(valorPorHora: number): number {
+        if(this.mensalista){
+            return 0;
+        }
+
         const tempoDecorrido = this.tempoDecorrido;
 
         const tempoDividido = tempoDecorrido.split(":");
