@@ -9,11 +9,12 @@
     use DateTime;
     use Doctrine\ORM\Mapping\JoinColumn;
     use DomainException;
+    use JsonSerializable;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Service\DataService;
 
     #[Entity()]
-    class Ticket
+    class Ticket implements JsonSerializable
     {
         #[Id]
         #[GeneratedValue]
@@ -31,6 +32,9 @@
 
         #[ManyToOne(targetEntity: FormaDePagamento::class)]
         private ?FormaDePagamento $formaDePagamento;
+
+        #[Column()]
+        private bool $ehPagoPorMensalidade;
 
         #[Column()]
         private bool $pago;
@@ -69,6 +73,7 @@
             ?string $numeroDaVaga,
             ?Mensalista $mensalista,
             ?Mensalidade $mensalidade,
+            bool $pago = false,
         )
         {
             $this->id = $id;
@@ -80,7 +85,7 @@
             $this->setDataDeEntrada($dataDeEntrada);
             $this->dataDeSaida = $dataDeSaida;
             $this->numeroDaVaga = $numeroDaVaga;
-            $this->setPago();
+            $this->pago = $pago;
             $this->setMensalista($mensalista);
             $this->setMensalidade($mensalidade);
         }   
@@ -89,7 +94,7 @@
             string $placaVeiculo,
             string $marcaVeiculo,
             string $modeloVeiculo,
-            ?FormaDePagamento $formaDePagamento,
+            FormaDePagamento | null | string $formaDePagamento,
             Precificacao $precificacao,
             DateTime $dataDeEntrada,
             ?DateTime $dataDeSaida,
@@ -100,19 +105,28 @@
             $this->placaVeiculo = $placaVeiculo;
             $this->marcaVeiculo = $marcaVeiculo;
             $this->modeloVeiculo = $modeloVeiculo;
-            $this->setFormaDePagamento($formaDePagamento);
             $this->setPrecificacao($precificacao);
             $this->dataDeEntrada = $dataDeEntrada;
             $this->numeroDaVaga = $numeroDaVaga;
             $this->setMensalista($mensalista);
             $this->setMensalidade($mensalidade);
 
-            //Se o ticket ainda não foi pago e foi informada uma data de saída e uma forma de pagamento, é sinal que o operador pagou este ticket, aí nesse caso, gero uma data de saída, já que a que é recebida do front-end não é confiável 
-            if(!$this->pago && $dataDeSaida && $formaDePagamento){
-                $this->dataDeSaida = DataService::geraDataAtual();
-                
+            //Se foi informada uma data de saída, é sinal de que está sendo realizado o pagamento do Tiket, aí gero uma nova data, já que a que vem do front-end não é confiável  
+            if($dataDeSaida){
+                $this->dataDeSaida = DataService::geraDataAtual();   
             }
-            $this->setPago();
+
+            if(!$this->pago && $formaDePagamento && $dataDeSaida){
+                if( $formaDePagamento === "Mensalidade" && $this->mensalista && $this->mensalidade ){
+                    $this->pago = true;
+                    $this->setFormaDePagamento(null);
+                    $this->ehPagoPorMensalidade = true;
+                }else if( $formaDePagamento instanceof FormaDePagamento ) {
+                    $this->pago = true;
+                    $this->setFormaDePagamento($formaDePagamento);
+                    $this->ehPagoPorMensalidade = false;
+                }
+            }
         }
 
         /**
@@ -195,13 +209,22 @@
             }
         }
 
-        private function setPago()
+        public function jsonSerialize(): mixed
         {
-            if($this->formaDePagamento && $this->dataDeSaida){
-                $this->pago = true;
-            }else {
-                $this->pago = false;
-            }
+            return [
+                'id' => $this->id,
+                'placaVeiculo' => $this->placaVeiculo,
+                'marcaVeiculo' => $this->marcaVeiculo,
+                'modeloVeiculo' => $this->modeloVeiculo,
+                'formaDePagamento' => $this->ehPagoPorMensalidade ? "Mensalidade" : $this->formaDePagamento,
+                'pago' => $this->pago,
+                'precificacao' => $this->precificacao,
+                'dataDeEntrada' => $this->dataDeEntrada->format('Y-m-d H:i:s'),
+                'dataDeSaida' => $this->dataDeSaida ? $this->dataDeSaida->format('Y-m-d H:i:s') : null,
+                'numeroDaVaga' => $this->numeroDaVaga,
+                'mensalista' => $this->mensalista,
+                'mensalidade' => $this->mensalidade
+            ];
         }
     }
 ?>
