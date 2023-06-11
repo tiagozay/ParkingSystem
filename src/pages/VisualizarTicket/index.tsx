@@ -102,7 +102,7 @@ export default function VisualizarTicket() {
                             </label>
                             <label>
                                 Valor hora
-                                <input type="text" className="inputDesativado" value={ticket.precificacao.valorHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} readOnly/>
+                                <input type="text" className="inputDesativado" value={ticket.valorHora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} readOnly/>
                             </label>
                             <label>
                                 Número vaga

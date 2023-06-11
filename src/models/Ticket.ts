@@ -195,6 +195,14 @@ export class Ticket {
         return this._mensalidade;
     }
 
+    get valorHora(){
+        if(this.mensalista){
+            return 0;
+        }
+
+        return this.precificacao.valorHora;
+    }
+
     calculaTotalAPagar(valorPorHora: number): number {
         if(this.mensalista){
             return 0;
