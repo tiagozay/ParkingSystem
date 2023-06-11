@@ -9,7 +9,7 @@ export class Ticket {
     public placaVeiculo: string;
     public marcaVeiculo: string;
     public modeloVeiculo: string;
-    private _formaDePagamento: FormaDePagamento | null;
+    private _formaDePagamento: FormaDePagamento | "Mensalidade" | null;
     public status: "Em aberto" | "Pago";
     public _precificacao: Precificacao;
     public dataDeEntrada: Date;
@@ -28,7 +28,7 @@ export class Ticket {
         precificacao: Precificacao,
         status: "Em aberto" | "Pago",
         numeroDaVaga: string | null,
-        formaDePagamento: FormaDePagamento | null = null,
+        formaDePagamento: FormaDePagamento | "Mensalidade" | null = null,
         mensalista: Mensalista | null = null,
         mensalidade: Mensalidade | null = null
     ) {
@@ -52,6 +52,7 @@ export class Ticket {
         modeloVeiculo: string,
         dataSaida: Date | null,
         precificacao: Precificacao,
+        status: "Em aberto" | "Pago",
         formaDePagamento: FormaDePagamento | null = null,
         mensalista: Mensalista | null = null,
         mensalidade: Mensalidade | null = null
@@ -63,13 +64,32 @@ export class Ticket {
         this.mensalista = mensalista;
         this.mensalidade = mensalidade;
 
-        //Se o ticket ainda não foi pago e a data de saída e a forma de pagamento foi recebida nessa função de editar, é sinal que o operador realizou o pagamento deste ticket, aí defino a data de saída e a forma de pagamento e mudo seu status para "Pago"
-        if (this.status === "Em aberto" && dataSaida && formaDePagamento) {
+        this.validaStatus(formaDePagamento, dataSaida, status);
+
+    }
+
+    private validaStatus(
+        formaDePagamento: FormaDePagamento | null = null, 
+        dataSaida: Date | null,
+        status: "Em aberto" | "Pago", 
+    ) {
+        const ehEmAberto = this.status === "Em aberto";
+
+        //Quando o operador seleciona uma forma de pagamento no formulário de editar, aí chega para essa função a forma de pagamento selecionada, a data de saída e o status, indicando que é para marcar este ticket como pago
+        const fechamentoDeTiketAvulsoEfetuadoPeloOperador = formaDePagamento && dataSaida && status === "Pago" ? true : false;
+
+        //Quando o cliente do ticket é um mensalista, ao invés de selecionar a forma de pagamento, selecionamos diretamente o status, já que não faz sentido selecionar a forma de pagamento, já que o cliente pagou a mensalidade, aí nesse caso recebemos a data de saída e o status, e verificamos também se realmente há um mensalista e uma mensalidade
+        const fechamentoDeTiketMensalistaEfetuadoPeloOperador = dataSaida && this.mensalista && this.mensalidade && status === "Pago" ? true : false;
+
+        if (ehEmAberto && fechamentoDeTiketAvulsoEfetuadoPeloOperador) {
             this._dataDeSaida = dataSaida;
             this.formaDePagamento = formaDePagamento;
             this.status = "Pago";
+        } else if (ehEmAberto && fechamentoDeTiketMensalistaEfetuadoPeloOperador) {
+            this._dataDeSaida = dataSaida;
+            this._formaDePagamento = "Mensalidade";
+            this.status = "Pago";
         }
-
     }
 
     set precificacao(precificacao: Precificacao) {
@@ -92,10 +112,10 @@ export class Ticket {
         this._precificacao = precificacao;
     }
 
-    set formaDePagamento(formaDePagamento: FormaDePagamento | null) {
+    set formaDePagamento(formaDePagamento: FormaDePagamento | "Mensalidade" | null) {
         const ehNovoTiket = !this.id;
 
-        if (formaDePagamento) {
+        if (formaDePagamento && formaDePagamento !== "Mensalidade") {
             if (ehNovoTiket || this.status === "Em aberto") {
                 if (!formaDePagamento.ativa || formaDePagamento.descontinuada) {
                     throw new Error("Forma de pagamento inválida (inativa ou descontinuada)");
@@ -159,7 +179,7 @@ export class Ticket {
         return this._precificacao;
     }
 
-    get formaDePagamento(): FormaDePagamento | null {
+    get formaDePagamento(): FormaDePagamento | "Mensalidade" | null {
         return this._formaDePagamento;
     }
 
@@ -169,6 +189,10 @@ export class Ticket {
 
     get mensalista() {
         return this._mensalista;
+    }
+
+    get mensalidade() {
+        return this._mensalidade;
     }
 
     calculaTotalAPagar(valorPorHora: number): number {

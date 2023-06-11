@@ -63,9 +63,9 @@ export default function EditarTicket() {
         if (!ticket) {
             return;
         }
-
         setTipoCliente(ticket.mensalista ? "Mensalista" : "Avulso");
         setMensalista(ticket.mensalista);
+        setMensalidade(ticket.mensalidade);
         setPlaca(ticket.placaVeiculo);
         setMarcaVeiculo(ticket.marcaVeiculo);
         setModeloVeiculo(ticket.modeloVeiculo);
@@ -111,7 +111,7 @@ export default function EditarTicket() {
             return;
         }
 
-        if(tipoCliente === "Mensalista" && mensalista && categoria){
+        if (tipoCliente === "Mensalista" && mensalista && categoria) {
             setMensalidade(buscaMensalidadeDeMensalistaDeCategoria(mensalista, categoria));
         }
 
@@ -122,7 +122,7 @@ export default function EditarTicket() {
 
         buscaCategoriasDisponiveisParaMensalista();
 
-        if(tipoCliente === "Mensalista" && mensalista && categoria){
+        if (tipoCliente === "Mensalista" && mensalista && categoria) {
             setMensalidade(buscaMensalidadeDeMensalistaDeCategoria(mensalista, categoria));
         }
 
@@ -132,23 +132,24 @@ export default function EditarTicket() {
         if (mensalista) {
 
             const mensalidadesDeMensalista = buscaMensalidadesDeMensalista(mensalista).filter(mensalidade => {
-                const mensalidadeDescontinuadaPoremJaCadastradaAnteriormente = 
-                    mensalidade.descontinuada && 
+                const mensalidadeDescontinuadaPoremJaCadastradaAnteriormente =
+                    mensalidade.descontinuada &&
                     mensalidade.categoria.id === ticket?.precificacao.id &&
-                    mensalidade.mensalista.id === ticket?.mensalista?.id ;  
+                    mensalidade.mensalista.id === ticket?.mensalista?.id;
 
-                return (mensalidade.status === 'Em dia' && !mensalidade.descontinuada) || 
-                (mensalidadeDescontinuadaPoremJaCadastradaAnteriormente);
+                return (mensalidade.status === 'Em dia' && !mensalidade.descontinuada) ||
+                    (mensalidadeDescontinuadaPoremJaCadastradaAnteriormente);
 
             }
-                
+
             );
 
             const precificacoesDisponiveis = mensalidadesDeMensalista.map(mensalidade => {
 
                 let categoria = mensalidade.categoria;
 
-                if(mensalidade.descontinuada){
+                //Adiciona sufixo no nome da categoria que tem sua Mensalidade descontinuada
+                if (mensalidade.descontinuada) {
                     categoria = new Precificacao(
                         categoria.id,
                         categoria.categoria + " (Mensalidade descontinuada)",
@@ -204,6 +205,7 @@ export default function EditarTicket() {
                     modeloVeiculo,
                     dataSaida,
                     categoria as Precificacao,
+                    status,
                     buscarFormaDePagamentoPorId(Number(formaDePagamento)),
                     tipoCliente === 'Mensalista' ? mensalista : null,
                     tipoCliente === 'Mensalista' ? mensalidade : null
@@ -248,6 +250,18 @@ export default function EditarTicket() {
             setFormaDePagamento(valor);
             setDataSaida(new Date());
             setStatus("Pago");
+        }
+    }
+
+    function aoSelecionarStatus(event: React.ChangeEvent<HTMLSelectElement>) {
+        const status = event.target.value;
+
+        if (status === "Pago") {
+            setDataSaida(new Date());
+            setStatus("Pago");
+        } else {
+            setDataSaida(null);
+            setStatus('Em aberto');
         }
     }
     function aoSelecionarMensalista(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -432,20 +446,39 @@ export default function EditarTicket() {
                                 <input type="text" className="inputDesativado" readOnly value={totalAPagar.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
                             </label>
                             <label className='labelInputMeio'>
-                                Forma de pagamento
-                                <select onChange={aoSelecionarFormaDePagamento} value={formaDePagamento}>
-                                    <option value=''>Em aberto</option>
-                                    {
-                                        formasDePagamento.map(formaDePagamento => (
+                                {
+                                    tipoCliente === "Mensalista" ?
 
-                                            (formaDePagamento.ativa && !formaDePagamento.descontinuada) &&
+                                        <>
+                                            Status
+                                            <select onChange={aoSelecionarStatus} value={status}>
+                                                <option value="Em aberto">Em aberto</option>
+                                                <option value="Pago">Pago</option>
+                                            </select>
+                                        </>
 
-                                            <option key={formaDePagamento.id} value={formaDePagamento.id as number}>
-                                                {formaDePagamento.nomeFormaDePagamento}
-                                            </option>
-                                        ))
-                                    }
-                                </select>
+                                        :
+
+                                        <>
+                                            Forma de pagamento
+                                            <select onChange={aoSelecionarFormaDePagamento} value={formaDePagamento}>
+                                                <option value=''>Em aberto</option>
+                                                {
+                                                    formasDePagamento.map(formaDePagamento => (
+
+                                                        (formaDePagamento.ativa && !formaDePagamento.descontinuada) &&
+
+                                                        <option key={formaDePagamento.id} value={formaDePagamento.id as number}>
+                                                            {formaDePagamento.nomeFormaDePagamento}
+                                                        </option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </>
+
+                                }
+
+
                             </label>
                         </div>
 

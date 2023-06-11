@@ -5,6 +5,7 @@ import { Ticket } from '../../models/Ticket';
 import BtnVoltar from '../../components/BtnVoltar';
 import BoasVindas from '../../components/BoasVindas';
 import { DataService } from '../../services/DataService';
+import { FormaDePagamento } from '../../models/FormaDePagamento';
 
 export default function VisualizarTicket() {
     const navigate = useNavigate();
@@ -14,6 +15,10 @@ export default function VisualizarTicket() {
     const {buscarTicketPorId} = useTicketContext();
         
     const ticket = buscarTicketPorId(id) as Ticket;
+
+    const formaDePagamento = ticket.formaDePagamento instanceof FormaDePagamento ? 
+        ticket.formaDePagamento.nomeFormaDePagamento : 
+        ticket.formaDePagamento;
 
     return (
         <section id="formularioAdcNovoTicket">
@@ -132,7 +137,7 @@ export default function VisualizarTicket() {
                             </label>
                             <label className='labelInputMeio'>
                                 Forma de pagamento
-                                <input type="text" className="inputDesativado" value={ticket.formaDePagamento?.nomeFormaDePagamento} readOnly/>
+                                <input type="text" className="inputDesativado" value={formaDePagamento as string} readOnly/>
                             </label>
                         </div>
 

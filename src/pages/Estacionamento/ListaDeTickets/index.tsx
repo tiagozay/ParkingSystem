@@ -6,6 +6,7 @@ import InputPlaca from '../../../components/InputPlaca';
 import { useTicketContext } from '../../../contexts/TicketContext';
 import { Link } from 'react-router-dom';
 import ListaDeDados from '../../../components/ListaDeDados';
+import { FormaDePagamento } from '../../../models/FormaDePagamento';
 
 interface ListaDeTicketsProps {
     tickets: Ticket[],
@@ -59,6 +60,11 @@ export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTi
     );
 
     function paraCadaRegistro(ticket: Ticket) {
+
+        const formaDePagamento = ticket.formaDePagamento instanceof FormaDePagamento ? 
+            ticket.formaDePagamento.nomeFormaDePagamento : 
+            ticket.formaDePagamento;
+
         return (
             <tr key={ticket.id}>
                 <td>{ticket.precificacao.categoria}</td>
@@ -70,7 +76,7 @@ export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTi
                 </td>
                 <td>{ticket.placaVeiculo}</td>
                 <td>{`${ticket.marcaVeiculo} ${ticket.modeloVeiculo}`}</td>
-                <td>{`${ticket.formaDePagamento?.nomeFormaDePagamento || "Em aberto"}`}</td>
+                <td>{`${formaDePagamento || "Em aberto"}`}</td>
                 <td>{ticket.mensalista ? ticket.mensalista.nome : "Avulso"}</td>
                 <td>
                     <p className={ticket.status == 'Em aberto' ? 'statusEmAberto' : 'statusPago'}>
