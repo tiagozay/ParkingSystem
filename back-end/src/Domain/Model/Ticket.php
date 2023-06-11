@@ -51,6 +51,9 @@
         #[ManyToOne(targetEntity: Mensalista::class)]
         private ?Mensalista $mensalista;
 
+        #[ManyToOne(targetEntity: Mensalidade::class)]
+        private ?Mensalidade $mensalidade;
+
         /**
          * @throws DomainException
          */
@@ -65,6 +68,7 @@
             ?DateTime $dataDeSaida,
             ?string $numeroDaVaga,
             ?Mensalista $mensalista,
+            ?Mensalidade $mensalidade,
         )
         {
             $this->id = $id;
@@ -78,6 +82,7 @@
             $this->numeroDaVaga = $numeroDaVaga;
             $this->setPago();
             $this->setMensalista($mensalista);
+            $this->setMensalidade($mensalidade);
         }   
 
         public function editar(
@@ -90,6 +95,7 @@
             ?DateTime $dataDeSaida,
             ?string $numeroDaVaga,
             ?Mensalista $mensalista,
+            ?Mensalidade $mensalidade,
         ){
             $this->placaVeiculo = $placaVeiculo;
             $this->marcaVeiculo = $marcaVeiculo;
@@ -99,6 +105,7 @@
             $this->dataDeEntrada = $dataDeEntrada;
             $this->numeroDaVaga = $numeroDaVaga;
             $this->setMensalista($mensalista);
+            $this->setMensalidade($mensalidade);
 
             //Se o ticket ainda não foi pago e foi informada uma data de saída e uma forma de pagamento, é sinal que o operador pagou este ticket, aí nesse caso, gero uma data de saída, já que a que é recebida do front-end não é confiável 
             if(!$this->pago && $dataDeSaida && $formaDePagamento){
@@ -115,16 +122,7 @@
         {
             //Se não tiver id, é sinal de que está sendo criado um novo tiket, sendo necessária a validação. Se tiver id, mas tiver recebendo uma precificação diferente da que já está definida, também é necessária a validação, pois é sinal de que estamos recebendo uma nova precificação, e só omitimos essa validação quando recebermos uma precificação inválida na edição, que seja a mesma que já foi definidda
 
-            if(!$this->id){
-                //Novo tiket                
-
-                if(!$precificacao->getAtiva() || $precificacao->getDescontinuada()){
-                    throw new DomainException("Precificação inválida");
-                }
-
-            }else if( $this->precificacao->id !== $precificacao->id ){
-                //Edição com precificação nova
-
+            if(!$this->id || $this->precificacao->id !== $precificacao->id){              
                 if(!$precificacao->getAtiva() || $precificacao->getDescontinuada()){
                     throw new DomainException("Precificação inválida");
                 }
@@ -152,7 +150,7 @@
          */
         private function setMensalista(?Mensalista $mensalista)
         {
-            //Se eu receber um Mensalista e se eu tiver cadastrando um novo Tiket ou editando um Tiket já cadastrado passando um mensalista diferente da que já foi cadastrada, faço a verificação para ver se o mensalista é válido, isso porquê nesses dois casos é necessária a validação do mensalista. Nesse caso não temos problemas na hora que o doctrine for buscar os tikets do banco, pois nesse caso, ele não usará este setter. Este setter só será usado no cadastro de um novo Tiket ou na edição de um existente
+            //Se eu receber um Mensalista e se eu tiver cadastrando um novo Tiket ou editando um Tiket já cadastrado passando um mensalista diferente da que já foi cadastrada, faço a verificação para ver se o mensalista é válido, isso porque nesses dois casos é necessária a validação do mensalista. Quando for uma edição e o mensalista recebido for diferente do que já está setado, se ele estiver inválido, pode continuar inválido. Nesse caso não temos problemas na hora que o doctrine for buscar os tikets do banco, pois nesse caso, ele não usará este setter. Este setter só será usado no cadastro de um novo Tiket ou na edição de um existente
 
             if($mensalista){
                 if(!$this->id || $this->mensalista->id !== $mensalista->id){
@@ -163,6 +161,28 @@
             }
             
             $this->mensalista = $mensalista;
+        }
+
+        /**
+         * @throws DomainException
+         */
+        private function setMensalidade(?Mensalidade $mensalidade)
+        {
+            //Se eu receber um Mensalista e se eu tiver cadastrando um novo Tiket ou editando um Tiket já cadastrado passando um mensalista diferente da que já foi cadastrada, faço a verificação para ver se o mensalista é válido, isso porque nesses dois casos é necessária a validação do mensalista. Quando for uma edição e o mensalista recebido for diferente do que já está setado, se ele estiver inválido, pode continuar inválido. Nesse caso não temos problemas na hora que o doctrine for buscar os tikets do banco, pois nesse caso, ele não usará este setter. Este setter só será usado no cadastro de um novo Tiket ou na edição de um existente
+
+            if($this->mensalista && !$mensalidade){
+                throw new DomainException("Ao informar um mensalista, deve-se informar uma Mensalidade");
+            }
+
+            if($mensalidade){
+                if(!$this->id || $this->mensalidade->id !== $mensalidade->id){
+                    if($mensalidade->getVencida() || $mensalidade->getDescontinuada()){
+                        throw new DomainException("Mensalidade inválida (vencida ou descontinuada)");
+                    }
+                }                
+            }
+            
+            $this->mensalidade = $mensalidade;
         }
 
         private function setDataDeEntrada(DateTime $dataDeEntrada)

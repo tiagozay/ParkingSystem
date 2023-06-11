@@ -22,7 +22,7 @@
         #[Id]
         #[GeneratedValue]
         #[Column()]
-        private ?int $id;
+        public ?int $id;
 
         #[JoinColumn(nullable:false)]
         #[ManyToOne(targetEntity: Mensalista::class)]
@@ -165,6 +165,11 @@
         private function setVencida()
         {
             $this->vencida = DataService::geraDataAtual() > $this->dataDeVencimento;
+        }
+
+        public function getVencida()
+        {
+            return $this->vencida;
         }
 
         public function getDescontinuada()
