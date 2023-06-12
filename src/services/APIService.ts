@@ -16,7 +16,15 @@ export abstract class APIService
                 if(!res.ok){
                     throw new Error("Erro na requisição, code: "+res.status);
                 }
-                return res.json();
+
+                const contentType = res.headers.get('content-type');
+                
+                if(contentType?.includes('application/json')){
+                    return res.json();
+                }
+                
+                return res.text();
+            
             })
             .catch( error => {
                 console.error(error);

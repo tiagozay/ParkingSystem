@@ -13,5 +13,6 @@
     /** @var FormaDePagamento[] */
     $formasDePagamento = $formaDePagamentoRepository->findAll();
 
+    header('Content-Type: application/json');
     echo json_encode($formasDePagamento);
 ?>

@@ -22,10 +22,12 @@
         $entityManager->flush();
 
         http_response_code(200);
+        header('Content-Type: application/json');
         echo json_encode($formaDePagamento);
 
     }catch( Throwable $e ){
         http_response_code(500);
+        header('Content-Type: text/plain');
         echo $e->getMessage();
     }
 ?>

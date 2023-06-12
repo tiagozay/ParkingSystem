@@ -13,5 +13,6 @@
     /** @var Mensalista[] */
     $mensalistas = $mensalistaRepository->findAll();
 
+    header('Content-Type: application/json');
     echo json_encode($mensalistas);
 ?>
