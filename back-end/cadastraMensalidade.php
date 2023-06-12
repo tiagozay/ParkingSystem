@@ -4,9 +4,7 @@
 
     require_once './vendor/autoload.php';
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Entity;
-use ParkSistem\Domain\Model\FormaDePagamento;
+    use ParkSistem\Domain\Model\FormaDePagamento;
     use ParkSistem\Domain\Model\Mensalidade;
     use ParkSistem\Domain\Model\Mensalista;
     use ParkSistem\Domain\Model\Precificacao;
