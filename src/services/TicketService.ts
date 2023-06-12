@@ -109,16 +109,11 @@ export default abstract class TicketService
             });  
     }
 
-    // static excluiMensalidade(id: number): Promise<Mensalidade | undefined>
-    // {
-    //     return APIService.enviaObjeto('excluiMensalidade.php', id)
-    //         .then( mensalidadeDescontinuadaOBJ => {
-    //             if(mensalidadeDescontinuadaOBJ){
-    //                 return this.instanciaMensalidadeComObjeto(mensalidadeDescontinuadaOBJ);
-    //             }
-    //         } )
-    //         .catch( () => {
-    //             throw new Error("Erro ao excluír mensalidade."); 
-    //         } )
-    // }
+    static excluiTicket(id: number): Promise<void>
+    {
+        return APIService.enviaObjeto('excluiTicket.php', id)
+            .catch( () => {
+                throw new Error("Erro ao excluír ticket."); 
+            } )
+    }
 }

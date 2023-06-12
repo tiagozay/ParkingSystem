@@ -69,7 +69,10 @@ export const useTicketContext = () => {
 
     function excluirTicket(id: number)
     {
-        setTickets(tickets.filter(ticket => ticket.id !== id) );
+        return TicketService.excluiTicket(id)
+            .then( () => {
+                setTickets(tickets.filter(ticket => ticket.id !== id) );
+            } );
     }
 
     return {

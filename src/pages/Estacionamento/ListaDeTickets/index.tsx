@@ -40,8 +40,10 @@ export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTi
         const confirmacao = window.confirm("Excluir este Ticket?");
         if (!confirmacao) return;
 
-        excluirTicket(id);
-        setSucessoExcluir(true);
+        excluirTicket(id)
+            .then( () => {
+                setSucessoExcluir(true);
+            });
     }
 
     const jsxThead = (
