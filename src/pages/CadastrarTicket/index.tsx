@@ -129,6 +129,10 @@ export default function CadastrarTicket() {
                 .then( () => {
                     navigate('/estacionamento', { state: { sucessoCadastrar: true } });
                 } )
+                .catch( erro => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(erro.message);
+                } );
     
             
         }catch(e: any){
