@@ -239,4 +239,23 @@ export class Ticket {
         let minutosFormatados = String(minutos).length == 1 ? "0" + minutos : String(minutos);
         return `${horaFormatada}:${minutosFormatados}`;
     }
+
+    //Método chamado durante a serialização do objeto
+    toJSON()
+    {
+        return {
+            id: this.id,
+            placaVeiculo: this.placaVeiculo,
+            marcaVeiculo: this.marcaVeiculo,
+            modeloVeiculo: this.modeloVeiculo,
+            precificacao: this.precificacao,
+            dataDeEntrada: this.dataDeEntrada,
+            formaDePagamento: this.formaDePagamento,
+            pago: this.status === 'Pago',
+            dataDeSaida: this._dataDeSaida,
+            numeroDaVaga: this.numeroDaVaga,
+            mensalista: this.mensalista,
+            mensalidade: this.mensalidade,
+        }
+    }
 }

@@ -125,9 +125,12 @@ export default function CadastrarTicket() {
                 tipoCliente === "Mensalista" ? mensalidade : null
             );
     
-            adicionarTicket(novoTicket);
+            adicionarTicket(novoTicket)
+                .then( () => {
+                    navigate('/estacionamento', { state: { sucessoCadastrar: true } });
+                } )
     
-            navigate('/estacionamento', { state: { sucessoCadastrar: true } });
+            
         }catch(e: any){
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);

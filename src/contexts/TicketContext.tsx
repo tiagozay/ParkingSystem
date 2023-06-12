@@ -1,9 +1,8 @@
-import React, {useContext} from 'react'
-import { Precificacao } from '../models/Precificacao';
+import React, {useContext, useEffect} from 'react'
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Ticket } from '../models/Ticket';
-import { usePrecificacaoContext } from './PrecificacaoContext';
+import TicketService from '../services/TicketService';
 
 function geraDataA15min()
 {
@@ -26,154 +25,12 @@ export const TicketContext = createContext<TypeTicketContext>(
 );
 
 export default function TicketsProvider({children}: {children: ReactNode}) {
-    const {buscaValorHoraDeCategoria} = usePrecificacaoContext();
+    const [tickets, setTickets] = useState<Ticket[] | []>([]);
 
-    const [tickets, setTickets] = useState([
-        new Ticket(
-            1,
-            'Honda',
-            'APN-2018',
-            'CG FAN 125',
-            geraDataA15min(),
-            null,
-            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            2,
-            'Honda',
-            'APN-2018',
-            'CG FAN 125',
-            geraDataA15min(),
-            null,
-            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            3,
-            'Honda',
-            'APN-2018',
-            'CG FAN 125',
-            geraDataA15min(),
-            null,
-            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            4,
-            'ABA-2054',
-            'Wolksvagen',
-            'Gol',
-            geraDataA15min(),
-            null,
-            new Precificacao(1, "Carro", 20, 200, 20, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            5,
-            'Honda',
-            'APN-2018',
-            'CG FAN 125',
-            geraDataA15min(),
-            null,
-            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            6,
-            'ABA-2054',
-            'Wolksvagen',
-            'Gol',
-            geraDataA15min(),
-            null,
-            new Precificacao(1, "Carro", 20, 200, 20, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            7,
-            'Honda',
-            'APN-2018',
-            'CG FAN 125',
-            geraDataA15min(),
-            null,
-            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            8,
-            'Honda',
-            'APN-2018',
-            'CG FAN 125',
-            geraDataA15min(),
-            null,
-            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            9,
-            'Honda',
-            'APN-2018',
-            'CG FAN 125',
-            geraDataA15min(),
-            null,
-            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            10,
-            'ABA-2054',
-            'Wolksvagen',
-            'Gol',
-            geraDataA15min(),
-            null,
-            new Precificacao(1, "Carro", 20, 200, 20, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            11,
-            'Honda',
-            'APN-2018',
-            'CG FAN 125',
-            geraDataA15min(),
-            null,
-            new Precificacao(2, 'Moto', 10, 150, 25, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-        new Ticket(
-            12,
-            'ABA-2054',
-            'Wolksvagen',
-            'Gol',
-            geraDataA15min(),
-            null,
-            new Precificacao(1, "Carro", 20, 200, 20, true, false),
-            "Em aberto",
-            null,
-            null
-        ),
-    ]);
+    useEffect(() => {
+        TicketService.buscaTickets()
+            .then( setTickets );
+    }, [] );
 
     return (
         <TicketContext.Provider value={{tickets, setTickets}}>
@@ -192,15 +49,10 @@ export const useTicketContext = () => {
 
     function adicionarTicket(novoTicket: Ticket)
     {
-        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
-        const ultimoTicketCadastrado = tickets[tickets.length - 1];
-        if(ultimoTicketCadastrado){
-            novoTicket.id = (ultimoTicketCadastrado.id as number) + 1;
-        }else{
-            novoTicket.id = 1;
-        }
-
-        setTickets([...tickets, novoTicket]);
+        return TicketService.cadastraTiket(novoTicket)
+            .then( ticketCadastrado => {
+                setTickets([...tickets, ticketCadastrado]);
+            } );
     }
 
     function editarTicket(ticketEditado: Ticket)

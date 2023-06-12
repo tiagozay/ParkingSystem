@@ -43,10 +43,10 @@
         #[JoinColumn(nullable:false)]
         private Precificacao $precificacao ;
 
-        #[Column(type: 'date')]
+        #[Column()]
         private DateTime $dataDeEntrada ;
 
-        #[Column(type: 'date', nullable:true)]
+        #[Column(nullable:true)]
         private ?DateTime $dataDeSaida;
 
         #[Column(length:10, nullable:true)]
@@ -88,6 +88,8 @@
             $this->pago = $pago;
             $this->setMensalista($mensalista);
             $this->setMensalidade($mensalidade);
+
+            $this->ehPagoPorMensalidade = false;
         }   
 
         public function editar(
