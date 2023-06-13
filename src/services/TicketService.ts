@@ -8,6 +8,23 @@ import { Ticket } from "../models/Ticket";
 
 export default abstract class TicketService
 {
+    static calculaTotalAPagar(
+        tipoCliente: "Avulso" | "Mensalista",  
+        tempoDecorrido: string,
+        valorPorHora: number
+    ): number 
+    {
+        if(tipoCliente === "Mensalista"){
+            return 0;
+        }
+        const tempoDividido = tempoDecorrido.split(":");
+
+        const horas = Number(tempoDividido[0]);
+        const minutos = Number(tempoDividido[1]);
+
+        return (horas * valorPorHora) + (minutos / 60 * valorPorHora);
+    }
+
     static buscaTickets(): Promise<Ticket[] | []>
     {
         return APIService.buscaObjetos('buscaTickets.php')
@@ -33,9 +50,9 @@ export default abstract class TicketService
         );
 
         let formaDePagamentoDoTicket: FormaDePagamento | "Mensalidade" | null = null;
-
+        
         if(ticketDados.formaDePagamento){
-            if(formaDePagamentoDoTicket === "Mensalidade"){
+            if(ticketDados.formaDePagamento === "Mensalidade"){
                 formaDePagamentoDoTicket = "Mensalidade";
             }else {
                 formaDePagamentoDoTicket = new FormaDePagamento(
@@ -109,6 +126,17 @@ export default abstract class TicketService
             });  
     }
 
+    static editaTicket(ticketEditado: Ticket): Promise<Ticket>
+    {
+        return APIService.enviaObjeto('editarTicket.php', ticketEditado)
+        .then( (ticketEditadoOBJ) => {
+            return this.instanciaTicketComObjeto(ticketEditadoOBJ);
+        } )
+        .catch( () => {
+            throw new Error("Erro ao editar ticket."); 
+        })        
+    }
+
     static excluiTicket(id: number): Promise<void>
     {
         return APIService.enviaObjeto('excluiTicket.php', id)
@@ -116,4 +144,6 @@ export default abstract class TicketService
                 throw new Error("Erro ao excluír ticket."); 
             } )
     }
+
+    
 }

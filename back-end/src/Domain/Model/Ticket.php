@@ -98,9 +98,7 @@
             string $modeloVeiculo,
             FormaDePagamento | null | string $formaDePagamento,
             Precificacao $precificacao,
-            DateTime $dataDeEntrada,
             ?DateTime $dataDeSaida,
-            ?string $numeroDaVaga,
             ?Mensalista $mensalista,
             ?Mensalidade $mensalidade,
         ){
@@ -108,8 +106,6 @@
             $this->marcaVeiculo = $marcaVeiculo;
             $this->modeloVeiculo = $modeloVeiculo;
             $this->setPrecificacao($precificacao);
-            $this->dataDeEntrada = $dataDeEntrada;
-            $this->numeroDaVaga = $numeroDaVaga;
             $this->setMensalista($mensalista);
             $this->setMensalidade($mensalidade);
 

@@ -16,6 +16,7 @@ import { useMensalidadeContext } from '../../contexts/MensalidadesContext';
 import { Precificacao } from '../../models/Precificacao';
 import MensagemErro from '../../components/MensagemErro';
 import { Mensalidade } from '../../models/Mensalidade';
+import TicketService from '../../services/TicketService';
 
 export default function EditarTicket() {
 
@@ -184,12 +185,20 @@ export default function EditarTicket() {
 
             setValorHora(valor);
             setTotalAPagar(
-                ticket?.calculaTotalAPagar(valor)
+                TicketService.calculaTotalAPagar(
+                    tipoCliente, 
+                    ticket.tempoDecorrido, 
+                    valor
+                )
             );
         } else {
             setValorHora(0);
             setTotalAPagar(
-                ticket?.calculaTotalAPagar(0)
+                TicketService.calculaTotalAPagar(
+                    tipoCliente, 
+                    ticket.tempoDecorrido, 
+                    0
+                )
             );
         }
     }
@@ -211,9 +220,14 @@ export default function EditarTicket() {
                     tipoCliente === 'Mensalista' ? mensalidade : null
                 )
 
-                editarTicket(ticket);
-
-                navigate('/estacionamento', { state: { sucessoEditar: true } });
+                editarTicket(ticket)
+                    .then( () => {
+                        navigate('/estacionamento', { state: { sucessoEditar: true } });
+                    } ) 
+                    .catch( e => {
+                        setMensagemDeErroAberta(true);
+                        setMensagemDeErro(e.message);
+                    } );
             }
 
         } catch (e: any) {

@@ -55,17 +55,22 @@ export const useTicketContext = () => {
             } );
     }
 
-    function editarTicket(ticketEditado: Ticket)
+
+    function editarTicket(novoTicket: Ticket)
     {
-        setTickets(
-            tickets.map( ticket => {
-                if(ticket.id === ticketEditado.id){
-                    return ticketEditado;
-                }
-                return ticket;
-            } )
-        )
+        return TicketService.editaTicket(novoTicket)
+            .then( ticketEditado => {
+                setTickets(
+                    tickets.map( ticket => {
+                        if(ticket.id === ticketEditado.id){
+                            return ticketEditado;
+                        }
+                        return ticket;
+                    } )
+                );
+            } );
     }
+
 
     function excluirTicket(id: number)
     {
