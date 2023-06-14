@@ -1,4 +1,3 @@
-import { Mensalista } from "../models/Mensalista";
 import { Usuario } from "../models/Usuario";
 import { APIService } from "./APIService";
 import { DataService } from "./DataService";
@@ -41,27 +40,21 @@ export default abstract class UsuarioService
         })        
     }
 
-    static editaMensalista(novoMensalista: Mensalista): Promise<Mensalista>
+    static editarUsuario(novoUsuario: Usuario): Promise<Usuario>
     {
-        return APIService.enviaObjeto('editarMensalista.php', novoMensalista)
-        .then( (mensalistaEditadoOBJ) => {
-            return new Mensalista(
-                mensalistaEditadoOBJ.id,
-                mensalistaEditadoOBJ.nome,
-                DataService.corrigeFusoHorario(new Date(mensalistaEditadoOBJ.dataNascimento)),
-                mensalistaEditadoOBJ.cpf,
-                mensalistaEditadoOBJ.email,
-                mensalistaEditadoOBJ.celular,
-                mensalistaEditadoOBJ.cep,
-                mensalistaEditadoOBJ.uf,
-                mensalistaEditadoOBJ.cidade,
-                mensalistaEditadoOBJ.ativo,
-                mensalistaEditadoOBJ.descontinuado
-            );
-        } )
-        .catch( () => {
-            throw new Error("Erro ao editar mensalista."); 
-        })        
+        return APIService.enviaObjeto('editarUsuario.php', novoUsuario)
+            .then( (usuarioEditadoOBJ) => {
+                return new Usuario(
+                    usuarioEditadoOBJ.id,
+                    usuarioEditadoOBJ.nome,
+                    usuarioEditadoOBJ.email,
+                    usuarioEditadoOBJ.nivelDeAcesso,
+                    usuarioEditadoOBJ.ativo
+                );
+            } )
+            .catch( () => {
+                throw new Error("Erro ao editar usuário."); 
+            })        
     }
 
     static excluiUsuario(id: number): Promise<void>

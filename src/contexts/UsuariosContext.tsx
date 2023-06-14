@@ -49,16 +49,20 @@ export const useUsuariosContext = () => {
             }); 
     }
 
-    function editarUsuario(usuarioEditado: Usuario)
+    function editarUsuario(novoUsuario: Usuario)
     {
-        setUsuarios(
-            usuarios.map( usuario => {
-                if(usuario.id === usuarioEditado.id){
-                    return usuarioEditado;
-                }
-                return usuario;
-            } )
-        )
+        return UsuarioService.editarUsuario(novoUsuario)
+            .then( usuarioEditado => {
+                setUsuarios(
+                    usuarios.map( usuario => {
+                        if(usuario.id === usuarioEditado.id){
+                            return usuarioEditado;
+                        }
+                        return usuario;
+                    } )
+                );
+            } );
+
     }
 
     function excluirUsuario(id: number)

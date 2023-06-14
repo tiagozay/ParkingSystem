@@ -57,14 +57,19 @@ export default function EditarUsuario() {
                 novaSenha
             );
 
-            editarUsuario(usuarioEditado);
+            editarUsuario(usuarioEditado)
+                .then( () => {
+                    navigate('/usuarios', { state: { sucessoEditar: true } });
+                } ) 
+                .catch( e => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(e.message);
+                } );
 
-            navigate('/usuarios', { state: { sucessoEditar: true } });
         } catch (e: any) {
             setMensagemDeErroAberta(true);
             setMensagemDeErro(e.message);
         }
-
     }
 
     function aoDigitarNome(event: React.ChangeEvent<HTMLInputElement>) {

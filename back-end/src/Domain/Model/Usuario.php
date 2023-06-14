@@ -51,6 +51,23 @@
             $this->senha = password_hash($senha, PASSWORD_DEFAULT);
         }   
 
+        public function editar(
+            string $nome,
+            string $email,
+            string $nivelDeAcesso,
+            bool $ativo,
+            string $senha,
+        ){
+            $this->nome = $nome;
+            $this->email = $email;
+            $this->setNivelDeAcesso($nivelDeAcesso);
+            $this->ativo = $ativo;
+
+            if($senha){
+                $this->senha = password_hash($senha, PASSWORD_DEFAULT);
+            }
+        }
+
         public function getAtivo(): bool
         {
             return $this->ativo;
