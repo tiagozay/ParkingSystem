@@ -6,9 +6,10 @@
     use Doctrine\ORM\Mapping\GeneratedValue;
     use Doctrine\ORM\Mapping\Id;
     use DomainException;
+    use JsonSerializable;
 
     #[Entity()]
-    class Usuario
+    class Usuario implements JsonSerializable
     {
         #[Id]
         #[GeneratedValue]
@@ -62,6 +63,18 @@
             }
 
             $this->nivelDeAcesso = $nivelDeAcesso;            
+        }
+
+    
+        public function jsonSerialize(): mixed
+        {
+            return [
+                'id' => $this->id,
+                'nome' => $this->nome,
+                'email' => $this->email,
+                'nivelDeAcesso' => $this->nivelDeAcesso,
+                'ativo' => $this->ativo
+            ];
         }
 
 

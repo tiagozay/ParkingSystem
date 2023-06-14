@@ -5,27 +5,22 @@ import { DataService } from "./DataService";
 
 export default abstract class UsuarioService
 {
-    static buscaMensalistas(): Promise<Mensalista[] | []>
+    static buscaUsuarios(): Promise<Usuario[] | []>
     {
-        return APIService.buscaObjetos('buscaMensalistas.php')
-            .then( mensalistasObjeto => {
-                    const mensalistas = mensalistasObjeto.map( (mensalista: any) => {
-                        return new Mensalista(
-                            mensalista.id,
-                            mensalista.nome,
-                            DataService.corrigeFusoHorario(new Date(mensalista.dataNascimento)),
-                            mensalista.cpf,
-                            mensalista.email,
-                            mensalista.celular,
-                            mensalista.cep,
-                            mensalista.uf,
-                            mensalista.cidade,
-                            mensalista.ativo,
-                            mensalista.descontinuado
+        return APIService.buscaObjetos('buscaUsuarios.php')
+            .then( usuariosOBJ => {
+                    const usuarios = usuariosOBJ.map( (usuario: any) => {
+                        return new Usuario(
+                            usuario.id,
+                            usuario.nome,
+                            usuario.email,
+                            usuario.nivelDeAcesso,
+                            usuario.ativo,
+                            null
                         );
                     } );
 
-                    return mensalistas;
+                    return usuarios;
             });
     }
 
@@ -37,7 +32,7 @@ export default abstract class UsuarioService
                 usuarioCadastradoOBJ.id,
                 usuarioCadastradoOBJ.nome,
                 usuarioCadastradoOBJ.email,
-                usuarioCadastradoOBJ.nivelDeAcessoe,
+                usuarioCadastradoOBJ.nivelDeAcesso,
                 usuarioCadastradoOBJ.ativo,
             )
         } )

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Usuario } from '../models/Usuario';
@@ -19,14 +19,12 @@ export const UsuariosContext = createContext<TypeUsuariosContext>(
 
 export default function UsuariosProvider({children}: {children: ReactNode}) {
 
-    const [usuarios, setUsuarios] = useState([
-        new Usuario(1, 'Tiago zay', 'tiagozay@gmail.com','Administrador', true),
-        new Usuario(2, 'Tiago zay','pedromarques@gmail.com','Operador', true),
-        new Usuario(3, 'Jose souza','josesouza@gmail.com', 'Operador', false),
-        new Usuario(4, 'Tiago zay','tiagozay@gmail.com', 'Administrador', true),
-        new Usuario(5, 'Tiago zay','pedromarques@gmail.com', 'Operador', true),
-        new Usuario(6, 'Jose souza','josesouza@gmail.com', 'Operador', false),
-    ]);
+    const [usuarios, setUsuarios] = useState<Usuario[] | []>([]);
+
+    useEffect(() => {
+        UsuarioService.buscaUsuarios()
+            .then( setUsuarios );
+    }, [] );
 
     return (
         <UsuariosContext.Provider value={{usuarios, setUsuarios}}>
