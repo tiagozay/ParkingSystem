@@ -361,7 +361,7 @@ export default function EditarTicket() {
                                                             (mensalista.id === ticket?.mensalista?.id)
                                                         )
                                                         &&
-                                                        <option key={mensalista.id} value={mensalista.id as number}>{mensalista.nome}</option>
+                                                        <option key={mensalista.id} value={mensalista.id as number}>{nomeMensalista}</option>
                                                     );
                                                 }
 
