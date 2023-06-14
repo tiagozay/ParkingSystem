@@ -64,28 +64,11 @@ export default abstract class UsuarioService
         })        
     }
 
-    static excluiMensalista(id: number): Promise<Mensalista | undefined>
+    static excluiUsuario(id: number): Promise<void>
     {
-        return APIService.enviaObjeto('excluiMensalista.php', id)
-            .then( mensalistaDescontinuado => {
-                if(mensalistaDescontinuado){
-                    return new Mensalista(
-                        mensalistaDescontinuado.id,
-                        mensalistaDescontinuado.nome,
-                        DataService.corrigeFusoHorario(new Date(mensalistaDescontinuado.dataNascimento)),
-                        mensalistaDescontinuado.cpf,
-                        mensalistaDescontinuado.email,
-                        mensalistaDescontinuado.celular,
-                        mensalistaDescontinuado.cep,
-                        mensalistaDescontinuado.uf,
-                        mensalistaDescontinuado.cidade,
-                        mensalistaDescontinuado.ativo,
-                        mensalistaDescontinuado.descontinuado
-                    );
-                }
-            } )
+        return APIService.enviaObjeto('excluiUsuario.php', id)
             .catch( () => {
-                throw new Error("Erro ao excluír mensalista."); 
+                throw new Error("Erro ao excluír usuário."); 
             } )
     }
 

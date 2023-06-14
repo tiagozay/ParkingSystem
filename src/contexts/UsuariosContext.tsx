@@ -62,8 +62,11 @@ export const useUsuariosContext = () => {
     }
 
     function excluirUsuario(id: number)
-    {
-        setUsuarios(usuarios.filter(usuario => usuario.id !== id) );
+    {   
+        return UsuarioService.excluiUsuario(id)
+            .then( () => {
+                setUsuarios(usuarios.filter(usuario => usuario.id !== id) );
+            } );        
     }
 
     return {

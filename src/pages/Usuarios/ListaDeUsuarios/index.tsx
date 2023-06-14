@@ -36,8 +36,10 @@ export default function ListaDeUsuarios({ usuarios, setSucessoExcluir }: ListaDe
         const confirmacao = window.confirm("Excluir este Usuário?");
         if (!confirmacao) return;
 
-        excluirUsuario(id);
-        setSucessoExcluir(true);
+        excluirUsuario(id)
+            .then( () => {
+                setSucessoExcluir(true);
+            });
     }
 
     const theadTabela = (

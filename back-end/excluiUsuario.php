@@ -3,19 +3,19 @@
 
     require_once './vendor/autoload.php';
 
-    use ParkSistem\Domain\Model\Ticket;
+    use ParkSistem\Domain\Model\Usuario;
     use ParkSistem\Helper\EntityManagerCreator;
 
     $json = file_get_contents('php://input');
 
-    $idTicket = json_decode($json);
+    $idUsuario = json_decode($json);
 
     try {
         $entityManager = EntityManagerCreator::create();
 
-        $ticketParcial = $entityManager->getPartialReference(Ticket::class, $idTicket);
+        $usuarioParcial = $entityManager->getPartialReference(Usuario::class, $idUsuario);
 
-        $entityManager->remove($ticketParcial);
+        $entityManager->remove($usuarioParcial);
 
         $entityManager->flush();
 
