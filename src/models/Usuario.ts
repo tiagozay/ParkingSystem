@@ -36,4 +36,17 @@ export class Usuario
     {
         return this._senha;
     }
+
+    //Método chamado durante a serialização do objeto
+    toJSON()
+    {
+        return {
+            id: this.id,
+            nome: this.nome,
+            email: this.email,
+            nivelDeAcesso: this.nivelDeAcesso,
+            ativo: this.ativo,
+            senha: this._senha,
+        }
+    }
 }

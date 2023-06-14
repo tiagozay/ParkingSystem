@@ -13,7 +13,7 @@
         #[Id]
         #[GeneratedValue]
         #[Column()]
-        public readonly ?int $id;
+        public ?int $id;
 
         #[Column(length:100)]
         private string $nome;
@@ -27,6 +27,9 @@
         #[Column()]
         private bool $ativo;
 
+        #[Column(length: 60)]
+        private string $senha;
+
         /**
          * @throws DomainException
          */
@@ -36,6 +39,7 @@
             string $email,
             string $nivelDeAcesso,
             bool $ativo,
+            string $senha,
         )
         {
             $this->id = $id;
@@ -43,6 +47,7 @@
             $this->email = $email;
             $this->setNivelDeAcesso($nivelDeAcesso);
             $this->ativo = $ativo;
+            $this->senha = password_hash($senha, PASSWORD_DEFAULT);
         }   
 
         public function getAtivo(): bool

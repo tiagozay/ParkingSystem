@@ -41,9 +41,14 @@ export default function CadastrarUsuario() {
                 senha
             );
 
-            adicionarUsuario(usuario);
-
-            navigate('/usuarios', {state: {sucessoCadastrar: true}});
+            adicionarUsuario(usuario)
+                .then( () => {
+                    navigate('/usuarios', {state: {sucessoCadastrar: true}});
+                } )
+                .catch( erro => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeErro(erro.message);
+                } );
 
         }catch(e: any){
             setMensagemDeErroAberta(true);

@@ -2,6 +2,7 @@ import React, {useContext} from 'react'
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Usuario } from '../models/Usuario';
+import UsuarioService from '../services/UsuarioService';
 
 interface TypeUsuariosContext 
 {
@@ -44,15 +45,10 @@ export const useUsuariosContext = () => {
 
     function adicionarUsuario(novoUsuario: Usuario)
     {
-        //Gera provisióriamente um id em sequência do ultimo registro, para simular o que um banco de dados faria
-        const ultimoUsuarioCadastrado = usuarios[usuarios.length - 1];
-        if(ultimoUsuarioCadastrado){
-            novoUsuario.id = (ultimoUsuarioCadastrado.id as number) + 1;
-        }else{
-            novoUsuario.id = 1;
-        }
-
-        setUsuarios([...usuarios, novoUsuario]);
+        return UsuarioService.cadastraUsuario(novoUsuario)
+            .then( usuarioCadastrado => {
+                setUsuarios([...usuarios, usuarioCadastrado] );
+            }); 
     }
 
     function editarUsuario(usuarioEditado: Usuario)
