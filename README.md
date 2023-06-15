@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# ParkSystem
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O ParkSystem é um sistema de gerenciamento de estacionamento desenvolvido utilizando React JS no front-end e PHP no back-end. Ele permite o controle de tickets, gerenciamento de mensalidades e mensalistas, gestão de precificação para diferentes categorias de veículos, controle de formas de pagamento, autenticação de usuários com JWT e muito mais.
 
-## Available Scripts
+## Principais Funcionalidades
 
-In the project directory, you can run:
+- Abertura de tickets: Os usuários podem abrir um ticket para registrar a entrada de um veículo no estacionamento. O sistema captura informações como a placa do veículo, a data e hora de entrada, e gera um ticket único para identificação.
 
-### `npm start`
+- Edição de tickets: Os usuários têm a opção de editar informações nos tickets, como a placa do veículo ou a categoria. Isso permite correções ou atualizações necessárias durante a estadia do veículo no estacionamento.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Impressão de tickets: O sistema permite a impressão de tickets para fornecer uma cópia física ao proprietário do veículo ou para fins de registro interno. A impressão pode ser feita diretamente a partir do sistema ou usando um dispositivo externo compatível.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Fechamento de tickets: Quando um veículo deixa o estacionamento, o usuário pode fechar o ticket correspondente. O sistema calcula automaticamente a duração da estadia e o valor a ser pago com base nas regras de precificação definidas.
 
-### `npm test`
+- Controle de mensalidades e mensalistas: O sistema permite o gerenciamento de mensalidades, onde os usuários podem se inscrever como mensalistas e pagar uma taxa mensal fixa para acesso ilimitado ao estacionamento. O sistema registra e controla os pagamentos das mensalidades.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Gestão de precificação: O ParkSystem oferece controle das categorias de veículos suportadas pelo estacionamento, como carro, moto, caminhão, etc. É possível configurar as tarifas e regras de cobrança para cada categoria, levando em consideração a duração da estadia, horários de pico e descontos especiais.
 
-### `npm run build`
+- Controle de formas de pagamento: O sistema permite o cadastro e gerenciamento de diferentes formas de pagamento, como dinheiro, cartões de crédito, cartões pré-pagos, entre outros. Os usuários têm a opção de selecionar a forma de pagamento desejada ao fechar um ticket.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Autenticação de usuários com JWT: O sistema possui um sistema de autenticação seguro, onde os usuários podem criar contas, fazer login e obter tokens de acesso usando o JWT (JSON Web Tokens). Isso garante a proteção das informações e controla o acesso aos recursos do sistema.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Configuração do Ambiente de Desenvolvimento
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone o repositório do projeto: <br>
+`git clone https://github.com/seu-usuario/ParkSystem.git`
 
-### `npm run eject`
+2. Instale as dependências do front-end:<br>
+`
+cd ParkSystem/frontend
+npm install
+`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Configure as variáveis de ambiente no arquivo .env do front-end. Exemplo:<br>
+`
+REACT_APP_API_URL=http://localhost:8000/api
+REACT_APP_JWT_SECRET=seu-segredo-jwt
+`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Instale as dependências do back-end:<br>
+`
+cd ../backend
+composer install
+`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Configure as variáveis de ambiente no arquivo .env do back-end. Exemplo:<br>
+`
+APP_ENV=local
+APP_KEY=sua-chave
+APP_DEBUG=true
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=parksystem
+DB_USERNAME=seu-usuario-db
+DB_PASSWORD=sua-senha-db
+`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+6. Configure o banco de dados de acordo com as informações do arquivo .env.<br>
 
-## Learn More
+7. Execute as migrações do banco de dados:<br>
+`
+php artisan migrate
+`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+8. Inicie o servidor de desenvolvimento do front-end:
+`
+npm start
+`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+9. Inicie o servidor de desenvolvimento do back-end:
+`
+php artisan serve
+`
 
-### Code Splitting
+Agora o ParkSystem está configurado e você pode acessá-lo em `http://localhost:3000` no seu navegador.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Tecnologias Utilizadas
 
-### Analyzing the Bundle Size
+- React JS: Biblioteca JavaScript para a construção da interface do usuário.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- PHP: Linguagem de programação utilizada para o desenvolvimento do back-end.
 
-### Making a Progressive Web App
+- MySQL: Banco de dados relacional utilizado para armazenar as informações do sistema.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- JWT (JSON Web Tokens): Tecnologia utilizada para autenticação e geração de tokens de acesso.
 
-### Advanced Configuration
+- HTML5 e CSS3: Utilizados para estruturação e estilização da interface do usuário.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contribuição
 
-### Deployment
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues relatando problemas, sugerir melhorias ou enviar pull requests com novos recursos ou correções de bugs.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Licença
 
-### `npm run build` fails to minify
+O ParkSystem é um software de código aberto licenciado sob a licença [MIT](https://opensource.org/licenses/MIT). Isso significa que você é livre para usá-lo, modificá-lo e distribuí-lo conforme sua necessidade.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contato
+
+Se tiver alguma dúvida ou precisar de mais informações, entre em contato pelo email [tiagozay@gmail.com](mailto:tiagozay@gmail.com).
+
+
+
