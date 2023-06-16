@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './ConfiguracoesDoSistema.css';
 import BoasVindas from '../../components/BoasVindas';
 import { Link } from 'react-router-dom';
@@ -17,20 +17,38 @@ export default function ConfiguracoesDoSistema() {
 
     const {editarConfiguracoesDoSistema} = sistemaContext;
 
-    const [razaoSocial, setRazaoSocial] = useState(sistema.razaoSocial);
-    const [nomeFantasia, setNomeFantasia] = useState(sistema.nomeFantasia);
-    const [cnpj, setCnpj] = useState(sistema.cnpj);
-    const [inscricaoEstadual, setInscricaoEstadual] = useState(sistema.inscricaoEstadual);
-    const [telefoneFixo, setTelefoneFixo] = useState(sistema.telefoneFixo);
-    const [telefoneCelular, setTelefoneCelular] = useState(sistema.telefoneCelular);
-    const [cep, setCep] = useState(sistema.cep);
-    const [endereco, setEndereco] = useState(sistema.endereco);
-    const [numero, setNumero] = useState(sistema.numero);
-    const [cidade, setCidade] = useState(sistema.cidade);
-    const [uf, setUf] = useState(sistema.uf);
-    const [urlDoSite, setUrlDoSite] = useState(sistema.urlSite);
-    const [email, setEmail] = useState(sistema.email);
-    const [descricao, setDescricao] = useState(sistema.descricao);
+    const [razaoSocial, setRazaoSocial] = useState("");
+    const [nomeFantasia, setNomeFantasia] = useState("");
+    const [cnpj, setCnpj] = useState("");
+    const [inscricaoEstadual, setInscricaoEstadual] = useState("");
+    const [telefoneFixo, setTelefoneFixo] = useState("");
+    const [telefoneCelular, setTelefoneCelular] = useState("");
+    const [cep, setCep] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [numero, setNumero] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [uf, setUf] = useState("");
+    const [urlDoSite, setUrlDoSite] = useState("");
+    const [email, setEmail] = useState("");
+    const [descricao, setDescricao] = useState("");
+
+    useEffect( () => {
+        setRazaoSocial(sistema.razaoSocial);
+        setNomeFantasia(sistema.nomeFantasia);
+        setCnpj(sistema.cnpj);
+        setInscricaoEstadual(sistema.inscricaoEstadual);
+        setTelefoneFixo(sistema.telefoneFixo);
+        setTelefoneCelular(sistema.telefoneCelular);
+        setCep(sistema.cep);
+        setEndereco(sistema.endereco);
+        setNumero(sistema.numero);
+        setCidade(sistema.cidade);
+        setUf(sistema.uf);
+        setUrlDoSite(sistema.urlSite);
+        setEmail(sistema.email);
+        setDescricao(sistema.descricao);
+    }, [sistema])
+
 
     const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
     const [mensagemDeSucessoAberta, setMensagemDeSucessoAberta] = useState(false);
@@ -80,47 +98,10 @@ export default function ConfiguracoesDoSistema() {
         }
     }
 
-    function aoDigitarRazaoSocial(event: React.ChangeEvent<HTMLInputElement>){
-        setRazaoSocial(event.target.value);
-    }
-    function aoDigitarNomeFantasia(event: React.ChangeEvent<HTMLInputElement>){
-        setNomeFantasia(event.target.value);
-    }
-    function aoDigitarCnpj(event: React.ChangeEvent<HTMLInputElement>){
-        setCnpj(event.target.value);
-    }
-    function aoDigitarInscricaoEstadual(event: React.ChangeEvent<HTMLInputElement>){
-        setInscricaoEstadual(event.target.value);
-    }
-    function aoDigitarTelefoneFixo(event: React.ChangeEvent<HTMLInputElement>){
-        setTelefoneFixo(event.target.value);
-    }
-    function aoDigitarTelefoneCelular(event: React.ChangeEvent<HTMLInputElement>){
-        setTelefoneCelular(event.target.value);
-    }
-    function aoDigitarCep(event: React.ChangeEvent<HTMLInputElement>){
-        setCep(event.target.value);
-    }
-    function aoDigitarEndereco(event: React.ChangeEvent<HTMLInputElement>){
-        setEndereco(event.target.value);
-    }
-    function aoDigitarNumero(event: React.ChangeEvent<HTMLInputElement>){
-        setNumero(event.target.value);
-    }
-    function aoDigitarCidade(event: React.ChangeEvent<HTMLInputElement>){
-        setCidade(event.target.value);
-    }
-    function aoDigitarUf(event: React.ChangeEvent<HTMLInputElement>){
-        setUf(event.target.value);
-    }
-    function aoDigitarUrlDoSite(event: React.ChangeEvent<HTMLInputElement>){
-        setUrlDoSite(event.target.value);
-    }
-    function aoDigitarEmail(event: React.ChangeEvent<HTMLInputElement>){
-        setEmail(event.target.value);
-    }
-    function aoDigitarDescricao(event: React.ChangeEvent<HTMLTextAreaElement>){
-        setDescricao(event.target.value);
+    function handleChange(setState: Function) {
+        return (event: React.ChangeEvent<HTMLDataElement>) => {
+            setState(event.target.value);
+        }
     }
 
     return (
@@ -171,71 +152,71 @@ export default function ConfiguracoesDoSistema() {
                     <div className="linhaInputs">
                         <label className="labelInputMeio">
                             Razão social
-                            <input type="text" value={razaoSocial} onChange={aoDigitarRazaoSocial}/>
+                            <input type="text" value={razaoSocial} onChange={handleChange(setRazaoSocial)}/>
                         </label>
                         <label className="labelInputMeio">
                             Nome Fantasia
-                            <input type="text" value={nomeFantasia} onChange={aoDigitarNomeFantasia}/>
+                            <input type="text" value={nomeFantasia} onChange={handleChange(setNomeFantasia)}/>
                         </label>
                     </div>
 
                     <div className="linhaInputs">
                         <label className="labelInput22">
                             CNPJ
-                            <input type="text" value={cnpj} onChange={aoDigitarCnpj}/>
+                            <input type="text" value={cnpj} onChange={handleChange(setCnpj)}/>
                         </label>
                         <label className="labelInput22">
                             Insc. estadual
-                            <input type="text" value={inscricaoEstadual} onChange={aoDigitarInscricaoEstadual}/>
+                            <input type="text" value={inscricaoEstadual} onChange={handleChange(setInscricaoEstadual)}/>
                         </label>
                         <label className="labelInput22">
                             Telefone fixo
-                            <input type="text" value={telefoneFixo} onChange={aoDigitarTelefoneFixo}/>
+                            <input type="text" value={telefoneFixo} onChange={handleChange(setTelefoneFixo)}/>
                         </label>
                         <label className="labelInput22">
                             Telefone celular
-                            <input type="text" value={telefoneCelular} onChange={aoDigitarTelefoneCelular}/>
+                            <input type="text" value={telefoneCelular} onChange={handleChange(setTelefoneCelular)}/>
                         </label>
                     </div>
 
                     <div className="linhaInputs">
                         <label className="labelInputMenor">
                             CEP
-                            <input type="text" value={cep} onChange={aoDigitarCep}/>
+                            <input type="text" value={cep} onChange={handleChange(setCep)}/>
                         </label>
                         <label>
                             Endereço
-                            <input type="text" value={endereco} onChange={aoDigitarEndereco}/>
+                            <input type="text" value={endereco} onChange={handleChange(setEndereco)}/>
                         </label>
                         <label className="labelInputMenor">
                             Número
-                            <input type="text" value={numero} onChange={aoDigitarNumero}/>
+                            <input type="text" value={numero} onChange={handleChange(setNumero)}/>
                         </label>
                         <label className="labelInput22">
                             Cidade
-                            <input type="text" value={cidade} onChange={aoDigitarCidade}/>
+                            <input type="text" value={cidade} onChange={handleChange(setCidade)}/>
                         </label>
                         <label className="labelInput10">
                             UF
-                            <input type="text" value={uf} onChange={aoDigitarUf}/>
+                            <input type="text" value={uf} onChange={handleChange(setUf)}/>
                         </label>
                     </div>
 
                     <div className="linhaInputs">
                         <label className="labelInputMeio">
                             URL do site
-                            <input type="text" value={urlDoSite} onChange={aoDigitarUrlDoSite}/>
+                            <input type="text" value={urlDoSite} onChange={handleChange(setUrlDoSite)}/>
                         </label>
                         <label className="labelInputMeio">
                             E-mail
-                            <input type="email" value={email} onChange={aoDigitarEmail}/>
+                            <input type="email" value={email} onChange={handleChange(setEmail)}/>
                         </label>
                     </div>
 
                     <div className="linhaInputs">
                         <label className="labelInput100">
                             Descrição do ticket de estacionamento
-                            <textarea id="textareaDescricaoEstacionamento" cols={30} rows={10} value={descricao}onChange={aoDigitarDescricao}></textarea>
+                            <textarea id="textareaDescricaoEstacionamento" cols={30} rows={10} value={descricao}onChange={handleChange(setDescricao)}></textarea>
                         </label>
                     </div>
 
