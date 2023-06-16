@@ -6,6 +6,8 @@ import BtnVoltar from '../../components/BtnVoltar';
 import { useSistemaContext } from '../../contexts/SistemaContext';
 import { Sistema } from '../../models/Sistema';
 import { eventNames } from 'process';
+import MensagemErro from '../../components/MensagemErro';
+import MensagemSucesso from '../../components/MensagemSucesso';
 
 export default function ConfiguracoesDoSistema() {
 
@@ -30,6 +32,11 @@ export default function ConfiguracoesDoSistema() {
     const [email, setEmail] = useState(sistema.email);
     const [descricao, setDescricao] = useState(sistema.descricao);
 
+    const [mensagemDeErroAberta, setMensagemDeErroAberta] = useState(false);
+    const [mensagemDeSucessoAberta, setMensagemDeSucessoAberta] = useState(false);
+
+    const [mensagem, setMensagem] = useState("");
+
     function aoEditarSistema(event: React.FormEvent<HTMLFormElement>)
     {
         event.preventDefault();
@@ -53,10 +60,23 @@ export default function ConfiguracoesDoSistema() {
                 descricao
             );
 
-            editarConfiguracoesDoSistema(sistema);
+            editarConfiguracoesDoSistema(sistema)
+                .then( () => {
+                    setMensagemDeSucessoAberta(true);
+                    setMensagemDeErroAberta(false);
+                    setMensagem("Configurações editadas com sucesso.");
+                } )
+                .catch( e => {
+                    setMensagemDeErroAberta(true);
+                    setMensagemDeSucessoAberta(false);
+                    setMensagem(e.message);
+                } );
+            
 
         }catch(e: any){
-
+            setMensagemDeErroAberta(true);
+            setMensagemDeSucessoAberta(false);
+            setMensagem(e.message);
         }
     }
 
@@ -127,7 +147,17 @@ export default function ConfiguracoesDoSistema() {
 
             </div>
 
-            <BoasVindas />
+            {
+                mensagemDeErroAberta || mensagemDeSucessoAberta ? 
+                
+                    (
+                        mensagemDeErroAberta ? 
+                        <MensagemErro mensagem={mensagem} /> :
+                        <MensagemSucesso mensagem={mensagem} /> 
+                    ) :
+                     
+                    <BoasVindas />
+            }
 
             <section className="secaoDeInformacoes">
                 <div id="divBtnVoltar">

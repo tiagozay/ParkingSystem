@@ -6,20 +6,20 @@
 
     class Sistema implements JsonSerializable
     {
-        private string $razaoSocial;
-        private string $nomeFantasia;
-        private string $cnpj;
-        private string $inscricaoEstadual;
-        private string $telefoneFixo;
-        private string $telefoneCelular;
-        private string $cep;
-        private string $endereco;
-        private string $numero;
-        private string $cidade;
-        private string $uf;
-        private string $urlSite;
-        private string $email;
-        private string $descricao;
+        public string $razaoSocial;
+        public string $nomeFantasia;
+        public string $cnpj;
+        public string $inscricaoEstadual;
+        public string $telefoneFixo;
+        public string $telefoneCelular;
+        public string $cep;
+        public string $endereco;
+        public string $numero;
+        public string $cidade;
+        public string $uf;
+        public string $urlSite;
+        public string $email;
+        public string $descricao;
 
         /**
          * @throws DomainException

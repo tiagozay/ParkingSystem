@@ -2,7 +2,6 @@ import React, {useContext, useEffect} from 'react'
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Sistema } from '../models/Sistema';
-import { APIService } from '../services/APIService';
 import ConfigSistemaService from '../services/ConfigSistemaService';
 
 interface TypeSistemaContext 
@@ -35,7 +34,13 @@ export const useSistemaContext = () => {
 
     function editarConfiguracoesDoSistema(novoSistema: Sistema)
     {
-        setSistema(novoSistema);
+        return ConfigSistemaService.editarConfigDoSistema(novoSistema)
+            .then( configSistemaEditada => {
+                if(configSistemaEditada) {
+                    setSistema(configSistemaEditada);
+                }
+            } )
+            
     }
 
     return {
