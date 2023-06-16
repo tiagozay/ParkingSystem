@@ -1,7 +1,9 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Sistema } from '../models/Sistema';
+import { APIService } from '../services/APIService';
+import ConfigSistemaService from '../services/ConfigSistemaService';
 
 interface TypeSistemaContext 
 {
@@ -12,22 +14,14 @@ interface TypeSistemaContext
 export const SistemaContext = createContext<TypeSistemaContext>({sistema: {}, setSistema: () => {}});
 
 export default function SistemaProvider({children}: {children: ReactNode}) {
-    const [sistema, setSistema] = useState(new Sistema(
-        "ParkScape Estacionamento",
-        "ParkScape",
-        "97.153.682/0001-04",
-        "1928192",
-        "(42) 3522-2937",
-        "(42) 99931-8075",
-        "84620-000",
-        "Avenida paulista",
-        "27",
-        "União da vitória",
-        "PR",
-        "www.parkscape.com",
-        "parkscape@gmail.com",
-        "Estacionando seus momentos"
-    ));
+    const [sistema, setSistema] = useState<Sistema | {}>({});
+
+    useEffect(() => {
+        
+        ConfigSistemaService.buscaConfigDoSistema()
+            .then( setSistema );
+
+    }, []);
 
     return (
         <SistemaContext.Provider value={{sistema, setSistema}}>

@@ -2,8 +2,9 @@
     namespace ParkSistem\Domain\Model;
 
     use DomainException;
+    use JsonSerializable;
 
-    class Sistema
+    class Sistema implements JsonSerializable
     {
         private string $razaoSocial;
         private string $nomeFantasia;
@@ -55,5 +56,25 @@
             $this->email = $email;
             $this->descricao = $descricao;
         }   
+
+        public function jsonSerialize(): mixed
+        {
+            return [
+                "razaoSocial" => $this->razaoSocial,
+                "nomeFantasia" => $this->nomeFantasia,
+                "cnpj" => $this->cnpj,
+                "inscricaoEstadual" => $this->inscricaoEstadual,
+                "telefoneFixo" => $this->telefoneFixo,
+                "telefoneCelular" => $this->telefoneCelular,
+                "cep" => $this->cep,
+                "endereco" => $this->endereco,
+                "numero" => $this->numero,
+                "cidade" => $this->cidade,
+                "uf" => $this->uf,
+                "urlSite" => $this->urlSite,
+                "email" => $this->email,
+                "descricao" => $this->descricao,
+            ];
+        }
     }
 ?>
