@@ -1,6 +1,6 @@
 export abstract class APIService 
 {
-    private static url: string = "http://localhost:8080/";
+    private static url: string = process.env.REACT_APP_API_URL as string;
 
     public static enviaObjeto(arquivo: string, objeto: any)
     {
