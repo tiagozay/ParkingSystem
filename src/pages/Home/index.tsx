@@ -1,6 +1,5 @@
 import React from 'react';
 import './Home.css';
-import RepresentacaoEstacionamento from '../../components/RepresentacaoEstacionamento';
 import BoasVindas from '../../components/BoasVindas';
 
 export default function Home() {
@@ -116,9 +115,6 @@ export default function Home() {
           <h6>Sistema</h6>
         </div>
       </section>
-
-      <RepresentacaoEstacionamento />
-
     </section>
   )
 }
