@@ -7,6 +7,9 @@ import { useTicketContext } from '../../../contexts/TicketContext';
 import { Link } from 'react-router-dom';
 import ListaDeDados from '../../../components/ListaDeDados';
 import { FormaDePagamento } from '../../../models/FormaDePagamento';
+import PDFTicketService from '../../../services/PDFTicketService';
+import { useSistemaContext } from '../../../contexts/SistemaContext';
+import { Sistema } from '../../../models/Sistema';
 
 interface ListaDeTicketsProps {
     tickets: Ticket[],
@@ -16,6 +19,10 @@ interface ListaDeTicketsProps {
 export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTicketsProps) {
     const [statusFiltro, setStatusFiltro] = useState('Todos');
     const [filtroPlaca, setFiltroPlaca] = useState('');
+
+    const {sistema} = useSistemaContext();
+
+    const {buscarTicketPorId} = useTicketContext();
 
     const { excluirTicket } = useTicketContext();
 
@@ -44,6 +51,13 @@ export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTi
             .then( () => {
                 setSucessoExcluir(true);
             });
+    }
+
+    function aoClicarEmImprimirTicket(id: number)
+    {
+        const ticket = buscarTicketPorId(id);
+
+        PDFTicketService.gerarPDFTicekt(sistema as Sistema, ticket as Ticket);
     }
 
     const jsxThead = (
@@ -86,7 +100,7 @@ export default function ListaDeTickets({ tickets, setSucessoExcluir }: ListaDeTi
                         }</p>
                 </td>
                 <td className='campoDeAcoes'>
-                    <button id='btnImprimirTicket' className='material-icons'>print</button>
+                    <button id='btnImprimirTicket' onClick={() => aoClicarEmImprimirTicket(ticket.id as number)} className='material-icons'>print</button>
 
                     {
                         ticket.status === 'Em aberto' ? (
