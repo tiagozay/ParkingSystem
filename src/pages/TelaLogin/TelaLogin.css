@@ -1,0 +1,58 @@
+#telaDeLogin{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+}
+#container{
+    box-shadow: 0 0 10px rgb(197, 197, 197);
+    padding: 20px;
+}
+#logoSistema{
+    width: 60px;
+}
+#nomeSistema{
+    font-size: 25px;
+    color: black;
+}
+#titulo{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#divInput{
+    border: 1px rgb(129, 129, 129) solid;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+.label{
+    font-size: 13px;
+    margin-bottom: 3px;
+    color: rgb(96, 96, 96);
+}
+.input {
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    width: 300px;
+}
+.btnAcessar{
+    width: 100%;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    background-color:#055CDD;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 15px;
+
+}

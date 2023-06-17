@@ -29,6 +29,7 @@ import EditarFormaDePagamento from './pages/EditarFormaDePagamento';
 import UsuariosProvider from './contexts/UsuariosContext';
 import EditarUsuario from './pages/EditarUsuario';
 import SistemaProvider from './contexts/SistemaContext';
+import TelaLogin from './pages/TelaLogin';
 
 
 function AppRoutes() {
@@ -64,6 +65,7 @@ function AppRoutes() {
                         <Route path='usuarios/editarUsuario/:id' element={<EditarUsuario />} />
                         <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
                       </Route>
+                      <Route path='login' element={<TelaLogin />} />
                     </Routes>
                   </BrowserRouter>
                 </TicketsProvider>
