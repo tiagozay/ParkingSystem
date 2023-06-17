@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { createContext, ReactNode } from 'react';
 import { Ticket } from '../models/Ticket';
 import TicketService from '../services/TicketService';
+import RelatorioService from '../services/RelatorioServcie';
+import { usePrecificacaoContext } from './PrecificacaoContext';
 
 function geraDataA15min()
 {
@@ -47,12 +49,25 @@ export const useTicketContext = () => {
         return tickets.find( ticket => ticket.id === id );
     }
 
-    function adicionarTicket(novoTicket: Ticket)
+    function adicionarTicket(novoTicket: Ticket): Promise<void>
     {
-        return TicketService.cadastraTiket(novoTicket)
-            .then( ticketCadastrado => {
-                setTickets([...tickets, ticketCadastrado]);
-            } );
+        return new Promise((resolve, reject) => {
+            if(RelatorioService.calculaTotalDeVagasLivresDeDeterminadaCategoria(novoTicket.precificacao, tickets) <= 0){
+                reject({message: "Não há vagas disponíveis para esta categoria no estacionamento!"});
+                return;
+            }
+
+            TicketService.cadastraTiket(novoTicket)
+                .then( ticketCadastrado => {
+                    setTickets([...tickets, ticketCadastrado]);
+                    resolve();
+                } )
+                .catch( (e) => {
+                    reject({message: e.message});
+                } )
+
+        })
+
     }
 
 
