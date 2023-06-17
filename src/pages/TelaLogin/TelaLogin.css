@@ -10,14 +10,14 @@
     box-shadow: 0 0 10px rgb(197, 197, 197);
     padding: 20px;
 }
-#logoSistema{
+#logoSistemaLogin{
     width: 60px;
 }
-#nomeSistema{
+#nomeSistemaLogin{
     font-size: 25px;
     color: black;
 }
-#titulo{
+#tituloLogin{
     font-size: 24px;
     font-weight: bold;
     text-align: center;

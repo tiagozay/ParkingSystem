@@ -8,11 +8,11 @@ export default function TelaLogin() {
 
             <div id='container'>
                 <a href="#" id="linkRecarregar">
-                    <img id="logoSistema" src={Logo} />
-                    <span id="nomeSistema">ParkSystem</span>
+                    <img id="logoSistemaLogin" src={Logo} />
+                    <span id="nomeSistemaLogin">ParkSystem</span>
                 </a>
 
-                <h1 id='titulo'>Login</h1>
+                <h1 id='tituloLogin'>Login</h1>
 
                 <form>
                     <div id='divInput'>
