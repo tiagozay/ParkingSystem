@@ -163,3 +163,61 @@ h6{
 #relatorioMensalistas .tituloInfo{
     color: #BF55EC;
 }
+
+
+
+
+#sistuacaoDasVagas{
+    background-color: white;
+    margin-top: 40px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgb(197, 197, 197);
+}
+#tituloDaSecao{
+    border-bottom: 1px rgb(198, 198, 198) solid;
+    padding: 20px;
+    text-align: center;
+}
+#icone{
+    width: 30px;
+    margin-top: 10px;
+}
+#listaDasCategoriasCadastradas{
+    padding: 20px 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+#cardCategoriaCadastrada{
+    /* width: 350px; */
+    box-shadow: 0 0 10px rgb(197, 197, 197);
+    margin-right: 20px;
+    border-radius: 5px;
+}
+#cardCategoriaCadastrada:nth-child(3){
+    margin-right: 0px;
+}
+#topoDoCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    padding-top: 30px;
+}
+#vagas{
+    display: grid;
+    grid-template-columns: 38px 38px 38px 38px 38px 38px 38px;
+    grid-gap: 5px;
+    padding: 10px;
+}
+#vaga{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    background-color: rgb(129, 129, 129);
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+}

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './Home.css';
 import BoasVindas from '../../components/BoasVindas';
+import IconeEstacionamento from './proibido-estacionar.svg';
+import { usePrecificacaoContext } from '../../contexts/PrecificacaoContext';
 
 export default function Home() {
+
+  const { precificacoes } = usePrecificacaoContext();
+
+  const precificacoesValidas = precificacoes.filter(precificacao => precificacao.ativa && !precificacao.descontinuada);
+
   return (
     <section id="home">
 
@@ -56,12 +63,12 @@ export default function Home() {
 
           <div className="cardInformacoes">
             <div className="cardInformacoes__primeiraInformacao">
-              <span className="tituloInfo">Pagas</span>
+              <span className="tituloInfo">Em dia</span>
               <span className="valueInfo">1</span>
             </div>
             <i className="material-icons">sync_alt</i>
             <div className="cardInformacoes__segundaInformacao">
-              <span className="tituloInfo">Abertas</span>
+              <span className="tituloInfo">Vencidas</span>
               <span className="valueInfo">2</span>
             </div>
           </div>
@@ -115,6 +122,31 @@ export default function Home() {
           <h6>Sistema</h6>
         </div>
       </section>
+
+      <section id='sistuacaoDasVagas'>
+        <div id='tituloDaSecao'>
+          <h3>Situação das vagas</h3>
+        </div>
+
+        <ul id='listaDasCategoriasCadastradas'>
+          {
+            precificacoesValidas.map(categoria => (
+              <li key={categoria.id} id='cardCategoriaCadastrada'>
+                <div id='topoDoCard'>
+                  <h4 id="titulo">{categoria.categoria}</h4>
+                </div>
+                <div id="vagas">
+                  {Array.from({ length: categoria.numeroDeVagas }, (_, index) => (
+                    <div id='vaga' key={index + 1}>{index + 1}</div>
+                  ))}
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+
+      </section>
+
     </section>
   )
 }
