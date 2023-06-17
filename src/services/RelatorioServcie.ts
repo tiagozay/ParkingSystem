@@ -69,11 +69,18 @@ export default abstract class RelatorioService
         return precificacoesNaoDescontinuadas.reduce( (previusValue, precificacao) => precificacao.numeroDeVagas + previusValue, 0 );
     }
 
-    public static calculaTotalDeVagasLivresDeDeterminadaCategoria(categoria: Precificacao, tickets: Ticket[])
+    public static calculaTotalDeVagasLivresDeDeterminadaCategoria(categoria: Precificacao, tickets: Ticket[]): number
     {
         const ticketsEmAbertoDeCategoria = tickets.filter( ticket => ticket.status === "Em aberto" && ticket.precificacao.id === categoria.id );
 
         return categoria.numeroDeVagas - ticketsEmAbertoDeCategoria.length;
+    }
+    public static calculaTotalDeVagasOcupadasDeDeterminadaCategoria(categoria: Precificacao, tickets: Ticket[]): number
+    {
+        const vagasLivresDaCategoria = this.calculaTotalDeVagasLivresDeDeterminadaCategoria(categoria,tickets);
+        const totalVagasCategoria = categoria.numeroDeVagas;
+
+        return totalVagasCategoria - vagasLivresDaCategoria;
     }
 
     public static totalDeVagasLivresEstacionamento(precificacoes: Precificacao[], tickets: Ticket[]): number

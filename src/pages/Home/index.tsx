@@ -157,8 +157,15 @@ export default function Home() {
                   <h4 id="titulo">{categoria.categoria}</h4>
                 </div>
                 <div id="vagas">
+
                   {Array.from({ length: categoria.numeroDeVagas }, (_, index) => (
-                    <div id='vaga' key={index + 1}>{index + 1}</div>
+                    <div 
+                      id='vaga' 
+                      key={index + 1}
+                      className={
+                        index + 1 <= RelatorioService.calculaTotalDeVagasOcupadasDeDeterminadaCategoria(categoria, tickets) ? "vagaOcupada" : ""
+                      }
+                    >{index + 1}</div>
                   ))}
                 </div>
               </li>
