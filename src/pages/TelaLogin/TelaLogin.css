@@ -23,6 +23,14 @@
     text-align: center;
     margin-bottom: 20px;
 }
+#mensagemDeErro{
+    background-color: rgba(255, 0, 0, 0.475);
+    border: 1px rgba(255, 0, 0, 0.822) solid;
+    color: white;
+    font-size: 12px;
+    padding: 8px 5px; 
+    margin-bottom: 15px;
+}
 #divInput{
     border: 1px rgb(129, 129, 129) solid;
     display: flex;

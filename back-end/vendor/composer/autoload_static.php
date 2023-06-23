@@ -43,6 +43,10 @@ class ComposerStaticInit1977c354fc2fe535f17ae60d0215f7bc
             'Psr\\Cache\\' => 10,
             'ParkSistem\\' => 11,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' => 
         array (
             'Doctrine\\Persistence\\' => 21,
@@ -130,6 +134,10 @@ class ComposerStaticInit1977c354fc2fe535f17ae60d0215f7bc
         'ParkSistem\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Doctrine\\Persistence\\' => 
         array (

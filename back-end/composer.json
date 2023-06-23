@@ -16,6 +16,7 @@
         "doctrine/orm": "^2.15.2",
         "doctrine/dbal": "^3.2",
         "symfony/yaml": "^5.4",
-        "symfony/cache": "^5.4"
+        "symfony/cache": "^5.4",
+        "firebase/php-jwt": "^6.7"
     }
 }

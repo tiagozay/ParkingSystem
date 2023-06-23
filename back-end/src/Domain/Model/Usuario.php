@@ -17,10 +17,10 @@
         public ?int $id;
 
         #[Column(length:100)]
-        private string $nome;
+        public string $nome;
 
         #[Column(length:256)]
-        private string $email;
+        public string $email;
 
         #[Column(length: 20)]
         private string $nivelDeAcesso;
@@ -29,7 +29,7 @@
         private bool $ativo;
 
         #[Column(length: 60)]
-        private string $senha;
+        public string $senha;
 
         /**
          * @throws DomainException
@@ -80,6 +80,11 @@
             }
 
             $this->nivelDeAcesso = $nivelDeAcesso;            
+        }
+
+        public function getNivelDeAcesso()
+        {
+            return $this->nivelDeAcesso;
         }
 
     

@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import './PaginaBase.css';
 import Logo from './car.svg';
+import LoginService from '../../services/LoginService';
 
 
 export default function PaginaBase() {
@@ -79,7 +80,7 @@ export default function PaginaBase() {
 
             <section id="main">
                 <header id="header">
-                    <p id="textoBoasVindas">Olá Tiago</p>
+                    <p id="textoBoasVindas">Olá {LoginService.usuarioLogado?.nome}</p>
                     <button id="btnAbrirMenuUsuario" className="material-icons">person</button>
                 </header>
     
