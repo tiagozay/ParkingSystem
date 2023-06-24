@@ -8,7 +8,7 @@
     $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
     $token = str_replace('Bearer ', '', $authorizationHeader);
 
-    if(!LoginService::verificaSeEstaLogado($token)){
+    if(!LoginService::verificaSeEstaLogadoComoAdministrador($token)){
         http_response_code(401);
         header('Content-Type: text/plain');
         echo "Erro de autenticação!";

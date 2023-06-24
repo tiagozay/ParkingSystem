@@ -24,7 +24,8 @@
             $payLoad = [
                 'exp' => time() + 14400,
                 'iat' => time(),
-                'id' => $usuario->id
+                'id' => $usuario->id,
+                'nivel' => $usuario->getNivelDeAcesso()
             ];
 
             $token = JWT::encode($payLoad, $chaveSecreta, 'HS256');
@@ -60,5 +61,32 @@
 
             return true;
         }
+
+        public static function verificaSeEstaLogadoComoAdministrador(string $token): bool
+        {
+            if(empty(trim($token))){
+                return false;
+            }
+
+            $chaveSecreta = getenv('JWT_KEY');
+
+            try{
+                $decoded = JWT::decode($token, new Key($chaveSecreta, 'HS256'));  
+            }catch( Exception ){
+                return false;
+            }
+              
+            $expiracao = $decoded->exp;
+            $nivel = $decoded->nivel;
+
+            $timestamp_atual = time();
+
+            if ($timestamp_atual > $expiracao) {
+                return false;
+            }
+
+            return $nivel === 'Administrador';
+        }
+
     }
 ?>
