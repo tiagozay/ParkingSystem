@@ -81,3 +81,10 @@
     font-size: 30px;
     cursor: pointer;
 }
+#divLoader{
+    background-color: rgb(224, 224, 224);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,11 +1,35 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import {useEffect} from 'react';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import './PaginaBase.css';
 import Logo from './car.svg';
 import LoginService from '../../services/LoginService';
-
+import { useState } from 'react';
+import {ThreeDots} from "react-loader-spinner";
 
 export default function PaginaBase() {
+
+    const [permisaoParaRenderizar, setPermisaoParaRenderizar] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect( () => {
+        LoginService.indicadorUsuarioLogado()
+        .then( indicador => {
+
+            if(!indicador){
+                navigate("/login");
+                return;
+            }
+
+            setPermisaoParaRenderizar(indicador);
+        } )
+    }, [] );
+    
+
     return (
+
+        permisaoParaRenderizar ? 
+
         <>
             <section id="menu">
                 <div id="headerMenu">
@@ -86,7 +110,17 @@ export default function PaginaBase() {
     
                 <Outlet />
             </section>
-        </>
+            
+        </> :
+
+        <div id="divLoader">
+            <ThreeDots
+                color="#272D36" // Cor do spinner
+                height={100} // Altura do spinner
+                width={100} // Largura do spinner
+            />
+        </div>
+        
 
     )
 }

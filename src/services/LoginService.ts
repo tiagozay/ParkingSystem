@@ -26,6 +26,18 @@ export default abstract class LoginService {
         } );
     }
 
+    public static indicadorUsuarioLogado(): Promise<boolean>
+    {
+        const token = JSON.stringify({token: LoginService.getTokenArmazenado()})
+
+        return fetch(`${this.url}verificaSeUsuarioEstaLogado.php`, {
+            method: "POST",
+            body: token
+        })
+        .then( res => res.status === 200 ? res.text() : "Erro")
+        .then( text => text === "Usuário logado" );
+    }
+
     public static buscaPermisaoDeExibicaoDaPagina()
     {
         
