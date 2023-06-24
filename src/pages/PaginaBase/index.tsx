@@ -88,28 +88,28 @@ export default function PaginaBase() {
                                                 {permisaoParaRenderizarParteDoAdmin ?
                                                     <>
                                                         <div className="opcoesMenu__titulo">Administracao</div>
-                                                        <NavLink to='/precificacoes' className={({ isActive }) => `
+                                                        <NavLink to='/administracao/precificacoes' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
                                             ` } data-pagina="precificacoes">
                                                             <i className="material-icons">attach_money</i>
                                                             Precificações
                                                         </NavLink>
-                                                        <NavLink to='/formasDePagamento' className={({ isActive }) => `
+                                                        <NavLink to='/administracao/formasDePagamento' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
                                             ` } data-pagina="formas_de_pagamento">
                                                             <i className="material-icons">credit_card</i>
                                                             Formas de pagamento
                                                         </NavLink>
-                                                        <NavLink to='/usuarios' className={({ isActive }) => `
+                                                        <NavLink to='/administracao/usuarios' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
                                             ` } data-pagina="usuarios">
                                                             <i className="material-icons">group</i>
                                                             Usuários
                                                         </NavLink>
-                                                        <NavLink to='/configuracoes' className={({ isActive }) => `
+                                                        <NavLink to='/administracao/configuracoes' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
                                             ` } data-pagina="formularioConfigSistema">

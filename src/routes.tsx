@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import PaginaBase from './pages/PaginaBase';
 import Home from './pages/Home';
 import Estacionamento from './pages/Estacionamento';
@@ -23,6 +23,7 @@ import EditarPrecificacao from './pages/EditarPrecificacao';
 import EditarFormaDePagamento from './pages/EditarFormaDePagamento';
 import EditarUsuario from './pages/EditarUsuario';
 import TelaLogin from './pages/TelaLogin';
+import Administracao from './pages/Administracao';
 
 
 function AppRoutes() {
@@ -31,6 +32,7 @@ function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<PaginaBase />}>
+
           <Route index element={<Home />} />
           <Route path='estacionamento' element={<Estacionamento />} />
           <Route path='estacionamento/cadastrarTicket' element={<CadastrarTicket />} />
@@ -41,16 +43,20 @@ function AppRoutes() {
           <Route path='mensalistas/editarMensalista/:id' element={<EditarMensalista />} />
           <Route path='mensalidades' element={<Mensalidades />} />
           <Route path='mensalidades/cadastrarMensalidade' element={<CadastrarMensalidade />} />
-          <Route path='precificacoes' element={<Precificacoes />} />
-          <Route path='precificacoes/cadastrarPrecificacao' element={<CadastrarPrecificacao />} />
-          <Route path='precificacoes/editarPrecificacao/:id' element={<EditarPrecificacao />} />
-          <Route path='formasDePagamento' element={<FormasDePagamento />} />
-          <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
-          <Route path='formasDePagamento/editarFormaDePagamento/:id' element={<EditarFormaDePagamento />} />
-          <Route path='usuarios' element={<Usuarios />} />
-          <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
-          <Route path='usuarios/editarUsuario/:id' element={<EditarUsuario />} />
-          <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
+
+          <Route path='administracao' element={<Administracao />} >
+            <Route path='precificacoes' element={<Precificacoes />} />
+            <Route path='precificacoes/cadastrarPrecificacao' element={<CadastrarPrecificacao />} />
+            <Route path='precificacoes/editarPrecificacao/:id' element={<EditarPrecificacao />} />
+            <Route path='formasDePagamento' element={<FormasDePagamento />} />
+            <Route path='formasDePagamento/cadastrarFormaDePagamento' element={<CadastrarFormaDePagamento />} />
+            <Route path='formasDePagamento/editarFormaDePagamento/:id' element={<EditarFormaDePagamento />} />
+            <Route path='usuarios' element={<Usuarios />} />
+            <Route path='usuarios/cadastrarUsuario' element={<CadastrarUsuario />} />
+            <Route path='usuarios/editarUsuario/:id' element={<EditarUsuario />} />
+            <Route path='configuracoes' element={<ConfiguracoesDoSistema />} />
+          </Route>
+
         </Route>
         <Route path='login' element={<TelaLogin />} />
       </Routes>

@@ -3,8 +3,6 @@ import { Usuario } from "../models/Usuario";
 export default abstract class LoginService {
     private static url: string = process.env.REACT_APP_API_URL as string;
 
-    public static usuarioLogado: Usuario | undefined;
-
     public static enviaLogin(email: string, senha: string) {
         return fetch( `${this.url}login.php`, {
             method: "POST",
@@ -20,7 +18,7 @@ export default abstract class LoginService {
             return res.json();
         } )
         .then( response => {
-            this.usuarioLogado = response.usuario;
+            this.armazenaUsuario(response.usuario);
 
             this.armazenaToken(response.token);
         } );
@@ -48,8 +46,33 @@ export default abstract class LoginService {
         return localStorage.getItem('token');
     }
 
+    static get usuarioLogado(): Usuario | undefined
+    {
+        const usuarioString = localStorage.getItem('usuarioLogado');
+
+        const usuarioData = usuarioString ? JSON.parse(usuarioString) : null;
+
+        if(usuarioData){
+            return new Usuario(
+                usuarioData.id,
+                usuarioData.nome,
+                usuarioData.email,
+                usuarioData.nivelDeAcesso,
+                usuarioData.ativo
+            );
+        }
+    }
+
     private static armazenaToken(token: string)
     {
         localStorage.setItem('token', token);
     }
+
+    private static armazenaUsuario(usuario: Usuario)
+    {
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+    }
+
+
+
 }
