@@ -1,10 +1,19 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
-
     require_once './vendor/autoload.php';
     require_once 'env.php';
 
     use ParkSistem\Domain\Model\Sistema;
+    use ParkSistem\Service\LoginService;
+
+    $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
+    $token = str_replace('Bearer ', '', $authorizationHeader);
+
+    if(!LoginService::verificaSeEstaLogado($token)){
+        http_response_code(401);
+        header('Content-Type: text/plain');
+        echo "Erro de autenticação!";
+        exit();
+    }
 
     $json = file_get_contents('php://input');
 
