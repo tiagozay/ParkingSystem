@@ -16,6 +16,7 @@ import TicketsProvider from '../../contexts/TicketContext';
 export default function PaginaBase() {
 
     const [permisaoParaRenderizar, setPermisaoParaRenderizar] = useState(false);
+    const [permisaoParaRenderizarParteDoAdmin, setPermisaoParaRenderizarParteDoAdmin] = useState(false);
 
     const navigate = useNavigate();
 
@@ -28,7 +29,8 @@ export default function PaginaBase() {
                     return;
                 }
 
-                setPermisaoParaRenderizar(indicador);
+                setPermisaoParaRenderizar(true);
+                setPermisaoParaRenderizarParteDoAdmin(LoginService.usuarioLogado?.nivelDeAcesso === "Administrador");
             })
     }, []);
 
@@ -82,35 +84,43 @@ export default function PaginaBase() {
                                                     <i className="material-icons">payments</i>
                                                     Mensalidades
                                                 </NavLink>
-                                                <div className="opcoesMenu__titulo">Administracao</div>
-                                                <NavLink to='/precificacoes' className={({ isActive }) => `
+
+                                                {permisaoParaRenderizarParteDoAdmin ?
+                                                    <>
+                                                        <div className="opcoesMenu__titulo">Administracao</div>
+                                                        <NavLink to='/precificacoes' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
                                             ` } data-pagina="precificacoes">
-                                                    <i className="material-icons">attach_money</i>
-                                                    Precificações
-                                                </NavLink>
-                                                <NavLink to='/formasDePagamento' className={({ isActive }) => `
+                                                            <i className="material-icons">attach_money</i>
+                                                            Precificações
+                                                        </NavLink>
+                                                        <NavLink to='/formasDePagamento' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
                                             ` } data-pagina="formas_de_pagamento">
-                                                    <i className="material-icons">credit_card</i>
-                                                    Formas de pagamento
-                                                </NavLink>
-                                                <NavLink to='/usuarios' className={({ isActive }) => `
+                                                            <i className="material-icons">credit_card</i>
+                                                            Formas de pagamento
+                                                        </NavLink>
+                                                        <NavLink to='/usuarios' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
                                             ` } data-pagina="usuarios">
-                                                    <i className="material-icons">group</i>
-                                                    Usuários
-                                                </NavLink>
-                                                <NavLink to='/configuracoes' className={({ isActive }) => `
+                                                            <i className="material-icons">group</i>
+                                                            Usuários
+                                                        </NavLink>
+                                                        <NavLink to='/configuracoes' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
                                             ` } data-pagina="formularioConfigSistema">
-                                                    <i className="material-icons">settings</i>
-                                                    Sistema
-                                                </NavLink>
+                                                            <i className="material-icons">settings</i>
+                                                            Sistema
+                                                        </NavLink>
+                                                    </> : 
+                                                    ""
+                                                }
+
+
                                             </div>
 
                                         </section>
