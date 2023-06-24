@@ -31,6 +31,11 @@ export default abstract class LoginService {
         
     }
 
+    public static getTokenArmazenado()
+    {
+        return localStorage.getItem('token');
+    }
+
     private static armazenaToken(token: string)
     {
         localStorage.setItem('token', token);

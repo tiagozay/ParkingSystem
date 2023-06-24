@@ -1,3 +1,5 @@
+import LoginService from "./LoginService";
+
 export abstract class APIService 
 {
     private static url: string = process.env.REACT_APP_API_URL as string;
@@ -7,6 +9,9 @@ export abstract class APIService
         return fetch( `${this.url}${arquivo}` , {
             method: "POST",
             body: JSON.stringify(objeto),
+            headers: {
+                'Authorization': `Bearer ${LoginService.getTokenArmazenado()}`,
+            }
         })
             // .then( res => {
             //     res.text().then( txt => console.log(txt))
@@ -34,7 +39,11 @@ export abstract class APIService
 
     public static buscaObjetos(arquivo: string)
     {
-        return fetch(`${this.url}${arquivo}`)
+        return fetch(`${this.url}${arquivo}`, {
+                headers: {
+                    'Authorization': `Bearer ${LoginService.getTokenArmazenado()}`,
+                }
+            })
             .then(res => {
                 if(!res.ok){
                     throw new Error("Erro na requisição, code: "+res.status);
