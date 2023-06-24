@@ -87,7 +87,7 @@ export default function PaginaBase() {
 
                                                 {permisaoParaRenderizarParteDoAdmin ?
                                                     <>
-                                                        <div className="opcoesMenu__titulo">Administracao</div>
+                                                        <div className="opcoesMenu__titulo">Administração</div>
                                                         <NavLink to='/administracao/precificacoes' className={({ isActive }) => `
                                                 opcaoMenu btnTrocarDePaginaMenu
                                                 ${isActive ? 'opcaoMenuSelecionado' : ''}
