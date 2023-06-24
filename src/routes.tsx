@@ -24,6 +24,7 @@ import EditarFormaDePagamento from './pages/EditarFormaDePagamento';
 import EditarUsuario from './pages/EditarUsuario';
 import TelaLogin from './pages/TelaLogin';
 import Administracao from './pages/Administracao';
+import Erro404 from './pages/404';
 
 
 function AppRoutes() {
@@ -59,6 +60,7 @@ function AppRoutes() {
 
         </Route>
         <Route path='login' element={<TelaLogin />} />
+        <Route path='*' element={<Erro404 />} />
       </Routes>
     </BrowserRouter>
 
