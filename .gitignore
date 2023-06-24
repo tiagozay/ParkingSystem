@@ -23,5 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 back-end/vendor
+back-end-production/vendor
 .env
 back-end/.env
+back-end-production/.env
