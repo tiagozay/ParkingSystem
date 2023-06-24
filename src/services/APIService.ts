@@ -3,15 +3,19 @@ import LoginService from "./LoginService";
 export abstract class APIService 
 {
     private static url: string = process.env.REACT_APP_API_URL as string;
+    private static isProduction: boolean = false;
 
     public static enviaObjeto(arquivo: string, objeto: any)
     {
+        //Se a propriedade isProduction for true, indica que é nescessária a autenticação, aí envia o header Authorization com o token
+        const headers = this.isProduction ? {
+            'Authorization': `Bearer ${LoginService.getTokenArmazenado()}`
+        } : undefined;
+
         return fetch( `${this.url}${arquivo}` , {
             method: "POST",
             body: JSON.stringify(objeto),
-            headers: {
-                'Authorization': `Bearer ${LoginService.getTokenArmazenado()}`,
-            }
+            headers: headers
         })
             // .then( res => {
             //     res.text().then( txt => console.log(txt))
@@ -39,10 +43,13 @@ export abstract class APIService
 
     public static buscaObjetos(arquivo: string)
     {
+        //Se a propriedade isProduction for true, indica que é nescessária a autenticação, aí envia o header Authorization com o token
+        const headers = this.isProduction ? {
+            'Authorization': `Bearer ${LoginService.getTokenArmazenado()}`
+        } : undefined;
+
         return fetch(`${this.url}${arquivo}`, {
-                headers: {
-                    'Authorization': `Bearer ${LoginService.getTokenArmazenado()}`,
-                }
+                headers: headers
             })
             .then(res => {
                 if(!res.ok){
