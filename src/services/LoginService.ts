@@ -24,6 +24,13 @@ export default abstract class LoginService {
         } );
     }
 
+    public static logout() 
+    {
+        localStorage.removeItem('token');
+        localStorage.removeItem('usuarioLogado');
+        window.location.reload();
+    }
+
     public static indicadorUsuarioLogado(): Promise<boolean>
     {
         const token = JSON.stringify({token: LoginService.getTokenArmazenado()})
