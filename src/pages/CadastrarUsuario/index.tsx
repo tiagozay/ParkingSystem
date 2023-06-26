@@ -100,11 +100,11 @@ export default function CadastrarUsuario() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/usuarios'>
+                    <Link to='/administracao/usuarios'>
                         Usuários
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/usuarios/cadastrarUsuario'>
+                    <Link to='/administracao/usuarios/cadastrarUsuario'>
                         Cadastrar Usuário
                     </Link>
                 </div>

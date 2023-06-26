@@ -109,11 +109,11 @@ export default function EditarUsuario() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/usuarios'>
+                    <Link to='/administracao/usuarios'>
                         Usuários
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to={`/usuarios/editarUsuario/${id}`}>
+                    <Link to={`/administracao/usuarios/editarUsuario/${id}`}>
                         Editar Usuário
                     </Link>
                 </div>

@@ -129,11 +129,11 @@ export default function EditarPrecificacao() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/precificacoes'>
+                    <Link to='/administracao/precificacoes'>
                         Precificações
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to={`/precificacoes/editarPrecificacao/${id}`}>
+                    <Link to={`/administracao/precificacoes/editarPrecificacao/${id}`}>
                         Editar Precificação
                     </Link>
                 </div>

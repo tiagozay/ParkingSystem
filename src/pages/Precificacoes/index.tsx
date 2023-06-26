@@ -47,7 +47,7 @@ export default function Precificacoes() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/precificacoes'>
+                    <Link to='/administracao/precificacoes'>
                         Precificações
                     </Link>
                 </div>

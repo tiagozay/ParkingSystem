@@ -76,11 +76,11 @@ export default function CadastrarFormaDePagamento() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/formasDePagamento'>
+                    <Link to='/administracao/formasDePagamento'>
                         Formas de pagamento
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/formasDePagamento/cadastrarFormaDePagamento'>
+                    <Link to='/administracao/formasDePagamento/cadastrarFormaDePagamento'>
                         Cadastrar forma de pagamento
                     </Link>
                 </div>

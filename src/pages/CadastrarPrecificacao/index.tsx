@@ -104,11 +104,11 @@ export default function CadastrarPrecificacao() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/precificacoes'>
+                    <Link to='/administracao/precificacoes'>
                         Precificacoes
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/precificacoes/cadastrarPrecificacao'>
+                    <Link to='/administracao/precificacoes/cadastrarPrecificacao'>
                         Cadastrar Precificacao
                     </Link>
                 </div>

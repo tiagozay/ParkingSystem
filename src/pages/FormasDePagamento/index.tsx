@@ -45,7 +45,7 @@ export default function FormasDePagamento() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/formasDePagamento'>
+                    <Link to='/administracao/formasDePagamento'>
                         Formas de pagamento
                     </Link>
                 </div>

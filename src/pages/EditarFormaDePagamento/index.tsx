@@ -88,11 +88,11 @@ export default function EditarFormaDePagamento() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/formasDePagamento'>
+                    <Link to='/administracao/formasDePagamento'>
                         Formas de pagamento
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to={`/formasDePagamento/editarFormaDePagamento/${id}`}>
+                    <Link to={`/administracao/formasDePagamento/editarFormaDePagamento/${id}`}>
                         Editar forma de pagamento
                     </Link>
                 </div>

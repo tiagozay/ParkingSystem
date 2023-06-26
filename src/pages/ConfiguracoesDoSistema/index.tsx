@@ -121,7 +121,7 @@ export default function ConfiguracoesDoSistema() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/configuracoes'>
+                    <Link to='/administracao/configuracoes'>
                         Configurações
                     </Link>
                 </div>

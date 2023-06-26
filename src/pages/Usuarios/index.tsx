@@ -45,7 +45,7 @@ export default function Usuarios() {
                         <i className="material-icons">home</i>
                     </Link>
                     <span className="barraSeparadora">/</span>
-                    <Link to='/usuarios'>
+                    <Link to='/administracao/usuarios'>
                         Usuários
                     </Link>
                 </div>
