@@ -1,5 +1,4 @@
 import { Mensalidade } from "../models/Mensalidade";
-import  api_mensalidades from '../json/api_mensalidades.json';
 import { Mensalista } from "../models/Mensalista";
 import { Precificacao } from "../models/Precificacao";
 import { FormaDePagamento } from "../models/FormaDePagamento";

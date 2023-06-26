@@ -1,6 +1,5 @@
 import { Usuario } from "../models/Usuario";
 import { APIService } from "./APIService";
-import { DataService } from "./DataService";
 
 export default abstract class UsuarioService
 {

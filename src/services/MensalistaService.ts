@@ -1,5 +1,4 @@
 import { Mensalista } from "../models/Mensalista";
-import  api_mensalistas from '../json/api_mensalistas.json';
 import { APIService } from "./APIService";
 import { DataService } from "./DataService";
 
