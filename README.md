@@ -20,61 +20,6 @@ O ParkSystem é um sistema de gerenciamento de estacionamento desenvolvido utili
 
 - Autenticação de usuários com JWT: O sistema possui um sistema de autenticação seguro, onde os usuários podem criar contas, fazer login e obter tokens de acesso usando o JWT (JSON Web Tokens). Isso garante a proteção das informações e controla o acesso aos recursos do sistema.
 
-## Configuração do Ambiente de Desenvolvimento
-
-1. Clone o repositório do projeto: <br>
-`git clone https://github.com/seu-usuario/ParkSystem.git`
-
-2. Instale as dependências do front-end:<br>
-`
-cd ParkSystem/frontend
-npm install
-`
-
-3. Configure as variáveis de ambiente no arquivo .env do front-end. Exemplo:<br>
-`
-REACT_APP_API_URL=http://localhost:8000/api
-REACT_APP_JWT_SECRET=seu-segredo-jwt
-`
-
-4. Instale as dependências do back-end:<br>
-`
-cd ../backend
-composer install
-`
-
-5. Configure as variáveis de ambiente no arquivo .env do back-end. Exemplo:<br>
-`
-APP_ENV=local
-APP_KEY=sua-chave
-APP_DEBUG=true
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=parksystem
-DB_USERNAME=seu-usuario-db
-DB_PASSWORD=sua-senha-db
-`
-
-6. Configure o banco de dados de acordo com as informações do arquivo .env.<br>
-
-7. Execute as migrações do banco de dados:<br>
-`
-php artisan migrate
-`
-
-8. Inicie o servidor de desenvolvimento do front-end:
-`
-npm start
-`
-
-9. Inicie o servidor de desenvolvimento do back-end:
-`
-php artisan serve
-`
-
-Agora o ParkSystem está configurado e você pode acessá-lo em `http://localhost:3000` no seu navegador.
-
 ## Tecnologias Utilizadas
 
 - React JS: Biblioteca JavaScript para a construção da interface do usuário.
@@ -90,10 +35,6 @@ Agora o ParkSystem está configurado e você pode acessá-lo em `http://localhos
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues relatando problemas, sugerir melhorias ou enviar pull requests com novos recursos ou correções de bugs.
-
-## Licença
-
-O ParkSystem é um software de código aberto licenciado sob a licença [MIT](https://opensource.org/licenses/MIT). Isso significa que você é livre para usá-lo, modificá-lo e distribuí-lo conforme sua necessidade.
 
 ## Contato
 
