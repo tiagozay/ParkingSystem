@@ -40,7 +40,7 @@ export default function CadastrarPrecificacao() {
             
             adicionarPrecificacao(precificacao)
                 .then( () => {
-                    navigate('/precificacoes', {state: {sucessoCadastrar: true}});
+                    navigate('/administracao/precificacoes', {state: {sucessoCadastrar: true}});
                 } )
                 .catch( erro => {
                     setMensagemDeErroAberta(true);

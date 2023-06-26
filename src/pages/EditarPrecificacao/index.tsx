@@ -46,7 +46,7 @@ export default function EditarPrecificacao() {
         const precificacaoBuscada = buscaPrecificacaoPorId(id);
 
         if (!precificacaoBuscada) {
-            navigate('/precificacoes');
+            navigate('/administracao/precificacoes');
             return;
         }
 
@@ -71,7 +71,7 @@ export default function EditarPrecificacao() {
                 .then( () => {
                     atualizarDados();
 
-                    navigate('/precificacoes', { state: { sucessoEditar: true } });
+                    navigate('/administracao/precificacoes', { state: { sucessoEditar: true } });
                 } ) 
                 .catch( e => {
                     setMensagemDeErroAberta(true);

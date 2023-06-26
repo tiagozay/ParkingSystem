@@ -25,7 +25,7 @@ export default function EditarFormaDePagamento() {
         formaDePagamento = buscarFormaDePagamentoPorId(id);
 
         if (!formaDePagamento || formaDePagamento.descontinuada) {
-            navigate('/formasDePagamento');
+            navigate('/administracao/formasDePagamento');
             return;
         }
 
@@ -47,7 +47,7 @@ export default function EditarFormaDePagamento() {
 
             editarFormaDePagamento(formaDePagamentoEditada)
                 .then( () => {
-                    navigate('/formasDePagamento', { state: { sucessoEditar: true } });
+                    navigate('/administracao/formasDePagamento', { state: { sucessoEditar: true } });
                 } )
                 .catch( e => {
                     setMensagemDeErroAberta(true);

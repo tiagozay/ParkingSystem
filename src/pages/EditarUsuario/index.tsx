@@ -30,7 +30,7 @@ export default function EditarUsuario() {
         usuario = buscarUsuarioPorId(id);
 
         if (!usuario) {
-            navigate('/usuarios');
+            navigate('/administracao/usuarios');
             return;
         }
 
@@ -59,7 +59,7 @@ export default function EditarUsuario() {
 
             editarUsuario(usuarioEditado)
                 .then( () => {
-                    navigate('/usuarios', { state: { sucessoEditar: true } });
+                    navigate('/administracao/usuarios', { state: { sucessoEditar: true } });
                 } ) 
                 .catch( e => {
                     setMensagemDeErroAberta(true);

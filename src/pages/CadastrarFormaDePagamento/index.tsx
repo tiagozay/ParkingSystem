@@ -34,7 +34,7 @@ export default function CadastrarFormaDePagamento() {
 
             adicionaFormaDePagamento(formaDePagamento)
             .then( () => {
-                navigate('/formasDePagamento', { state: { sucessoCadastrar: true } });
+                navigate('/administracao/formasDePagamento', { state: { sucessoCadastrar: true } });
             } )
             .catch( erro => {
                 setMensagemDeErroAberta(true);
