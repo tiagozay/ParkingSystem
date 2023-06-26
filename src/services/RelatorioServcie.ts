@@ -85,7 +85,14 @@ export default abstract class RelatorioService
 
     public static totalDeVagasLivresEstacionamento(precificacoes: Precificacao[], tickets: Ticket[]): number
     {
-        const vagasLivresDeCadaCategoria = precificacoes.map( precificacao => this.calculaTotalDeVagasLivresDeDeterminadaCategoria(precificacao, tickets) );
+        const vagasLivresDeCadaCategoria = precificacoes.map( precificacao => {
+
+            if(precificacao.descontinuada){
+                return 0;
+            }
+
+            return this.calculaTotalDeVagasLivresDeDeterminadaCategoria(precificacao, tickets) 
+        });
 
         return vagasLivresDeCadaCategoria.reduce( (previusValue, vagasLivres) => vagasLivres + previusValue, 0 );
     }
@@ -93,8 +100,10 @@ export default abstract class RelatorioService
     public static totalDeVagasOcupadasEstacionamento(precificacoes: Precificacao[], tickets: Ticket[]): number
     {
         const totalDeVagasEstacionamento = this.totalDeVagasEstacionamento(precificacoes);
+
         const vagasLivresEstacionamento  = this.totalDeVagasLivresEstacionamento(precificacoes, tickets);
 
         return totalDeVagasEstacionamento - vagasLivresEstacionamento;
+
     }
 }
