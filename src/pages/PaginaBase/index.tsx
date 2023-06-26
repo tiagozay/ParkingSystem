@@ -128,7 +128,7 @@ export default function PaginaBase() {
                                         <section id="main">
                                             <header id="header">
                                                 <p id="textoBoasVindas">Olá {LoginService.usuarioLogado?.nome}</p>
-                                                <button id="btnAbrirMenuUsuario" className="material-icons">person</button>
+                                                <button id="btnAbrirMenuUsuario" className="material-icons" onClick={() => LoginService.logout()}>person</button>
                                             </header>
 
                                             <Outlet />

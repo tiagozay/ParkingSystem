@@ -3,7 +3,7 @@ import LoginService from "./LoginService";
 export abstract class APIService 
 {
     private static url: string = process.env.REACT_APP_API_URL as string;
-    private static isProduction: boolean = true;
+    private static isProduction: boolean = false;
 
     public static enviaObjeto(arquivo: string, objeto: any)
     {
